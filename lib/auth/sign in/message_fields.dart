@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SignInForm extends StatefulWidget {
   const SignInForm({Key? key}) : super(key: key);
@@ -14,7 +15,6 @@ class _SignInFormState extends State<SignInForm> {
     return Container(
       margin: const EdgeInsets.all(15),
       padding: const EdgeInsets.all(10),
-      color: Colors.white,
       child: SizedBox(
         child: Form(
             key: _formKey,
@@ -24,7 +24,7 @@ class _SignInFormState extends State<SignInForm> {
                   decoration: InputDecoration(
                       hintText: 'Enter your email address',
                       label: const Text('Email Address'),
-                      labelStyle: const TextStyle(fontSize: 20),
+                      labelStyle: GoogleFonts.poppins(fontSize: 18),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8))),
                   validator: (String? value) {
@@ -42,10 +42,11 @@ class _SignInFormState extends State<SignInForm> {
                 ),
                 const Padding(padding: EdgeInsets.symmetric(vertical: 10.0)),
                 TextFormField(
+                  obscureText: true,
                   decoration: InputDecoration(
                     hintText: 'Enter Password',
                     label: const Text('Password'),
-                    labelStyle: const TextStyle(fontSize: 20),
+                    labelStyle: GoogleFonts.poppins(fontSize: 18),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8)),
                   ),
@@ -55,13 +56,40 @@ class _SignInFormState extends State<SignInForm> {
                     }
                     return null;
                   },
-                  keyboardType: TextInputType.visiblePassword,
                 ),
                 const Padding(padding: EdgeInsets.symmetric(vertical: 16.0)),
-                ElevatedButton(
-                    onPressed: () =>
-                        {if (_formKey.currentState!.validate()) {}},
-                    child: const Text("Sign in"))
+                GestureDetector(
+                  child: Container(
+                    width: 170,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      color: Colors.green,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text('Continue',
+                            style: GoogleFonts.poppins(
+                                fontSize: 18, color: Colors.white)),
+                      ],
+                    ),
+                  ),
+                  onTap: () => {
+                    if (_formKey.currentState!.validate())
+                      {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Logged in successfully'),
+                          ),
+                        )
+                      }
+                    else
+                      {}
+                  },
+                ),
+                const Padding(padding: EdgeInsets.symmetric(vertical: 10.0)),
               ],
             )),
       ),

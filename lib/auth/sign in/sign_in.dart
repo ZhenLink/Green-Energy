@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:gns_app/auth/sign%20in/Welcome_text.dart';
 import './message_fields.dart';
+import 'Options.dart';
 
 class Signin extends StatelessWidget {
   const Signin({Key? key}) : super(key: key);
@@ -15,7 +17,9 @@ class Signin extends StatelessWidget {
         centerTitle: true,
         elevation: 0,
       ),
-      body: const SignInForm(),
+      body: Column(
+        children: const [WelcomeText(), SignInForm(), Options()],
+      ),
     );
   }
 }
