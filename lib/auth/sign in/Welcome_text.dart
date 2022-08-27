@@ -8,7 +8,7 @@ class WelcomeText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Padding(padding: EdgeInsets.symmetric(vertical: 35.0)),
+        const Padding(padding: EdgeInsets.symmetric(vertical: 45.0)),
         Text(
           "Welcome Back",
           style: GoogleFonts.poppins(fontSize: 30, fontWeight: FontWeight.bold),
