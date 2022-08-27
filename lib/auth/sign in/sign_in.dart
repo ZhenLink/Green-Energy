@@ -17,8 +17,11 @@ class Signin extends StatelessWidget {
         centerTitle: true,
         elevation: 0,
       ),
-      body: Column(
-        children: const [WelcomeText(), SignInForm(), Options()],
+      body: Container(
+        color: Colors.white,
+        child: Column(
+          children: const [WelcomeText(), SignInForm(), Options()],
+        ),
       ),
     );
   }
