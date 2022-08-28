@@ -12,9 +12,18 @@ class RegisterOptions extends StatelessWidget {
           "Already have an account?",
           style: GoogleFonts.poppins(fontSize: 18),
         ),
-        Text(
-          "Sign in",
-          style: GoogleFonts.poppins(fontSize: 18, color: Colors.green),
+        GestureDetector(
+          child: Text(
+            "Sign in",
+            style: GoogleFonts.poppins(fontSize: 18, color: Colors.green),
+          ),
+          onTap: () => {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Registered successfully'),
+              ),
+            )
+          },
         ),
         const Padding(padding: EdgeInsets.symmetric(vertical: 20.0))
       ],
