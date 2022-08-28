@@ -17,7 +17,8 @@ class WelcomeText extends StatelessWidget {
           "Sign in to your account to continue.",
           style:
               GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.normal),
-        )
+        ),
+       
       ],
     );
   }
