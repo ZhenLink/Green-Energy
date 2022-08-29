@@ -19,6 +19,9 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.green,
       ),
       home: const Register(),
+      darkTheme: ThemeData(
+        primarySwatch: Colors.green,
+      ),
     );
   }
 }
