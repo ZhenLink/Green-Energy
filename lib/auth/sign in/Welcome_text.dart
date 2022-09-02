@@ -18,7 +18,6 @@ class WelcomeText extends StatelessWidget {
           style:
               GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.normal),
         ),
-       
       ],
     );
   }
