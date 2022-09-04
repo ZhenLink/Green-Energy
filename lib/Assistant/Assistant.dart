@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:dialog_flowtter/dialog_flowtter.dart';
-//import 'package:intl/intl.dart';
+import 'package:intl/intl.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'Messages.dart';
+import '../env/privates.dart';
 
 class Assistant extends StatefulWidget {
   const Assistant({Key? key, required this.title}) : super(key: key);
@@ -13,13 +14,16 @@ class Assistant extends StatefulWidget {
 }
 
 class _AssistantState extends State<Assistant> {
-  DialogFlowtter? dialogFlowtter;
+  late DialogFlowtter dialogFlowtter;
   final TextEditingController _controller = TextEditingController();
   List<Map<String, dynamic>> messages = [];
+  Private myPrivates = Private();
 
   @override
   void initState() {
-    DialogFlowtter.fromFile().then((instance) => dialogFlowtter = instance);
+    DialogFlowtter jsonInstance = DialogFlowtter.fromJson(myPrivates.authkeys);
+    dialogFlowtter = jsonInstance;
+
     super.initState();
   }
 
@@ -34,6 +38,12 @@ class _AssistantState extends State<Assistant> {
           backgroundColor: Colors.white),
       body: Column(
         children: [
+          Container(
+            padding: const EdgeInsets.only(top: 15, bottom: 10),
+            child: Text("Today, ${DateFormat("Hm").format(DateTime.now())}",
+                style: GoogleFonts.poppins(
+                    fontSize: 18, color: Colors.blueGrey[900])),
+          ),
           Expanded(child: MessagesScreen(messages: messages)),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
@@ -69,8 +79,8 @@ class _AssistantState extends State<Assistant> {
         addMessage(Message(text: DialogText(text: [text])), true);
       });
 
-      DetectIntentResponse response = await dialogFlowtter!
-          .detectIntent(queryInput: QueryInput(text: TextInput(text: text)));
+      DetectIntentResponse response = await dialogFlowtter.detectIntent(
+          queryInput: QueryInput(text: TextInput(text: text)));
       if (response.message == null) {
         return;
       } else {

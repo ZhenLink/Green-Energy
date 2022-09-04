@@ -16,36 +16,41 @@ class _MessagesScreenState extends State<MessagesScreen> {
     final w = MediaQuery.of(context).size.width;
     return ListView.separated(
         itemBuilder: ((context, index) {
-          return Container(
-            margin: const EdgeInsets.all(10),
-            child: Row(
-              mainAxisAlignment: widget.messages[index]['isUserMessage']
-                  ? MainAxisAlignment.end
-                  : MainAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                        bottomLeft: const Radius.circular(20),
-                        topRight: const Radius.circular(20),
-                        bottomRight: Radius.circular(
-                            widget.messages[index]['isUserMessage'] ? 0 : 20),
-                        topLeft: Radius.circular(
-                            widget.messages[index]['isUserMessage'] ? 20 : 0)),
-                    color: widget.messages[index]['isUserMessage']
-                        ? Colors.blueGrey[100]
-                        : Colors.blueGrey[900],
-                  ),
-                  constraints: BoxConstraints(maxWidth: w * 2 / 3),
-                  child: Text(
-                    widget.messages[index]['message'].text.text[0],
-                    style: GoogleFonts.poppins(fontSize: 14),
-                  ),
-                )
-              ],
+          return SingleChildScrollView(
+            child: Container(
+              margin: const EdgeInsets.all(10),
+              child: Row(
+                mainAxisAlignment: widget.messages[index]['isUserMessage']
+                    ? MainAxisAlignment.end
+                    : MainAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 10),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                          bottomLeft: const Radius.circular(20),
+                          topRight: const Radius.circular(20),
+                          bottomRight: Radius.circular(
+                              widget.messages[index]['isUserMessage'] ? 0 : 20),
+                          topLeft: Radius.circular(widget.messages[index]
+                                  ['isUserMessage']
+                              ? 20
+                              : 0)),
+                      color: widget.messages[index]['isUserMessage']
+                          ? Colors.blueGrey[400]
+                          : Colors.blueGrey[700],
+                    ),
+                    constraints: BoxConstraints(maxWidth: w * 2 / 3),
+                    child: Text(
+                      widget.messages[index]['message'].text.text[0],
+                      style: GoogleFonts.poppins(
+                          fontSize: 14, color: Colors.white),
+                    ),
+                  )
+                ],
+              ),
             ),
           );
         }),
