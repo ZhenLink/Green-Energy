@@ -41,28 +41,29 @@ class _AssistantState extends State<Assistant> {
           Container(
             padding: const EdgeInsets.only(top: 15, bottom: 10),
             child: Text("Today, ${DateFormat("Hm").format(DateTime.now())}",
-                style: GoogleFonts.poppins(
-                    fontSize: 18, color: Colors.blueGrey[900])),
+                style: GoogleFonts.openSans(
+                    fontSize: 13, color: Colors.blueGrey[900])),
           ),
           Expanded(child: MessagesScreen(messages: messages)),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-            color: Colors.blueGrey[800],
+            color: Colors.white,
             child: Row(
               children: [
                 Expanded(
                     child: TextField(
                   controller: _controller,
-                  style: GoogleFonts.poppins(color: Colors.white, fontSize: 14),
+                  style: GoogleFonts.openSans(
+                      color: Colors.blueGrey[900], fontSize: 14),
                 )),
                 IconButton(
                     onPressed: () {
                       sendMessage(_controller.text);
                       _controller.clear();
                     },
-                    icon: const Icon(
+                    icon: Icon(
                       Icons.send,
-                      color: Colors.white,
+                      color: Colors.blueGrey[800],
                     ))
               ],
             ),

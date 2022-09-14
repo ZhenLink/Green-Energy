@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -45,7 +44,7 @@ class _MessagesScreenState extends State<MessagesScreen> {
                     constraints: BoxConstraints(maxWidth: w * 2 / 3),
                     child: Text(
                       widget.messages[index]['message'].text.text[0],
-                      style: GoogleFonts.poppins(
+                      style: GoogleFonts.openSans(
                           fontSize: 14, color: Colors.white),
                     ),
                   )
