@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+//import 'package:get/get.dart';
 import 'package:gns_app/dashboard/Welcome.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:flutter/cupertino.dart';
+import 'categories.dart';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
@@ -13,8 +14,14 @@ class Home extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        elevation: 0,
+        toolbarHeight: 65,
+        title: Text('Green Energy Solutions',
+            style: TextStyle(
+              fontSize: 19,
+              color: Colors.blueGrey[900],
+            )),
         backgroundColor: Colors.white,
+        elevation: 0,
       ),
       bottomNavigationBar: Container(
         color: Colors.white,
@@ -38,8 +45,8 @@ class Home extends StatelessWidget {
                 textStyle: GoogleFonts.openSans(),
               ),
               GButton(
-                icon: Icons.newspaper_outlined,
-                text: 'News',
+                icon: Icons.solar_power,
+                text: 'Energy Monitor',
                 textStyle: GoogleFonts.openSans(),
               ),
               GButton(
@@ -54,11 +61,11 @@ class Home extends StatelessWidget {
         height: double.infinity,
         margin: const EdgeInsets.only(left: 10, right: 10),
         padding: const EdgeInsets.all(10),
-        child: const SingleChildScrollView(
+        child: SingleChildScrollView(
           clipBehavior: Clip.hardEdge,
           scrollDirection: Axis.vertical,
-          child: Expanded(
-            child: Welcome(title: 'Hello'),
+          child: Column(
+            children: const [Welcome(title: 'Welcome'), Categories()],
           ),
         ),
       ),

@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       title: 'Green Energy Solutions',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.green, useMaterial3: true),
-      home: const Assistant(title: 'Assistant'),
+      home: const Home(),
       darkTheme: ThemeData(
         primarySwatch: Colors.green,
       ),

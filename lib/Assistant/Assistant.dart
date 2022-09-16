@@ -74,21 +74,25 @@ class _AssistantState extends State<Assistant> {
   }
 
   sendMessage(String text) async {
-    if (text.isEmpty) {
-    } else {
-      setState(() {
-        addMessage(Message(text: DialogText(text: [text])), true);
-      });
-
-      DetectIntentResponse response = await dialogFlowtter.detectIntent(
-          queryInput: QueryInput(text: TextInput(text: text)));
-      if (response.message == null) {
-        return;
+    try {
+      if (text.isEmpty) {
       } else {
         setState(() {
-          addMessage(response.message!);
+          addMessage(Message(text: DialogText(text: [text])), true);
         });
+
+        DetectIntentResponse response = await dialogFlowtter.detectIntent(
+            queryInput: QueryInput(text: TextInput(text: text)));
+        if (response.message == null) {
+          return;
+        } else {
+          setState(() {
+            addMessage(response.message!);
+          });
+        }
       }
+    } catch (e) {
+      print(e);
     }
   }
 
