@@ -1,7 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:dialog_flowtter/dialog_flowtter.dart';
+import 'package:get/get.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:intl/intl.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 import 'Messages.dart';
 import '../env/privates.dart';
 
@@ -31,18 +35,63 @@ class _AssistantState extends State<Assistant> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: const Text('Assistant'),
+          title: Text('Assistant',
+              style: GoogleFonts.openSans(
+                fontSize: 22,
+                fontWeight: FontWeight.w500,
+              )),
           elevation: 0,
-          centerTitle: true,
-          foregroundColor: Colors.blueGrey[900],
-          backgroundColor: Colors.white),
+          foregroundColor: Colors.white,
+          backgroundColor: Colors.green[600]),
+      bottomNavigationBar: Container(
+        color: Colors.white,
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+        child: GNav(
+            gap: 8,
+            tabBackgroundColor: Colors.green,
+            haptic: true,
+            padding: const EdgeInsets.all(10),
+            activeColor: Colors.white,
+            onTabChange: (index) {},
+            tabs: [
+              GButton(
+                icon: CupertinoIcons.home,
+                text: 'Home',
+                textStyle: GoogleFonts.openSans(),
+                onPressed: () => Get.back(),
+              ),
+              GButton(
+                icon: CupertinoIcons.chat_bubble_2_fill,
+                text: 'Assistant',
+                textStyle: GoogleFonts.openSans(),
+                active: true,
+              ),
+              GButton(
+                icon: Icons.solar_power,
+                text: 'Energy Monitor',
+                textStyle: GoogleFonts.openSans(),
+              ),
+              GButton(
+                icon: CupertinoIcons.person_alt_circle,
+                text: 'Account',
+                textStyle: GoogleFonts.openSans(),
+              )
+            ]),
+      ),
       body: Column(
         children: [
           Container(
             padding: const EdgeInsets.only(top: 15, bottom: 10),
-            child: Text("Today, ${DateFormat("Hm").format(DateTime.now())}",
+            child: Column(children: [
+              Text(
+                "Today",
                 style: GoogleFonts.openSans(
-                    fontSize: 13, color: Colors.blueGrey[900])),
+                    fontSize: 15, color: Colors.blueGrey[900]),
+              ),
+              Text(" ${DateFormat("Hm").format(DateTime.now())} am",
+                  style: GoogleFonts.openSans(
+                      fontSize: 15, color: Colors.blueGrey[900])),
+            ]),
           ),
           Expanded(child: MessagesScreen(messages: messages)),
           Container(
@@ -54,7 +103,7 @@ class _AssistantState extends State<Assistant> {
                     child: TextField(
                   controller: _controller,
                   style: GoogleFonts.openSans(
-                      color: Colors.blueGrey[900], fontSize: 14),
+                      color: Colors.blueGrey[900], fontSize: 17),
                 )),
                 IconButton(
                     onPressed: () {

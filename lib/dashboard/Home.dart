@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:gns_app/Assistant/Assistant.dart';
 //import 'package:get/get.dart';
 import 'package:gns_app/dashboard/Welcome.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -12,15 +14,14 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
         toolbarHeight: 65,
-        title: Text('Green Energy Solutions',
-            style: TextStyle(
-              fontSize: 19,
-              color: Colors.blueGrey[900],
-            )),
-        backgroundColor: Colors.white,
+        leading: const Icon(Icons.solar_power),
+        foregroundColor: Colors.white,
+        title: Text('Home',
+            style: GoogleFonts.openSans(
+                fontSize: 22, fontWeight: FontWeight.w500)),
+        backgroundColor: Colors.green[600],
         elevation: 0,
       ),
       bottomNavigationBar: Container(
@@ -38,11 +39,14 @@ class Home extends StatelessWidget {
                 icon: CupertinoIcons.home,
                 text: 'Home',
                 textStyle: GoogleFonts.openSans(),
+                active: true,
               ),
               GButton(
                 icon: CupertinoIcons.chat_bubble_2_fill,
                 text: 'Assistant',
                 textStyle: GoogleFonts.openSans(),
+                onPressed: () =>
+                    Get.to(() => const Assistant(title: 'Assistant')),
               ),
               GButton(
                 icon: Icons.solar_power,
@@ -65,9 +69,18 @@ class Home extends StatelessWidget {
           clipBehavior: Clip.hardEdge,
           scrollDirection: Axis.vertical,
           child: Column(
-            children: const [Welcome(title: 'Welcome'), Categories()],
+            children: const [
+              Welcome(title: 'Welcome'),
+              Padding(padding: EdgeInsets.symmetric(vertical: 10)),
+              Categories()
+            ],
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.white,
+        onPressed: () {},
+        child: const Icon(CupertinoIcons.question, color: Colors.green),
       ),
     );
   }

@@ -54,18 +54,20 @@ class _WelcomeState extends State<Welcome> {
           ),
           const Padding(padding: EdgeInsets.symmetric(vertical: 10)),
           Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Text(
                 'Get quality Solar Systems with us.',
                 textAlign: TextAlign.start,
                 style: GoogleFonts.openSans(
-                    fontSize: 26, fontWeight: FontWeight.bold),
+                    fontSize: 28, fontWeight: FontWeight.bold),
               ),
               Text(
                 'We offer multiple solutions that will fit your needs.',
                 textAlign: TextAlign.start,
                 style: GoogleFonts.openSans(
-                  fontSize: 17,
+                  fontSize: 19,
                   fontWeight: FontWeight.w400,
                 ),
               )

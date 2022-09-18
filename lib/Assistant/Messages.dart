@@ -36,14 +36,14 @@ class _MessagesScreenState extends State<MessagesScreen> {
                         topLeft: Radius.circular(
                             widget.messages[index]['isUserMessage'] ? 20 : 0)),
                     color: widget.messages[index]['isUserMessage']
-                        ? Colors.blueGrey[400]
+                        ? Colors.green[400]
                         : Colors.blueGrey[700],
                   ),
                   constraints: BoxConstraints(maxWidth: w * 2 / 3),
                   child: Text(
                     widget.messages[index]['message'].text.text[0],
                     style:
-                        GoogleFonts.openSans(fontSize: 14, color: Colors.white),
+                        GoogleFonts.openSans(fontSize: 17, color: Colors.white),
                   ),
                 )
               ],
