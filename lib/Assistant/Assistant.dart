@@ -2,10 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:dialog_flowtter/dialog_flowtter.dart';
 import 'package:get/get.dart';
+import 'package:gns_app/Energy%20Monitor/EMonitor.dart';
+import 'package:gns_app/User/Profile.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:intl/intl.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../dashboard/Home.dart';
 import 'Messages.dart';
 import '../env/privates.dart';
 
@@ -22,6 +25,7 @@ class _AssistantState extends State<Assistant> {
   final TextEditingController _controller = TextEditingController();
   List<Map<String, dynamic>> messages = [];
   Private myPrivates = Private();
+  int _selectedIndex = 1;
 
   @override
   void initState() {
@@ -52,29 +56,41 @@ class _AssistantState extends State<Assistant> {
             haptic: true,
             padding: const EdgeInsets.all(10),
             activeColor: Colors.white,
-            onTabChange: (index) {},
+            selectedIndex: _selectedIndex,
+            onTabChange: (index) {
+              setState(() {
+                _selectedIndex = index;
+              });
+            },
             tabs: [
               GButton(
                 icon: CupertinoIcons.home,
                 text: 'Home',
                 textStyle: GoogleFonts.openSans(),
-                onPressed: () => Get.back(),
+                onPressed: () {
+                  Get.to(() => const Home());
+                },
               ),
               GButton(
                 icon: CupertinoIcons.chat_bubble_2_fill,
                 text: 'Assistant',
                 textStyle: GoogleFonts.openSans(),
-                active: true,
               ),
               GButton(
                 icon: Icons.solar_power,
                 text: 'Energy Monitor',
                 textStyle: GoogleFonts.openSans(),
+                onPressed: () {
+                  Get.to(() => const Emonitor());
+                },
               ),
               GButton(
                 icon: CupertinoIcons.person_alt_circle,
                 text: 'Account',
                 textStyle: GoogleFonts.openSans(),
+                onPressed: () {
+                  Get.to(() => const Profile());
+                },
               )
             ]),
       ),
@@ -101,6 +117,10 @@ class _AssistantState extends State<Assistant> {
               children: [
                 Expanded(
                     child: TextField(
+                  decoration: InputDecoration(
+                    hintText: 'Enter message',
+                    labelStyle: GoogleFonts.poppins(fontSize: 18),
+                  ),
                   controller: _controller,
                   style: GoogleFonts.openSans(
                       color: Colors.blueGrey[900], fontSize: 17),
@@ -131,6 +151,16 @@ class _AssistantState extends State<Assistant> {
         });
 
         DetectIntentResponse response = await dialogFlowtter.detectIntent(
+            audioConfig: OutputAudioConfig(
+                audioEncoding:
+                    OutputAudioEncoding.OUTPUT_AUDIO_ENCODING_LINEAR_16,
+                sampleRateHertz: 312,
+                synthesizeSpeechConfig: SynthesizeSpeechConfig(
+                    pitch: -20,
+                    volumeGainDb: 0.0,
+                    speakingRate: 1.0,
+                    voice: VoiceSelectionParams(
+                        ssmlGender: SsmlVoiceGender.SSML_VOICE_GENDER_MALE))),
             queryInput: QueryInput(text: TextInput(text: text)));
         if (response.message == null) {
           return;
@@ -141,7 +171,7 @@ class _AssistantState extends State<Assistant> {
         }
       }
     } catch (e) {
-      print(e);
+      Get.snackbar('Error', e.toString());
     }
   }
 

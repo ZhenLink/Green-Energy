@@ -1,6 +1,8 @@
 // ignore: file_names
+import 'package:gns_app/Search.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class Welcome extends StatefulWidget {
   const Welcome({Key? key, required this.title}) : super(key: key);
@@ -36,16 +38,15 @@ class _WelcomeState extends State<Welcome> {
                     'Noel James',
                     style: GoogleFonts.openSans(
                         fontSize: 18, fontWeight: FontWeight.w500),
-                    textAlign: TextAlign.left,
                   ),
                 ],
               ),
-              const Padding(padding: EdgeInsets.symmetric(horizontal: 83)),
+              const Padding(padding: EdgeInsets.symmetric(horizontal: 72)),
               IconButton(
                   highlightColor: Colors.white,
                   splashColor: Colors.white,
                   tooltip: 'Search',
-                  onPressed: () => {},
+                  onPressed: () => {Get.to(() => const Search())},
                   icon: const Icon(
                     Icons.search,
                     size: 30,

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:gns_app/assessment/Assessment.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Categories extends StatelessWidget {
@@ -45,6 +47,31 @@ class Categories extends StatelessWidget {
                           ),
                           const Padding(
                               padding: EdgeInsets.symmetric(vertical: 4)),
+                          GestureDetector(
+                            onTap: () {
+                              Get.to(() => const Assessment());
+                            },
+                            child: Container(
+                              width: 150,
+                              height: 50,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text('Get',
+                                      style: GoogleFonts.poppins(
+                                          fontSize: 18,
+                                          color: Colors.blueGrey[900])),
+                                ],
+                              ),
+                            ),
+                          ),
+                          const Padding(
+                              padding: EdgeInsets.symmetric(vertical: 4)),
                         ],
                       ),
                     ),
@@ -87,6 +114,31 @@ class Categories extends StatelessWidget {
                           style: GoogleFonts.openSans(
                               color: Colors.white, fontSize: 17),
                           softWrap: true,
+                        ),
+                        const Padding(
+                            padding: EdgeInsets.symmetric(vertical: 4)),
+                        GestureDetector(
+                          onTap: () {
+                            Get.to(() => const Assessment());
+                          },
+                          child: Container(
+                            width: 150,
+                            height: 50,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text('Get',
+                                    style: GoogleFonts.poppins(
+                                        fontSize: 18,
+                                        color: Colors.blueGrey[900])),
+                              ],
+                            ),
+                          ),
                         ),
                         const Padding(
                             padding: EdgeInsets.symmetric(vertical: 4)),
