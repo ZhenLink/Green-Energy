@@ -8,7 +8,7 @@ class RegisterText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Padding(padding: EdgeInsets.symmetric(vertical: 45.0)),
+        const Padding(padding: EdgeInsets.symmetric(vertical: 30.0)),
         Text(
           "Create an account",
           style: GoogleFonts.poppins(fontSize: 30, fontWeight: FontWeight.bold),

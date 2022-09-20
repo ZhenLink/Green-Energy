@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:gns_app/auth/sign%20in/Login_form.dart';
+import 'package:gns_app/auth/sign%20in/sign_in.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class RegisterOptions extends StatelessWidget {
@@ -22,7 +25,8 @@ class RegisterOptions extends StatelessWidget {
               const SnackBar(
                 content: Text('Registered successfully'),
               ),
-            )
+            ),
+            Get.to(() => const Login())
           },
         ),
         const Padding(padding: EdgeInsets.symmetric(vertical: 20.0))

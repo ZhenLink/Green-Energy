@@ -6,19 +6,23 @@ class WelcomeText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const Padding(padding: EdgeInsets.symmetric(vertical: 45.0)),
-        Text(
-          "Welcome Back",
-          style: GoogleFonts.poppins(fontSize: 30, fontWeight: FontWeight.bold),
-        ),
-        Text(
-          "Sign in to your account to continue.",
-          style:
-              GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.normal),
-        ),
-      ],
+    return SizedBox(
+      child: Column(
+        children: [
+          const Padding(padding: EdgeInsets.symmetric(vertical: 25.0)),
+          Text(
+            "Welcome Back",
+            style:
+                GoogleFonts.poppins(fontSize: 30, fontWeight: FontWeight.bold),
+          ),
+          Text(
+            "Sign in to your account to continue.",
+            style: GoogleFonts.poppins(
+                fontSize: 18, fontWeight: FontWeight.normal),
+          ),
+          const Padding(padding: EdgeInsets.symmetric(vertical: 30.0)),
+        ],
+      ),
     );
   }
 }

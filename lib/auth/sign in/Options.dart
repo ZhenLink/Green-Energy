@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:gns_app/auth/sign%20up/Register_Form.dart';
+import 'package:gns_app/auth/sign%20up/Sign_up.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:get/get.dart';
 
 class Options extends StatelessWidget {
   const Options({Key? key}) : super(key: key);
@@ -12,9 +15,14 @@ class Options extends StatelessWidget {
           "Don't have an account?",
           style: GoogleFonts.poppins(fontSize: 18),
         ),
-        Text(
-          "Create Account",
-          style: GoogleFonts.poppins(fontSize: 18, color: Colors.green),
+        GestureDetector(
+          onTap: () {
+            Get.to(() => const Register());
+          },
+          child: Text(
+            "Create Account",
+            style: GoogleFonts.poppins(fontSize: 18, color: Colors.green),
+          ),
         )
       ],
     );

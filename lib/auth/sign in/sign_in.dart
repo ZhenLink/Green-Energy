@@ -15,13 +15,16 @@ class Login extends StatelessWidget {
         foregroundColor: Colors.black87,
         title: Text(_title),
         centerTitle: true,
-        elevation: 0,
       ),
-      body: Expanded(
+      body: SizedBox(
+        width: double.infinity,
         child: Container(
           color: Colors.white,
-          child: Column(
-            children: const [WelcomeText(), SignInForm(), Options()],
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Column(
+              children: const [WelcomeText(), SignInForm(), Options()],
+            ),
           ),
         ),
       ),
