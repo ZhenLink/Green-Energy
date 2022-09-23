@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 //import 'package:gns_app/auth/sign%20in/Welcome_text.dart';
-import 'package:gns_app/auth/sign%20up/Register_Form.dart';
-import 'Register_Text.dart';
-import 'Options.dart';
+import 'package:gns_app/auth/sign%20up/register_form.dart';
+import 'register_text.dart';
+import 'options.dart';
 
 class Register extends StatelessWidget {
   const Register({Key? key}) : super(key: key);

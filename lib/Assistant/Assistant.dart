@@ -7,9 +7,9 @@ import 'package:gns_app/User/Profile.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:intl/intl.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import '../dashboard/Home.dart';
-import 'Messages.dart';
+//import 'package:gns_app/message_scroll_controller.dart';
+import '../dashboard/home.dart';
+import 'messages.dart';
 import '../env/privates.dart';
 
 class Assistant extends StatefulWidget {

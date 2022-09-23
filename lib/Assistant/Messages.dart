@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:gns_app/message_scroll_controller.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MessagesScreen extends StatefulWidget {
@@ -10,12 +12,15 @@ class MessagesScreen extends StatefulWidget {
 }
 
 class _MessagesScreenState extends State<MessagesScreen> {
+  final MessageScrollController _messageScrollController =
+      Get.put(MessageScrollController());
   @override
   Widget build(BuildContext context) {
     final w = MediaQuery.of(context).size.width;
     return ListView.separated(
       itemBuilder: ((context, index) {
         return SingleChildScrollView(
+          controller: _messageScrollController.controller,
           child: Container(
             margin: const EdgeInsets.all(10),
             child: Row(

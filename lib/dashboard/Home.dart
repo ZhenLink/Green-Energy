@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 //import 'package:get/get.dart';
-import 'package:gns_app/Assistant/Assistant.dart';
+import 'package:gns_app/Assistant/assistant.dart';
 import 'package:gns_app/User/Profile.dart';
 //import 'package:get/get.dart';
-import 'package:gns_app/dashboard/Welcome.dart';
+import 'package:gns_app/dashboard/welcome.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:flutter/cupertino.dart';
 import '../Energy Monitor/EMonitor.dart';
+import '../Search.dart';
 import 'categories.dart';
 
 class Home extends StatefulWidget {
@@ -25,13 +26,24 @@ class _HomeState extends State<Home> {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 65,
-        leading: const Icon(Icons.solar_power),
+        leading: const Icon(CupertinoIcons.sunset_fill),
         foregroundColor: Colors.white,
         title: Text('Home',
             style: GoogleFonts.openSans(
                 fontSize: 22, fontWeight: FontWeight.w500)),
         backgroundColor: Colors.green[600],
         elevation: 0,
+        actions: [
+          IconButton(
+              highlightColor: Colors.white,
+              splashColor: Colors.white,
+              tooltip: 'Search',
+              onPressed: () => {Get.to(() => const Search())},
+              icon: const Icon(
+                Icons.search,
+                size: 30,
+              ))
+        ],
       ),
       bottomNavigationBar: Container(
         color: Colors.white,

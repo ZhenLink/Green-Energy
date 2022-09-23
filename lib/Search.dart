@@ -22,21 +22,21 @@ class _SearchState extends State<Search> {
           controller: _controller,
           decoration: InputDecoration(
             hintText: 'Search',
+            suffixIcon: IconButton(
+                tooltip: 'Search',
+                enableFeedback: true,
+                color: Colors.white,
+                onPressed: () => {},
+                icon: const Icon(
+                  Icons.search,
+                  size: 30,
+                )),
             hintStyle:
                 GoogleFonts.openSans(fontSize: 17, color: Colors.white70),
           ),
           style: GoogleFonts.openSans(color: Colors.white, fontSize: 18),
         ),
         elevation: 0,
-        actions: [
-          IconButton(
-              tooltip: 'Search',
-              onPressed: () => {},
-              icon: const Icon(
-                Icons.search,
-                size: 30,
-              ))
-        ],
       ),
       body: const Center(
         child: Text(''),

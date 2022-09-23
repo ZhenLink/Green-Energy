@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gns_app/auth/sign%20up/Register_Form.dart';
-import 'package:gns_app/auth/sign%20up/Sign_up.dart';
+//import 'package:gns_app/auth/sign%20up/register_form.dart';
+import 'package:gns_app/auth/sign%20up/sign_up.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
 

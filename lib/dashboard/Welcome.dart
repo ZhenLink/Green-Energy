@@ -1,8 +1,7 @@
-// ignore: file_names
-import 'package:gns_app/Search.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+//import 'package:get/get.dart';
 
 class Welcome extends StatefulWidget {
   const Welcome({Key? key, required this.title}) : super(key: key);
@@ -19,40 +18,6 @@ class _WelcomeState extends State<Welcome> {
       width: double.infinity,
       child: Column(
         children: [
-          Row(
-            children: [
-              const CircleAvatar(
-                foregroundImage: AssetImage('assets/profile.jpg'),
-              ),
-              const Padding(padding: EdgeInsets.symmetric(horizontal: 4)),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    'Good Morning',
-                    style: GoogleFonts.openSans(
-                        fontSize: 16, fontWeight: FontWeight.normal),
-                  ),
-                  Text(
-                    'Noel James',
-                    style: GoogleFonts.openSans(
-                        fontSize: 18, fontWeight: FontWeight.w500),
-                  ),
-                ],
-              ),
-              const Padding(padding: EdgeInsets.symmetric(horizontal: 72)),
-              IconButton(
-                  highlightColor: Colors.white,
-                  splashColor: Colors.white,
-                  tooltip: 'Search',
-                  onPressed: () => {Get.to(() => const Search())},
-                  icon: const Icon(
-                    Icons.search,
-                    size: 30,
-                  ))
-            ],
-          ),
           const Padding(padding: EdgeInsets.symmetric(vertical: 10)),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,7 +27,7 @@ class _WelcomeState extends State<Welcome> {
                 'Get quality Solar Systems with us.',
                 textAlign: TextAlign.start,
                 style: GoogleFonts.openSans(
-                    fontSize: 28, fontWeight: FontWeight.bold),
+                    fontSize: 27, fontWeight: FontWeight.bold),
               ),
               Text(
                 'We offer multiple solutions that will fit your needs.',
@@ -88,7 +53,7 @@ class _WelcomeState extends State<Welcome> {
                       color: Colors.white, fontWeight: FontWeight.w400),
                   padding: const EdgeInsets.all(8),
                   avatar: const Icon(
-                    Icons.category,
+                    CupertinoIcons.square_grid_2x2_fill,
                     color: Colors.white,
                     size: 20,
                   ),

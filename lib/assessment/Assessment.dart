@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gns_app/assessment/assessment_splash_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Assessment extends StatefulWidget {
@@ -19,6 +20,11 @@ class _AssessmentState extends State<Assessment> {
                 fontSize: 22, fontWeight: FontWeight.w500)),
         backgroundColor: Colors.green[600],
         elevation: 0,
+      ),
+      body: const SizedBox(
+        height: double.maxFinite,
+        width: double.maxFinite,
+        child: AssessmentSplashScreen(),
       ),
     );
   }

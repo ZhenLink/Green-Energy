@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:gns_app/Assistant/Assistant.dart';
+import 'package:gns_app/Assistant/assistant.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
 import '../User/Profile.dart';
-import '../dashboard/Home.dart';
+import '../dashboard/home.dart';
 
 class Emonitor extends StatefulWidget {
   const Emonitor({Key? key}) : super(key: key);

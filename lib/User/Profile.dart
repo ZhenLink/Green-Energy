@@ -4,9 +4,9 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
-import '../Assistant/Assistant.dart';
+import '../Assistant/assistant.dart';
 import '../Energy Monitor/EMonitor.dart';
-import '../dashboard/Home.dart';
+import '../dashboard/home.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);

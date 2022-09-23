@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:gns_app/auth/sign%20in/Welcome_text.dart';
-import 'Login_form.dart';
-import 'Options.dart';
+import 'package:gns_app/auth/sign%20in/welcome_text.dart';
+import 'login_form.dart';
+import 'options.dart';
 
 class Login extends StatelessWidget {
   const Login({Key? key}) : super(key: key);
@@ -18,6 +18,7 @@ class Login extends StatelessWidget {
       ),
       body: SizedBox(
         width: double.infinity,
+        height: double.maxFinite,
         child: Container(
           color: Colors.white,
           child: SingleChildScrollView(

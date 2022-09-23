@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gns_app/dashboard/Home.dart';
+import 'package:gns_app/dashboard/home.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
 
@@ -28,7 +28,7 @@ class _SignInFormState extends State<SignInForm> {
                   decoration: InputDecoration(
                       hintText: 'Enter your email address',
                       label: const Text('Email Address'),
-                      labelStyle: GoogleFonts.poppins(fontSize: 22),
+                      labelStyle: GoogleFonts.poppins(fontSize: 20),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8))),
                   validator: (String? value) {
