@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gns_app/assessment/assessment_splash_screen.dart';
+import 'package:gns_app/assessment/appliance_choice.dart';
+//import 'package:gns_app/assessment/assessment_splash_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Assessment extends StatefulWidget {
@@ -24,7 +25,7 @@ class _AssessmentState extends State<Assessment> {
       body: const SizedBox(
         height: double.maxFinite,
         width: double.maxFinite,
-        child: AssessmentSplashScreen(),
+        child: ApplianceChoice(),
       ),
     );
   }

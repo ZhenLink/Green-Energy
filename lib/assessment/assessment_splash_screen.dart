@@ -14,14 +14,14 @@ class AssessmentSplashScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Image(image: AssetImage('assessmentLoader.gif')),
+            const Image(image: AssetImage('lib/images/loader.gif')),
             Padding(
               padding: const EdgeInsets.all(22),
               child: Text(
                 'Please wait while we are setting up the assessment.',
                 style: GoogleFonts.openSans(
                     fontSize: 20,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w500,
                     color: Colors.blueGrey[700]),
               ),
             ),

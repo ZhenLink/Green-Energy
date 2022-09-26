@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:gns_app/assessment/appliance_choice.dart';
 import 'package:gns_app/assessment/assessment.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -31,7 +32,7 @@ class Categories extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Backup Solar System',
+                          'Hybrid Solar System',
                           style: GoogleFonts.openSans(
                               color: Colors.white,
                               fontSize: 19,
@@ -49,7 +50,7 @@ class Categories extends StatelessWidget {
                             padding: EdgeInsets.symmetric(vertical: 4)),
                         GestureDetector(
                           onTap: () {
-                            Get.to(() => const Assessment());
+                            Get.to(() => const ApplianceChoice());
                           },
                           child: Container(
                             width: 150,
@@ -62,7 +63,7 @@ class Categories extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Text('Get',
+                                Text('Buy',
                                     style: GoogleFonts.poppins(
                                         fontSize: 18,
                                         color: Colors.blueGrey[900])),
@@ -85,7 +86,7 @@ class Categories extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Image(
-                      image: AssetImage('assets/Off-Grid-System.gif'),
+                      image: AssetImage('assets/hybrid-Solar.gif'),
                       fit: BoxFit.fill,
                       height: 150,
                       width: double.maxFinite,
@@ -115,7 +116,7 @@ class Categories extends StatelessWidget {
                               padding: EdgeInsets.symmetric(vertical: 4)),
                           GestureDetector(
                             onTap: () {
-                              Get.to(() => const Assessment());
+                              Get.to(() => const ApplianceChoice());
                             },
                             child: Container(
                               width: 150,
@@ -128,7 +129,7 @@ class Categories extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Text('Get',
+                                  Text('Buy',
                                       style: GoogleFonts.poppins(
                                           fontSize: 18,
                                           color: Colors.blueGrey[900])),

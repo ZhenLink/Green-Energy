@@ -119,7 +119,7 @@ class _AssistantState extends State<Assistant> {
                     child: TextField(
                   decoration: InputDecoration(
                     hintText: 'Enter message',
-                    labelStyle: GoogleFonts.poppins(fontSize: 18),
+                    labelStyle: GoogleFonts.openSans(fontSize: 18),
                   ),
                   controller: _controller,
                   style: GoogleFonts.openSans(
