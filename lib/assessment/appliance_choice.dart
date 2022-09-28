@@ -12,7 +12,7 @@ class ApplianceChoice extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        width: double.maxFinite,
+        width: double.infinity,
         color: Colors.white,
         child: Padding(
           padding: const EdgeInsets.only(left: 8, right: 8),
@@ -68,6 +68,18 @@ class ApplianceChoice extends StatelessWidget {
                             avatar: const Icon(Icons.lightbulb_sharp,
                                 color: Colors.white),
                             label: const Text('Lighting',
+                                style: TextStyle(color: Colors.white)),
+                            selected: false),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 1, right: 5),
+                        child: ChoiceChip(
+                            disabledColor: Colors.blueGrey[900],
+                            labelPadding: const EdgeInsets.only(
+                                top: 5, bottom: 5, left: 2, right: 4),
+                            avatar: const Icon(Icons.compost_outlined,
+                                color: Colors.white),
+                            label: const Text('Cosmetics',
                                 style: TextStyle(color: Colors.white)),
                             selected: false),
                       ),
