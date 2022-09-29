@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gns_app/assessment/appliance_choice.dart';
 import 'package:gns_app/assessment/assessment.dart';
+import 'package:gns_app/assessment/utility_choice.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Categories extends StatelessWidget {
@@ -50,7 +51,7 @@ class Categories extends StatelessWidget {
                             padding: EdgeInsets.symmetric(vertical: 4)),
                         GestureDetector(
                           onTap: () {
-                            Get.to(() => const ApplianceChoice());
+                            Get.to(() => const UtilityChoice());
                           },
                           child: Container(
                             width: 150,
@@ -63,7 +64,7 @@ class Categories extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Text('Buy',
+                                Text('Inquire',
                                     style: GoogleFonts.poppins(
                                         fontSize: 18,
                                         color: Colors.blueGrey[900])),

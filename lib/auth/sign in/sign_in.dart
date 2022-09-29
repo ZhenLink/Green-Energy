@@ -14,6 +14,7 @@ class Login extends StatelessWidget {
         backgroundColor: Colors.white,
         foregroundColor: Colors.black87,
         title: Text(_title),
+        elevation: 0,
         centerTitle: true,
       ),
       body: SizedBox(
