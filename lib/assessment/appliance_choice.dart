@@ -14,17 +14,13 @@ class ApplianceChoice extends StatefulWidget {
 }
 
 class _ApplianceChoiceState extends State<ApplianceChoice> {
-  bool _timeFinished = false;
-
-  startAssessment() {
-    Timer? timer =
-        Timer(const Duration(seconds: 5), () => {_timeFinished = true});
-  }
-
   bool electronicChip = false;
   bool cookingChip = false;
   bool lightingChip = false;
   bool cosmeticChip = false;
+
+  List chosenCategories = [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,6 +57,11 @@ class _ApplianceChoiceState extends State<ApplianceChoice> {
                             onSelected: (currentChipState) {
                               setState(() {
                                 electronicChip = currentChipState;
+                                if (electronicChip) {
+                                  chosenCategories.add('Electronic');
+                                } else {
+                                  chosenCategories.remove('Electronic');
+                                }
                               });
                             },
                             pressElevation: 0,
@@ -82,6 +83,11 @@ class _ApplianceChoiceState extends State<ApplianceChoice> {
                             onSelected: (cookingChipState) {
                               setState(() {
                                 cookingChip = cookingChipState;
+                                if (cookingChip) {
+                                  chosenCategories.add('Cooking');
+                                } else {
+                                  chosenCategories.remove('Cooking');
+                                }
                               });
                             },
                             elevation: 0,
@@ -104,6 +110,11 @@ class _ApplianceChoiceState extends State<ApplianceChoice> {
                             onSelected: (lightingChipState) {
                               setState(() {
                                 lightingChip = lightingChipState;
+                                if (lightingChip) {
+                                  chosenCategories.add('Lighting');
+                                } else {
+                                  chosenCategories.remove('Lighting');
+                                }
                               });
                             },
                             elevation: 0,
@@ -126,6 +137,11 @@ class _ApplianceChoiceState extends State<ApplianceChoice> {
                             onSelected: (cosmeticChipChipState) {
                               setState(() {
                                 cosmeticChip = cosmeticChipChipState;
+                                if (cosmeticChip) {
+                                  chosenCategories.add('Cosmetic');
+                                } else {
+                                  chosenCategories.remove('Cosmetic');
+                                }
                               });
                             },
                             elevation: 0,
@@ -183,61 +199,20 @@ class _ApplianceChoiceState extends State<ApplianceChoice> {
                         ),
                       ),
                       onTap: () => {
-                        startAssessment(),
-                        showDialog(
-                            context: context,
-                            barrierDismissible: false,
-                            useSafeArea: true,
-                            builder: (_) => AlertDialog(
-                                title: Text('Notification',
-                                    style: GoogleFonts.openSans(
-                                        fontSize: 15,
-                                        color: Colors.blueGrey[900])),
-                                backgroundColor: Colors.white,
-                                content: _timeFinished == false
-                                    ? Expanded(
-                                        child: Row(
-                                          children: [
-                                            const CircularProgressIndicator(),
-                                            const Padding(
-                                                padding:
-                                                    EdgeInsets.only(right: 5)),
-                                            Text(
-                                              'Setting up assessment..',
-                                              softWrap: true,
-                                              style: GoogleFonts.openSans(
-                                                  fontSize: 15,
-                                                  color: Colors.blueGrey[900]),
-                                            ),
-                                          ],
-                                        ),
-                                      )
-                                    : GestureDetector(
-                                        onTap: () {
-                                          Get.to(() => const AssessmentSteps());
-                                        },
-                                        child: Container(
-                                          width: 140,
-                                          height: 50,
-                                          decoration: BoxDecoration(
-                                            color: Colors.green,
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                          ),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              Text('Start assessment',
-                                                  style: GoogleFonts.poppins(
-                                                      fontSize: 18,
-                                                      color: Colors.white)),
-                                            ],
-                                          ),
-                                        ),
-                                      )))
+                        if (chosenCategories.isEmpty)
+                          {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content:
+                                    Text('Please choose atleast one category'),
+                              ),
+                            ),
+                          }
+                        else
+                          {
+                            Get.to(() => const AssessmentSteps(),
+                                arguments: chosenCategories)
+                          }
                       },
                     ),
                   ],
