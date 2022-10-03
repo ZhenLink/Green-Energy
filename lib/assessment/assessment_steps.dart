@@ -69,9 +69,7 @@ class _AssessmentStepsState extends State<AssessmentSteps> {
                       ],
                     ),
                   ),
-                  onTap: () => {
-                    getMyLocation(),
-                  },
+                  onTap: () => {print(getMyLocation()), print('ressukt')},
                 ),
                 subtitle: Text('House coordinates',
                     style: GoogleFonts.openSans(fontSize: 14))),
