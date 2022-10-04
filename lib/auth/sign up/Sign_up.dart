@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:gns_app/auth/sign%20in/welcome_text.dart';
-import 'login_form.dart';
+//import 'package:gns_app/auth/sign%20in/Welcome_text.dart';
+import 'package:gns_app/auth/sign%20up/register_form.dart';
+import 'register_text.dart';
 import 'options.dart';
 
-class Login extends StatelessWidget {
-  const Login({Key? key}) : super(key: key);
-  final String _title = "Sign In";
+class Register extends StatelessWidget {
+  const Register({Key? key}) : super(key: key);
+  final String _title = "Sign Up";
 
   @override
   Widget build(BuildContext context) {
@@ -14,18 +15,22 @@ class Login extends StatelessWidget {
         backgroundColor: Colors.white,
         foregroundColor: Colors.black87,
         title: Text(_title),
-        elevation: 0,
         centerTitle: true,
+        elevation: 0,
       ),
       body: SizedBox(
         width: double.infinity,
-        height: double.maxFinite,
+        height: double.infinity,
         child: Container(
           color: Colors.white,
           child: SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Column(
-              children: const [WelcomeText(), SignInForm(), Options()],
+              children: const [
+                RegisterText(),
+                RegisterForm(),
+                RegisterOptions()
+              ],
             ),
           ),
         ),
