@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gns_app/assessment/appliance_choice.dart';
+//import 'package:gns_app/assessment/appliance_choice.dart';
 import 'package:gns_app/assessment/utility_choice.dart';
 //import 'package:gns_app/assessment/assessment_splash_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
