@@ -51,7 +51,9 @@ class _EmonitorState extends State<Emonitor> {
               GButton(
                 icon: CupertinoIcons.home,
                 text: 'Home',
-                textStyle: GoogleFonts.openSans(),
+                textStyle: GoogleFonts.openSans(
+                  color: Colors.white,
+                ),
                 onPressed: () {
                   Get.to(() => const Home());
                 },
@@ -59,7 +61,9 @@ class _EmonitorState extends State<Emonitor> {
               GButton(
                 icon: CupertinoIcons.chat_bubble_2_fill,
                 text: 'Assistant',
-                textStyle: GoogleFonts.openSans(),
+                textStyle: GoogleFonts.openSans(
+                  color: Colors.white,
+                ),
                 onPressed: () {
                   Get.to(() => const Assistant(title: 'Assistant'));
                 },
@@ -67,12 +71,16 @@ class _EmonitorState extends State<Emonitor> {
               GButton(
                 icon: Icons.solar_power,
                 text: 'Energy Monitor',
-                textStyle: GoogleFonts.openSans(),
+                textStyle: GoogleFonts.openSans(
+                  color: Colors.white,
+                ),
               ),
               GButton(
                 icon: CupertinoIcons.person_alt_circle,
                 text: 'Account',
-                textStyle: GoogleFonts.openSans(),
+                textStyle: GoogleFonts.openSans(
+                  color: Colors.white,
+                ),
                 onPressed: () {
                   Get.to(() => const Profile());
                 },

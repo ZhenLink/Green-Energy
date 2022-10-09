@@ -24,27 +24,6 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 65,
-        leading: const Icon(CupertinoIcons.sunset_fill),
-        foregroundColor: Colors.white,
-        title: Text('Home',
-            style: GoogleFonts.openSans(
-                fontSize: 22, fontWeight: FontWeight.w500)),
-        backgroundColor: Colors.green[600],
-        elevation: 0,
-        actions: [
-          IconButton(
-              highlightColor: Colors.white,
-              splashColor: Colors.white,
-              tooltip: 'Search',
-              onPressed: () => {Get.to(() => const Search())},
-              icon: const Icon(
-                Icons.search,
-                size: 30,
-              ))
-        ],
-      ),
       bottomNavigationBar: Container(
         color: Colors.white,
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
@@ -64,20 +43,26 @@ class _HomeState extends State<Home> {
               GButton(
                 icon: CupertinoIcons.home,
                 text: 'Home',
-                textStyle: GoogleFonts.openSans(),
+                textStyle: GoogleFonts.openSans(
+                  color: Colors.white,
+                ),
               ),
               GButton(
                 icon: CupertinoIcons.chat_bubble_2_fill,
                 text: 'Assistant',
-                textStyle: GoogleFonts.openSans(),
+                textStyle: GoogleFonts.openSans(
+                  color: Colors.white,
+                ),
                 onPressed: () {
-                  Get.to(() => const Assistant(title: 'Asistant'));
+                  Get.to(const Assistant(title: 'Asistant'));
                 },
               ),
               GButton(
                 icon: Icons.solar_power,
                 text: 'Energy Monitor',
-                textStyle: GoogleFonts.openSans(),
+                textStyle: GoogleFonts.openSans(
+                  color: Colors.white,
+                ),
                 onPressed: () {
                   Get.to(() => const Emonitor());
                 },
@@ -85,29 +70,81 @@ class _HomeState extends State<Home> {
               GButton(
                 icon: CupertinoIcons.person_alt_circle,
                 text: 'Account',
-                textStyle: GoogleFonts.openSans(),
+                textStyle: GoogleFonts.openSans(
+                  color: Colors.white,
+                ),
                 onPressed: () {
                   Get.to(() => const Profile());
                 },
               )
             ]),
       ),
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        margin: const EdgeInsets.only(left: 10, right: 10),
-        padding: const EdgeInsets.all(10),
-        child: SingleChildScrollView(
-          clipBehavior: Clip.hardEdge,
-          scrollDirection: Axis.vertical,
-          child: Column(
-            children: const [
-              Welcome(title: 'Welcome'),
-              Padding(padding: EdgeInsets.symmetric(vertical: 10)),
-              Categories()
+      body: CustomScrollView(
+        scrollDirection: Axis.vertical,
+        slivers: [
+          SliverAppBar(
+            title: const Text('Home'),
+            expandedHeight: 350,
+            pinned: true,
+            leading: const Icon(CupertinoIcons.sunset_fill),
+            backgroundColor: Colors.green[600],
+            elevation: 0,
+            flexibleSpace: FlexibleSpaceBar(
+              background: Container(
+                margin: const EdgeInsets.only(top: 60, left: 15, right: 15),
+                padding: const EdgeInsets.all(25),
+                color: Colors.green[600],
+                child: const Welcome(title: 'Welcome'),
+              ),
+            ),
+            actions: [
+              Padding(
+                padding: const EdgeInsets.only(right: 8.0),
+                child: IconButton(
+                    highlightColor: Colors.white,
+                    splashColor: Colors.white,
+                    tooltip: 'Search',
+                    onPressed: () => {Get.to(() => const Search())},
+                    icon: const Icon(
+                      Icons.search,
+                      size: 30,
+                    )),
+              )
             ],
           ),
-        ),
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                margin: const EdgeInsets.only(left: 10, right: 10),
+                padding: const EdgeInsets.all(10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Icon(CupertinoIcons.square_grid_2x2_fill,
+                            color: Colors.green[600]),
+                        const Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 2)),
+                        Text(
+                          'Solar Categories',
+                          style: GoogleFonts.openSans(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.blueGrey[900]),
+                        ),
+                      ],
+                    ),
+                    const Padding(padding: EdgeInsets.symmetric(vertical: 10)),
+                    const Categories()
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.white,

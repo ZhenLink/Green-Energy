@@ -1,10 +1,14 @@
+import 'dart:io';
+
 import 'package:dialog_flowtter/dialog_flowtter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:gns_app/assessment/question.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../Models/appliance_assessment.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:image_picker/image_picker.dart';
 
 class AssessmentSteps extends StatefulWidget {
   const AssessmentSteps({Key? key}) : super(key: key);
@@ -14,6 +18,21 @@ class AssessmentSteps extends StatefulWidget {
 }
 
 class _AssessmentStepsState extends State<AssessmentSteps> {
+  File? image;
+  Future pickImages() async {
+    try {
+      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (image == null) return;
+
+      final imageTemporary = File(image.path);
+      setState(() {
+        this.image = imageTemporary;
+      });
+    } on PlatformException catch (e) {
+      print('Failed to pick Iamges : $e');
+    }
+  }
+
   Future<Position> _determinePosition() async {
     bool serviceEnabled;
     LocationPermission permission;
@@ -53,13 +72,14 @@ class _AssessmentStepsState extends State<AssessmentSteps> {
   }
 
   final List _chosenCategories = Get.arguments;
-  final Geolocator _geolocator = Geolocator();
   late Position _currentPosition;
   late int _currentStep = 0;
+  bool _locationPinned = false;
   //bool locationStatus = false;
   int _questionIndex = 0;
   ApplianceAssessment data = ApplianceAssessment();
   late List locationCoordinates = [];
+  final int totalSteps = 2;
 
   getMyLocation() async {
     Position position = await Geolocator.getCurrentPosition(
@@ -71,8 +91,21 @@ class _AssessmentStepsState extends State<AssessmentSteps> {
     if (currentLocation.latitude == null && currentLocation.longitude == null) {
       print('Couldnt get location');
     } else {
+      setState(() {
+        _locationPinned == true;
+      });
       locationCoordinates.add(currentLocation);
       print(locationCoordinates);
+    }
+  }
+
+  void nextAssessmentStep() {
+    if (_currentStep != totalSteps) {
+      setState(() {
+        _currentStep += 1;
+      });
+    } else {
+      print('We are done here');
     }
   }
 
@@ -91,6 +124,9 @@ class _AssessmentStepsState extends State<AssessmentSteps> {
     return Scaffold(
       body: Center(
         child: Stepper(
+          onStepContinue: () {
+            nextAssessmentStep();
+          },
           currentStep: _currentStep,
           type: StepperType.vertical,
           steps: [
@@ -109,20 +145,54 @@ class _AssessmentStepsState extends State<AssessmentSteps> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Text('Get Location',
-                            style: GoogleFonts.poppins(
-                                fontSize: 14, color: Colors.white)),
+                        _locationPinned != _locationPinned
+                            ? const Text('Completed')
+                            : Text('Get Location',
+                                style: GoogleFonts.poppins(
+                                    fontSize: 14, color: Colors.white)),
                       ],
                     ),
                   ),
-                  onTap: () => {_determinePosition(), getMyLocation()},
+                  onTap: () => {
+                    _determinePosition(),
+                    getMyLocation(),
+                  },
                 ),
                 subtitle: Text('House coordinates',
                     style: GoogleFonts.openSans(fontSize: 14))),
             Step(
                 title: Text('Residential Images',
                     style: GoogleFonts.openSans(fontSize: 18)),
-                content: const Text('My Third step'),
+                content: SizedBox(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Padding(
+                          padding: EdgeInsets.symmetric(vertical: 10.0)),
+                      GestureDetector(
+                        child: Container(
+                          width: 120,
+                          height: 50,
+                          decoration: BoxDecoration(
+                            color: Colors.green,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text('Upload images',
+                                  style: GoogleFonts.poppins(
+                                      fontSize: 14, color: Colors.white)),
+                            ],
+                          ),
+                        ),
+                        onTap: () => {pickImages()},
+                      ),
+                    ],
+                  ),
+                ),
                 subtitle: Text('House pictures',
                     style: GoogleFonts.openSans(fontSize: 14))),
             Step(
