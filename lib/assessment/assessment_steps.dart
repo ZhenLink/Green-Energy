@@ -168,38 +168,27 @@ class _AssessmentStepsState extends State<AssessmentSteps> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      const Padding(
+                          padding: EdgeInsets.symmetric(vertical: 10.0)),
                       GestureDetector(
                         child: Container(
-                          width: 110,
-                          height: 35,
+                          width: 120,
+                          height: 50,
                           decoration: BoxDecoration(
                             color: Colors.green,
                             borderRadius: BorderRadius.circular(20),
                           ),
-                          child: Row(
+                          child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              const Spacer(),
-                              image != null
-                                  ? Image.file(
-                                      image!,
-                                      width: 160,
-                                      height: 160,
-                                      fit: BoxFit.cover,
-                                    )
-                                  : const FlutterLogo(),
-                              const Spacer(),
                               Text('Upload images',
                                   style: GoogleFonts.poppins(
                                       fontSize: 14, color: Colors.white)),
                             ],
                           ),
                         ),
-                        onTap: () => {
-                          _determinePosition(),
-                          getMyLocation(),
-                        },
+                        onTap: () => {pickImages()},
                       ),
                     ],
                   ),

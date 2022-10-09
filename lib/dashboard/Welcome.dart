@@ -27,15 +27,18 @@ class _WelcomeState extends State<Welcome> {
                 'Get quality Solar Systems with us.',
                 textAlign: TextAlign.start,
                 style: GoogleFonts.openSans(
-                    fontSize: 27, fontWeight: FontWeight.bold),
+                    fontSize: 27,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
               ),
+              const Padding(padding: EdgeInsets.symmetric(vertical: 4)),
               Text(
                 'We offer multiple solutions that will fit your needs.',
                 textAlign: TextAlign.start,
                 style: GoogleFonts.openSans(
-                  fontSize: 19,
-                  fontWeight: FontWeight.w400,
-                ),
+                    fontSize: 19,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.white),
               )
             ],
           ),
@@ -45,31 +48,26 @@ class _WelcomeState extends State<Welcome> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               GestureDetector(
-                child: Chip(
-                  deleteIcon: const Icon(Icons.cancel),
-                  label: const Text('Categories'),
-                  autofocus: true,
-                  labelStyle: GoogleFonts.openSans(
-                      color: Colors.white, fontWeight: FontWeight.w400),
-                  padding: const EdgeInsets.all(8),
-                  avatar: const Icon(
-                    CupertinoIcons.square_grid_2x2_fill,
+                onTap: () {},
+                child: Container(
+                  width: 150,
+                  height: 42,
+                  decoration: BoxDecoration(
                     color: Colors.white,
-                    size: 20,
+                    borderRadius: BorderRadius.circular(17),
                   ),
-                  backgroundColor: Colors.green,
-                ),
-              ),
-              const Padding(padding: EdgeInsets.symmetric(horizontal: 6)),
-              Chip(
-                label: const Text('Equipments'),
-                labelStyle: GoogleFonts.openSans(
-                    color: Colors.blueGrey[600], fontWeight: FontWeight.w400),
-                padding: const EdgeInsets.all(8),
-                avatar: Icon(
-                  Icons.handyman_outlined,
-                  color: Colors.blueGrey[600],
-                  size: 20,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text('Get Started',
+                          style: GoogleFonts.poppins(
+                              fontSize: 16, color: Colors.blueGrey[900])),
+                      const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 2)),
+                      const Icon(Icons.arrow_right_alt)
+                    ],
+                  ),
                 ),
               ),
             ],

@@ -66,7 +66,9 @@ class _AssistantState extends State<Assistant> {
               GButton(
                 icon: CupertinoIcons.home,
                 text: 'Home',
-                textStyle: GoogleFonts.openSans(),
+                textStyle: GoogleFonts.openSans(
+                  color: Colors.white,
+                ),
                 onPressed: () {
                   Get.to(() => const Home());
                 },
@@ -74,12 +76,16 @@ class _AssistantState extends State<Assistant> {
               GButton(
                 icon: CupertinoIcons.chat_bubble_2_fill,
                 text: 'Assistant',
-                textStyle: GoogleFonts.openSans(),
+                textStyle: GoogleFonts.openSans(
+                  color: Colors.white,
+                ),
               ),
               GButton(
                 icon: Icons.solar_power,
                 text: 'Energy Monitor',
-                textStyle: GoogleFonts.openSans(),
+                textStyle: GoogleFonts.openSans(
+                  color: Colors.white,
+                ),
                 onPressed: () {
                   Get.to(() => const Emonitor());
                 },
@@ -87,7 +93,9 @@ class _AssistantState extends State<Assistant> {
               GButton(
                 icon: CupertinoIcons.person_alt_circle,
                 text: 'Account',
-                textStyle: GoogleFonts.openSans(),
+                textStyle: GoogleFonts.openSans(
+                  color: Colors.white,
+                ),
                 onPressed: () {
                   Get.to(() => const Profile());
                 },

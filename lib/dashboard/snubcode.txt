@@ -1,0 +1,17 @@
+Container(
+        width: double.infinity,
+        height: double.infinity,
+        margin: const EdgeInsets.only(left: 10, right: 10),
+        padding: const EdgeInsets.all(10),
+        child: SingleChildScrollView(
+          clipBehavior: Clip.hardEdge,
+          scrollDirection: Axis.vertical,
+          child: Column(
+            children: const [
+              Welcome(title: 'Welcome'),
+              Padding(padding: EdgeInsets.symmetric(vertical: 10)),
+              Categories()
+            ],
+          ),
+        ),
+      )

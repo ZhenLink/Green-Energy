@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:gns_app/assessment/appliance_choice.dart';
-import 'package:gns_app/assessment/assessment.dart';
+//import 'package:gns_app/assessment/appliance_choice.dart';
 import 'package:gns_app/assessment/utility_choice.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -49,28 +48,57 @@ class Categories extends StatelessWidget {
                         ),
                         const Padding(
                             padding: EdgeInsets.symmetric(vertical: 4)),
-                        GestureDetector(
-                          onTap: () {
-                            Get.to(() => const UtilityChoice());
-                          },
-                          child: Container(
-                            width: 150,
-                            height: 50,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(20),
+                        Row(
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                Get.to(() => const UtilityChoice());
+                              },
+                              child: Container(
+                                width: 100,
+                                height: 40,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text('Inquire',
+                                        style: GoogleFonts.openSans(
+                                            fontSize: 16,
+                                            color: Colors.blueGrey[900])),
+                                  ],
+                                ),
+                              ),
                             ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text('Inquire',
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 18,
-                                        color: Colors.blueGrey[900])),
-                              ],
+                            const Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 8)),
+                            GestureDetector(
+                              onTap: () {
+                                Get.to(() => const UtilityChoice());
+                              },
+                              child: Container(
+                                width: 100,
+                                height: 40,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text('Buy',
+                                        style: GoogleFonts.openSans(
+                                            fontSize: 16,
+                                            color: Colors.blueGrey[900])),
+                                  ],
+                                ),
+                              ),
                             ),
-                          ),
+                          ],
                         ),
                         const Padding(
                             padding: EdgeInsets.symmetric(vertical: 4)),
@@ -115,28 +143,59 @@ class Categories extends StatelessWidget {
                           ),
                           const Padding(
                               padding: EdgeInsets.symmetric(vertical: 4)),
-                          GestureDetector(
-                            onTap: () {
-                              Get.to(() => const ApplianceChoice());
-                            },
-                            child: Container(
-                              width: 150,
-                              height: 50,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(20),
+                          Row(
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  Get.to(() => const UtilityChoice());
+                                },
+                                child: Container(
+                                  width: 100,
+                                  height: 40,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Text('Inquire',
+                                          style: GoogleFonts.openSans(
+                                              fontSize: 16,
+                                              color: Colors.blueGrey[900])),
+                                    ],
+                                  ),
+                                ),
                               ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Text('Buy',
-                                      style: GoogleFonts.poppins(
-                                          fontSize: 18,
-                                          color: Colors.blueGrey[900])),
-                                ],
+                              const Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 8)),
+                              GestureDetector(
+                                onTap: () {
+                                  Get.to(() => const UtilityChoice());
+                                },
+                                child: Container(
+                                  width: 100,
+                                  height: 40,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Text('Buy',
+                                          style: GoogleFonts.poppins(
+                                              fontSize: 16,
+                                              color: Colors.blueGrey[900])),
+                                    ],
+                                  ),
+                                ),
                               ),
-                            ),
+                            ],
                           ),
                           const Padding(
                               padding: EdgeInsets.symmetric(vertical: 4)),
