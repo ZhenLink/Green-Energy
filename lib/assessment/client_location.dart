@@ -1,6 +1,7 @@
-import 'package:dialog_flowtter/dialog_flowtter.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:google_fonts/google_fonts.dart';
+import '../env/privates.dart';
 
 class ClientLocation extends StatefulWidget {
   const ClientLocation({Key? key}) : super(key: key);
@@ -10,9 +11,8 @@ class ClientLocation extends StatefulWidget {
 }
 
 class _ClientLocationState extends State<ClientLocation> {
-  late Position _currentPosition;
-  late var locationCoordinates;
   Position? position;
+  Private myPrivates = Private();
 
   Future<Position> _determinePosition() async {
     bool serviceEnabled;
@@ -51,13 +51,59 @@ class _ClientLocationState extends State<ClientLocation> {
     // When we reach here, permissions are granted and we can
     // continue accessing the position of the device.
     return await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.best);
+        desiredAccuracy: LocationAccuracy.high);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(height: double.infinity, color: Colors.white),
-    );
+        body: Container(
+      padding: const EdgeInsets.all(10),
+      color: Colors.white,
+      child: Center(
+          child: SizedBox(
+              height: 400,
+              width: 400,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.location_on_rounded,
+                      color: Colors.green[600], size: 40),
+                  Text('Residential Location',
+                      style: GoogleFonts.openSans(
+                          fontSize: 20, fontWeight: FontWeight.w600)),
+                  Text(
+                      'Help us to know the location of your residence by tapping the button below.',
+                      style: GoogleFonts.openSans(fontSize: 17),
+                      textAlign: TextAlign.center),
+                  const Padding(padding: EdgeInsets.symmetric(vertical: 20)),
+                  GestureDetector(
+                    child: Container(
+                      width: 120,
+                      height: 42,
+                      decoration: BoxDecoration(
+                        color: Colors.green,
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text('Get Location',
+                              style: GoogleFonts.poppins(
+                                  fontSize: 14, color: Colors.white)),
+                        ],
+                      ),
+                    ),
+                    onTap: () => {
+                      _determinePosition().then((value) => myPrivates
+                          .getLocationdetails(40.7128, 74.0060)
+                          .then((value) => print(value))),
+                    },
+                  ),
+                ],
+              ))),
+    ));
   }
 }

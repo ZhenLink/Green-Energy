@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:gns_app/assessment/client_location.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'assessment_steps.dart';
@@ -210,7 +211,7 @@ class _ApplianceChoiceState extends State<ApplianceChoice> {
                           }
                         else
                           {
-                            Get.to(() => const AssessmentSteps(),
+                            Get.to(() => const ClientLocation(),
                                 arguments: chosenCategories)
                           }
                       },

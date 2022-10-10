@@ -43,6 +43,7 @@ dependencies:
   google_maps: ^6.2.0
   geolocator: ^9.0.2
   image_picker: ^0.8.6
+  location_geocoder: ^1.0.5
 
 dev_dependencies:
   flutter_test:
