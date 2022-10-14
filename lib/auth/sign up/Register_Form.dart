@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gns_app/auth/sign%20in/sign_in.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:gns_app/Api/api.dart';
 
 class RegisterForm extends StatefulWidget {
   const RegisterForm({Key? key}) : super(key: key);
@@ -16,7 +19,23 @@ class _RegisterFormState extends State<RegisterForm> {
   final TextEditingController _emailAdressController = TextEditingController();
   final TextEditingController _phoneNumberController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  MyAPI _api = MyAPI();
   bool _isObsecure = true;
+
+  _registerUser() async {
+    final userData = {
+      "name": _fullNameController.text,
+      "emailAddress": _emailAdressController.text,
+      "contactNumber": _phoneNumberController.text,
+      "password": _passwordController.text,
+    };
+
+    final res = await _api.createUser(userData, '/user');
+
+    final body = jsonDecode(res.body);
+    print(body);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -35,7 +54,7 @@ class _RegisterFormState extends State<RegisterForm> {
                     decoration: InputDecoration(
                       hintText: 'Full Name',
                       label: const Text('Full Name'),
-                      labelStyle: GoogleFonts.poppins(fontSize: 20),
+                      labelStyle: GoogleFonts.openSans(fontSize: 20),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8)),
                     ),
@@ -54,7 +73,7 @@ class _RegisterFormState extends State<RegisterForm> {
                     decoration: InputDecoration(
                         hintText: 'Enter your email address',
                         label: const Text('Email Address'),
-                        labelStyle: GoogleFonts.poppins(fontSize: 20),
+                        labelStyle: GoogleFonts.openSans(fontSize: 20),
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8))),
                     validator: (String? value) {
@@ -77,7 +96,7 @@ class _RegisterFormState extends State<RegisterForm> {
                     decoration: InputDecoration(
                       hintText: 'Contact Number',
                       label: const Text('Contact Number'),
-                      labelStyle: GoogleFonts.poppins(fontSize: 20),
+                      labelStyle: GoogleFonts.openSans(fontSize: 20),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8)),
                     ),
@@ -91,7 +110,7 @@ class _RegisterFormState extends State<RegisterForm> {
                   ),
                   const Padding(padding: EdgeInsets.symmetric(vertical: 10.0)),
                   TextFormField(
-                    controller: _emailAdressController,
+                    controller: _passwordController,
                     enableSuggestions: true,
                     style: GoogleFonts.openSans(fontSize: 19),
                     obscureText: _isObsecure,
@@ -107,7 +126,7 @@ class _RegisterFormState extends State<RegisterForm> {
                               ? Icons.visibility
                               : Icons.visibility_off_outlined)),
                       label: const Text('Password'),
-                      labelStyle: GoogleFonts.poppins(fontSize: 20),
+                      labelStyle: GoogleFonts.openSans(fontSize: 20),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8)),
                     ),
@@ -140,16 +159,12 @@ class _RegisterFormState extends State<RegisterForm> {
                     onTap: () => {
                       if (_formKey.currentState!.validate())
                         {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Registered successfully'),
-                            ),
-                          ),
-                          print(_fullNameController.value),
-                          print(_phoneNumberController.value),
-                          print(_passwordController.value),
-                          print(_emailAdressController.value),
-                          Get.to(() => const Login())
+                          //ScaffoldMessenger.of(context).showSnackBar(
+                          // const SnackBar(
+                          //  content: Text('Registered successfully'),
+                          // ),
+                          // ),
+                          _registerUser(),
                         }
                       else
                         {}

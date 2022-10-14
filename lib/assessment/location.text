@@ -1,0 +1,123 @@
+    
+    images![index].path
+    
+    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SizedBox(
+                            height: 130,
+                            width: 150,
+                            child: GestureDetector(
+                              onTap: () {
+                                pickImages();
+                              },
+                              child: Row(
+                                children: [
+                                  images != null
+                                      ? Image.file(
+                                          image,
+                                          fit: BoxFit.cover,
+                                          height: 130,
+                                          width: 150,
+                                        )
+                                      : Image.asset('assets/blank.jpg',
+                                          height: 130,
+                                          width: 150,
+                                          fit: BoxFit.cover),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SizedBox(
+                            height: 130,
+                            width: 150,
+                            child: GestureDetector(
+                              onTap: () {
+                                pickImages();
+                              },
+                              child: Row(
+                                children: [
+                                  image != null
+                                      ? Image.file(
+                                          image!,
+                                          fit: BoxFit.cover,
+                                          height: 130,
+                                          width: 150,
+                                        )
+                                      : Image.asset('assets/blank.jpg',
+                                          height: 130,
+                                          width: 150,
+                                          fit: BoxFit.cover),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SizedBox(
+                            height: 130,
+                            width: 150,
+                            child: GestureDetector(
+                              onTap: () {
+                                pickImages();
+                              },
+                              child: Row(
+                                children: [
+                                  image != null
+                                      ? Image.file(
+                                          image!,
+                                          fit: BoxFit.cover,
+                                          height: 130,
+                                          width: 150,
+                                        )
+                                      : Image.asset('assets/blank.jpg',
+                                          height: 130,
+                                          width: 150,
+                                          fit: BoxFit.cover),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SizedBox(
+                            height: 130,
+                            width: 150,
+                            child: GestureDetector(
+                              onTap: () {
+                                pickImages();
+                              },
+                              child: Row(
+                                children: [
+                                  image != null
+                                      ? Image.file(
+                                          image!,
+                                          fit: BoxFit.cover,
+                                          height: 130,
+                                          width: 150,
+                                        )
+                                      : Image.asset('assets/blank.jpg',
+                                          height: 130,
+                                          width: 150,
+                                          fit: BoxFit.cover),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),

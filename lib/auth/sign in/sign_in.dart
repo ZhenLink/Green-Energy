@@ -17,15 +17,19 @@ class Login extends StatelessWidget {
         elevation: 0,
         centerTitle: true,
       ),
-      body: SizedBox(
-        width: double.infinity,
-        height: double.maxFinite,
-        child: Container(
-          color: Colors.white,
-          child: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              children: const [WelcomeText(), SignInForm(), Options()],
+      body: Center(
+        child: SizedBox(
+          width: double.infinity,
+          height: double.maxFinite,
+          child: Container(
+            color: Colors.white,
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [WelcomeText(), SignInForm(), Options()],
+              ),
             ),
           ),
         ),

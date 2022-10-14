@@ -83,18 +83,24 @@ class _HomeState extends State<Home> {
         scrollDirection: Axis.vertical,
         slivers: [
           SliverAppBar(
-            title: const Text('Home'),
-            expandedHeight: 350,
+            title: Text('Home',
+                style: GoogleFonts.openSans(
+                  color: Colors.white,
+                )),
+            expandedHeight: 310,
             pinned: true,
-            leading: const Icon(CupertinoIcons.sunset_fill),
+            leading:
+                const Icon(CupertinoIcons.sunset_fill, color: Colors.white),
             backgroundColor: Colors.green[600],
             elevation: 0,
             flexibleSpace: FlexibleSpaceBar(
-              background: Container(
-                margin: const EdgeInsets.only(top: 60, left: 15, right: 15),
-                padding: const EdgeInsets.all(25),
-                color: Colors.green[600],
-                child: const Welcome(title: 'Welcome'),
+              background: Center(
+                child: Container(
+                  margin: const EdgeInsets.only(top: 60, left: 15, right: 15),
+                  padding: const EdgeInsets.all(25),
+                  color: Colors.green[600],
+                  child: const Welcome(title: 'Welcome'),
+                ),
               ),
             ),
             actions: [
@@ -105,10 +111,8 @@ class _HomeState extends State<Home> {
                     splashColor: Colors.white,
                     tooltip: 'Search',
                     onPressed: () => {Get.to(() => const Search())},
-                    icon: const Icon(
-                      Icons.search,
-                      size: 30,
-                    )),
+                    icon: const Icon(Icons.search,
+                        size: 30, color: Colors.white)),
               )
             ],
           ),

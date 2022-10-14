@@ -13,7 +13,7 @@ class Options extends StatelessWidget {
       children: [
         Text(
           "Don't have an account?",
-          style: GoogleFonts.poppins(fontSize: 18),
+          style: GoogleFonts.openSans(fontSize: 18),
         ),
         GestureDetector(
           onTap: () {
@@ -21,7 +21,7 @@ class Options extends StatelessWidget {
           },
           child: Text(
             "Create Account",
-            style: GoogleFonts.poppins(fontSize: 18, color: Colors.green),
+            style: GoogleFonts.openSans(fontSize: 18, color: Colors.green),
           ),
         )
       ],

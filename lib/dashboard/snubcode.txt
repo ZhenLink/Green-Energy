@@ -15,3 +15,53 @@ Container(
           ),
         ),
       )
+
+
+
+
+
+
+
+
+
+
+
+
+       Container(
+          padding: const EdgeInsets.all(10),
+          color: Colors.white,
+          child: SizedBox(
+              child: Column(
+            children: [
+              Icon(Icons.image, color: Colors.green[600], size: 40),
+              Text('Residential Images',
+                  style: GoogleFonts.openSans(
+                      fontSize: 20, fontWeight: FontWeight.w600)),
+              Text(
+                  'Tap the image placeholders to upload Images of your house to be used for the assessment to determin the correct size of the solar system.',
+                  style: GoogleFonts.openSans(fontSize: 17),
+                  textAlign: TextAlign.center),
+              const Padding(padding: EdgeInsets.symmetric(vertical: 20)),
+              const Padding(padding: EdgeInsets.symmetric(vertical: 20)),
+              GestureDetector(
+                child: Container(
+                  width: 120,
+                  height: 42,
+                  decoration: BoxDecoration(
+                    color: Colors.green,
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text('Upload images',
+                          style: GoogleFonts.openSans(
+                              fontSize: 14, color: Colors.white)),
+                    ],
+                  ),
+                ),
+                onTap: () => {},
+              ),
+            ],
+          ))),

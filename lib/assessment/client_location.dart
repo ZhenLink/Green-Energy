@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:get/get.dart';
+import 'package:gns_app/assessment/residential_images.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../env/privates.dart';
 
@@ -51,7 +53,7 @@ class _ClientLocationState extends State<ClientLocation> {
     // When we reach here, permissions are granted and we can
     // continue accessing the position of the device.
     return await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
+        desiredAccuracy: LocationAccuracy.bestForNavigation);
   }
 
   @override
@@ -81,7 +83,7 @@ class _ClientLocationState extends State<ClientLocation> {
                   GestureDetector(
                     child: Container(
                       width: 120,
-                      height: 42,
+                      height: 50,
                       decoration: BoxDecoration(
                         color: Colors.green,
                         borderRadius: BorderRadius.circular(15),
@@ -92,14 +94,17 @@ class _ClientLocationState extends State<ClientLocation> {
                         children: [
                           Text('Get Location',
                               style: GoogleFonts.poppins(
-                                  fontSize: 14, color: Colors.white)),
+                                  fontSize: 16, color: Colors.white)),
                         ],
                       ),
                     ),
                     onTap: () => {
-                      _determinePosition().then((value) => myPrivates
-                          .getLocationdetails(40.7128, 74.0060)
-                          .then((value) => print(value))),
+                      _determinePosition().then(
+                        (coordinates) => myPrivates
+                            .getLocationdetails(
+                                coordinates.latitude, coordinates.longitude)
+                            .then((value) => print('finished')),
+                      ),
                     },
                   ),
                 ],

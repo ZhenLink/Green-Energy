@@ -12,6 +12,8 @@ class SignInForm extends StatefulWidget {
 
 class _SignInFormState extends State<SignInForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   bool _isObsecure = true;
   @override
   Widget build(BuildContext context) {
@@ -28,7 +30,7 @@ class _SignInFormState extends State<SignInForm> {
                   decoration: InputDecoration(
                       hintText: 'Enter your email address',
                       label: const Text('Email Address'),
-                      labelStyle: GoogleFonts.poppins(fontSize: 20),
+                      labelStyle: GoogleFonts.openSans(fontSize: 20),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8))),
                   validator: (String? value) {
@@ -51,7 +53,7 @@ class _SignInFormState extends State<SignInForm> {
                   decoration: InputDecoration(
                     hintText: 'Enter Password',
                     label: const Text('Password'),
-                    labelStyle: GoogleFonts.poppins(fontSize: 20),
+                    labelStyle: GoogleFonts.openSans(fontSize: 20),
                     suffixIcon: IconButton(
                         onPressed: () {
                           setState(() {
@@ -75,7 +77,7 @@ class _SignInFormState extends State<SignInForm> {
                 GestureDetector(
                   child: Container(
                     width: 170,
-                    height: 50,
+                    height: 52,
                     decoration: BoxDecoration(
                       color: Colors.green,
                       borderRadius: BorderRadius.circular(20),
@@ -84,8 +86,8 @@ class _SignInFormState extends State<SignInForm> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Text('Continue',
-                            style: GoogleFonts.poppins(
+                        Text('Sign in',
+                            style: GoogleFonts.openSans(
                                 fontSize: 18, color: Colors.white)),
                       ],
                     ),
@@ -93,12 +95,12 @@ class _SignInFormState extends State<SignInForm> {
                   onTap: () => {
                     if (_formKey.currentState!.validate())
                       {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Logged in successfully'),
-                          ),
-                        ),
-                        Get.to(() => const Home())
+                        //ScaffoldMessenger.of(context).showSnackBar(
+                        //// const SnackBar(
+                        //  content: Text('Logged in successfully'),
+                        // ),
+                        //),
+                        // Get.to(() => const Home())
                       }
                     else
                       {}

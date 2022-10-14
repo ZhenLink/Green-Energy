@@ -11,14 +11,15 @@ class RegisterText extends StatelessWidget {
         const Padding(padding: EdgeInsets.symmetric(vertical: 30.0)),
         Text(
           "Create an account",
-          style: GoogleFonts.poppins(fontSize: 30, fontWeight: FontWeight.bold),
+          style:
+              GoogleFonts.openSans(fontSize: 30, fontWeight: FontWeight.bold),
           textAlign: TextAlign.center,
         ),
         Container(
           margin: const EdgeInsets.only(left: 10, right: 10),
           child: Text(
             "We will use this information to create your profile.",
-            style: GoogleFonts.poppins(
+            style: GoogleFonts.openSans(
               fontSize: 18,
               fontWeight: FontWeight.normal,
             ),
