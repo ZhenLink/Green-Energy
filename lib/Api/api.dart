@@ -4,13 +4,25 @@ import 'package:http/http.dart' as http;
 
 class MyAPI {
   final String _url = "http://localhost:5000/api";
-  createUser(Map data, endpoint) async {
-    var fullUrl = _url + endpoint;
-    return await http.post(
-      Uri.parse(fullUrl),
-      headers: _setHeaders(),
-      body: jsonEncode(data),
-    );
+
+  Future createUser(Map data, endpoint) async {
+    try {
+      var fullUrl = _url + endpoint;
+      var response = await http.post(
+        Uri.parse(fullUrl),
+        headers: _setHeaders(),
+        body: jsonEncode(data),
+      );
+
+      if (response.statusCode == 201) {
+        return response.body;
+      } else {
+        //error message
+        return response.reasonPhrase;
+      }
+    } catch (err) {
+      return err;
+    }
   }
 
   _setHeaders() =>

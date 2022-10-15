@@ -1,11 +1,9 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gns_app/assessment/client_location.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'assessment_steps.dart';
+//import 'assessment_steps.dart';
 
 class ApplianceChoice extends StatefulWidget {
   const ApplianceChoice({Key? key}) : super(key: key);

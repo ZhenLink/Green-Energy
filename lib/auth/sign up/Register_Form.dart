@@ -19,22 +19,9 @@ class _RegisterFormState extends State<RegisterForm> {
   final TextEditingController _emailAdressController = TextEditingController();
   final TextEditingController _phoneNumberController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  MyAPI _api = MyAPI();
   bool _isObsecure = true;
-
-  _registerUser() async {
-    final userData = {
-      "name": _fullNameController.text,
-      "emailAddress": _emailAdressController.text,
-      "contactNumber": _phoneNumberController.text,
-      "password": _passwordController.text,
-    };
-
-    final res = await _api.createUser(userData, '/user');
-
-    final body = jsonDecode(res.body);
-    print(body);
-  }
+  late Map<String, String> userData;
+  var response;
 
   @override
   Widget build(BuildContext context) {
@@ -156,15 +143,18 @@ class _RegisterFormState extends State<RegisterForm> {
                         ],
                       ),
                     ),
-                    onTap: () => {
+                    onTap: () async => {
                       if (_formKey.currentState!.validate())
                         {
-                          //ScaffoldMessenger.of(context).showSnackBar(
-                          // const SnackBar(
-                          //  content: Text('Registered successfully'),
-                          // ),
-                          // ),
-                          _registerUser(),
+                          userData = {
+                            "name": _fullNameController.text,
+                            "emailAddress": _emailAdressController.text,
+                            "contactNumber": _phoneNumberController.text,
+                            "password": _passwordController.text,
+                          },
+                          await MyAPI()
+                              .createUser(userData, '/user')
+                              .then((value) => print(value)),
                         }
                       else
                         {}
