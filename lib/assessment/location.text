@@ -121,3 +121,42 @@
                         ),
                       ],
                     ),
+
+
+
+
+
+
+
+
+
+
+
+
+                    GestureDetector(
+                    child: Container(
+                      width: 120,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: Colors.green,
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text('Get Location',
+                              style: GoogleFonts.poppins(
+                                  fontSize: 16, color: Colors.white)),
+                        ],
+                      ),
+                    ),
+                    onTap: () => {
+                      _determinePosition().then(
+                        (coordinates) => myPrivates
+                            .getLocationdetails(
+                                coordinates.latitude, coordinates.longitude)
+                            .then((value) => print(value.first.addressLine)),
+                      ),
+                    },
+                  ),

@@ -18,7 +18,7 @@ class ApplianceAssessment {
 
   var applianceAssessmentQuestions = [
     {
-      "Question": "what type lights do you use?",
+      "Question": "what type of lights do you use?",
       "Answer": "",
       "Appliance-Category": "Lighting",
     },

@@ -1,13 +1,18 @@
 import 'dart:convert';
 // ignore: depend_on_referenced_packages
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
-class MyAPI {
-  final String _url = "http://localhost:5000/api";
+class MyAPI extends GetConnect {
+  final String _baseUrl = "http://localhost:5000/api";
+  var response;
+
+  Future<Response> authenticateUser(Map data, String endpoint) =>
+      post(_baseUrl + endpoint, data);
 
   Future createUser(Map data, endpoint) async {
     try {
-      var fullUrl = _url + endpoint;
+      var fullUrl = _baseUrl + endpoint;
       var response = await http.post(
         Uri.parse(fullUrl),
         headers: _setHeaders(),

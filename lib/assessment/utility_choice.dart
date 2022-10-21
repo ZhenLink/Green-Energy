@@ -20,12 +20,21 @@ class UtilityChoice extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Icon(Icons.online_prediction_sharp,
+                  color: Colors.green[600], size: 42),
+              Text('Utility type',
+                  style: GoogleFonts.openSans(
+                      fontSize: 20, fontWeight: FontWeight.w600)),
               Padding(
-                padding: const EdgeInsets.only(bottom: 60.0),
-                child: Text('Select your solar application type',
-                    style: GoogleFonts.openSans(fontSize: 17)),
+                padding:
+                    const EdgeInsets.only(bottom: 60.0, left: 20, right: 20),
+                child: Text(
+                  'Select your desired solar application type below to proceed.',
+                  style: GoogleFonts.openSans(fontSize: 17),
+                  textAlign: TextAlign.center,
+                ),
               ),
-              Row(
+              Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -62,6 +71,7 @@ class UtilityChoice extends StatelessWidget {
                             )),
                       ),
                     ),
+                    const Padding(padding: EdgeInsets.symmetric(vertical: 10)),
                     GestureDetector(
                       onTap: () {
                         Get.to(() => const ApplianceChoice());

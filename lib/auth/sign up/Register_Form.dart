@@ -21,7 +21,6 @@ class _RegisterFormState extends State<RegisterForm> {
   final TextEditingController _passwordController = TextEditingController();
   bool _isObsecure = true;
   late Map<String, String> userData;
-  var response;
 
   @override
   Widget build(BuildContext context) {
@@ -154,7 +153,7 @@ class _RegisterFormState extends State<RegisterForm> {
                           },
                           await MyAPI()
                               .createUser(userData, '/user')
-                              .then((value) => print(value)),
+                              .then((value) => Get.to(() => const Login())),
                         }
                       else
                         {}

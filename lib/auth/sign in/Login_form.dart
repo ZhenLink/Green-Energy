@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gns_app/dashboard/home.dart';
+import 'package:gns_app/Api/api.dart';
+import 'package:gns_app/dashboard/Home.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
 
@@ -15,6 +16,9 @@ class _SignInFormState extends State<SignInForm> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool _isObsecure = true;
+  late Map<String, String> userData;
+  Response? _response;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -26,6 +30,7 @@ class _SignInFormState extends State<SignInForm> {
             child: Column(
               children: <Widget>[
                 TextFormField(
+                  controller: _emailController,
                   style: GoogleFonts.openSans(fontSize: 19),
                   decoration: InputDecoration(
                       hintText: 'Enter your email address',
@@ -48,6 +53,7 @@ class _SignInFormState extends State<SignInForm> {
                 ),
                 const Padding(padding: EdgeInsets.symmetric(vertical: 10.0)),
                 TextFormField(
+                  controller: _passwordController,
                   style: GoogleFonts.openSans(fontSize: 19),
                   obscureText: _isObsecure,
                   decoration: InputDecoration(
@@ -92,18 +98,45 @@ class _SignInFormState extends State<SignInForm> {
                       ],
                     ),
                   ),
-                  onTap: () => {
+                  onTap: () async => {
                     if (_formKey.currentState!.validate())
                       {
-                        //ScaffoldMessenger.of(context).showSnackBar(
-                        //// const SnackBar(
-                        //  content: Text('Logged in successfully'),
-                        // ),
-                        //),
-                        // Get.to(() => const Home())
+                        userData = {
+                          "emailAddress": _emailController.text,
+                          "password": _passwordController.text
+                        },
+                        _response = await MyAPI()
+                            .authenticateUser(userData, '/user/signin'),
+                        if (_response!.statusCode == 200)
+                          {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Logged in successfully'),
+                              ),
+                            ),
+                            Get.to(() => const Home())
+                          }
+                        else if (_response!.statusCode == 404 ||
+                            _response!.statusCode == 400)
+                          {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content:
+                                    Text('Incorrect Email Address or Password'),
+                              ),
+                            )
+                          }
+                        else
+                          {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text(
+                                    'Internal Server Error try again later..'),
+                              ),
+                            ),
+                            //print(_response!.body['message'])
+                          }
                       }
-                    else
-                      {}
                   },
                 ),
                 const Padding(padding: EdgeInsets.symmetric(vertical: 10.0)),

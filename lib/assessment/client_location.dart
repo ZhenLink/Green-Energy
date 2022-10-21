@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:gns_app/assessment/assessment_steps.dart';
 import 'package:gns_app/assessment/residential_images.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../env/privates.dart';
@@ -13,8 +14,17 @@ class ClientLocation extends StatefulWidget {
 }
 
 class _ClientLocationState extends State<ClientLocation> {
-  Position? position;
+  String _locationAddress = "Not set";
+  bool _locationSet = false;
+
   Private myPrivates = Private();
+
+  setLocationDetails(locAddress) {
+    setState(() {
+      _locationAddress = locAddress;
+      _locationSet = true;
+    });
+  }
 
   Future<Position> _determinePosition() async {
     bool serviceEnabled;
@@ -53,7 +63,8 @@ class _ClientLocationState extends State<ClientLocation> {
     // When we reach here, permissions are granted and we can
     // continue accessing the position of the device.
     return await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.bestForNavigation);
+        desiredAccuracy: LocationAccuracy.high,
+        forceAndroidLocationManager: true);
   }
 
   @override
@@ -64,51 +75,119 @@ class _ClientLocationState extends State<ClientLocation> {
       color: Colors.white,
       child: Center(
           child: SizedBox(
-              height: 400,
-              width: 400,
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.location_on_rounded,
-                      color: Colors.green[600], size: 40),
-                  Text('Residential Location',
-                      style: GoogleFonts.openSans(
-                          fontSize: 20, fontWeight: FontWeight.w600)),
-                  Text(
-                      'Help us to know the location of your residence by tapping the button below.',
-                      style: GoogleFonts.openSans(fontSize: 17),
-                      textAlign: TextAlign.center),
-                  const Padding(padding: EdgeInsets.symmetric(vertical: 20)),
-                  GestureDetector(
-                    child: Container(
-                      width: 120,
-                      height: 50,
-                      decoration: BoxDecoration(
-                        color: Colors.green,
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(Icons.location_on_rounded, color: Colors.green[600], size: 40),
+          Text('Residential Location',
+              style: GoogleFonts.openSans(
+                  fontSize: 20, fontWeight: FontWeight.w600)),
+          Padding(
+            padding: const EdgeInsets.all(15),
+            child: Text(
+                'Help us to know the location of your residence by tapping the button below.',
+                style: GoogleFonts.openSans(fontSize: 17),
+                textAlign: TextAlign.center),
+          ),
+          const Padding(padding: EdgeInsets.symmetric(vertical: 10)),
+          ClipRRect(
+            clipBehavior: Clip.hardEdge,
+            borderRadius: BorderRadius.circular(12),
+            child: Container(
+              color: Colors.blueGrey[900],
+              width: 320,
+              height: 130,
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    // title and Details
+                    Padding(
+                      padding: const EdgeInsets.all(3.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Get Location',
-                              style: GoogleFonts.poppins(
-                                  fontSize: 16, color: Colors.white)),
+                          Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Text(
+                              'Residential address',
+                              style: GoogleFonts.openSans(
+                                  fontSize: 17, color: Colors.green[400]),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                top: 0, left: 8.0, right: 8.0, bottom: 1),
+                            child: Text(
+                              _locationAddress,
+                              style: GoogleFonts.openSans(
+                                  fontSize: 15,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w200),
+                              softWrap: true,
+                            ),
+                          ),
                         ],
                       ),
                     ),
-                    onTap: () => {
-                      _determinePosition().then(
-                        (coordinates) => myPrivates
-                            .getLocationdetails(
-                                coordinates.latitude, coordinates.longitude)
-                            .then((value) => print('finished')),
-                      ),
-                    },
+                  ],
+                ),
+              ),
+            ),
+          ),
+          const Padding(padding: EdgeInsets.symmetric(vertical: 10)),
+          _locationSet == false
+              ? GestureDetector(
+                  child: Container(
+                    width: 120,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      color: Colors.green,
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text('Get Location',
+                            style: GoogleFonts.poppins(
+                                fontSize: 16, color: Colors.white)),
+                      ],
+                    ),
                   ),
-                ],
-              ))),
+                  onTap: () => {
+                    _determinePosition().then((coordinates) => myPrivates
+                        .getLocationdetails(
+                            coordinates.latitude, coordinates.longitude)
+                        .then((value) =>
+                            setLocationDetails(value.first.addressLine))),
+                  },
+                )
+              : GestureDetector(
+                  child: Container(
+                    width: 120,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      color: Colors.green,
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text('Continue..',
+                            style: GoogleFonts.poppins(
+                                fontSize: 16, color: Colors.white)),
+                      ],
+                    ),
+                  ),
+                  onTap: () => {Get.to(() => const AssessmentSteps())},
+                ),
+        ],
+      ))),
     ));
   }
 }
