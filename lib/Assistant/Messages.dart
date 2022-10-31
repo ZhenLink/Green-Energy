@@ -12,6 +12,8 @@ class MessagesScreen extends StatefulWidget {
 }
 
 class _MessagesScreenState extends State<MessagesScreen> {
+  final ScrollController controller = ScrollController();
+
   @override
   Widget build(BuildContext context) {
     final w = MediaQuery.of(context).size.width;

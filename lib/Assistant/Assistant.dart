@@ -23,6 +23,7 @@ class Assistant extends StatefulWidget {
 class _AssistantState extends State<Assistant> {
   late DialogFlowtter dialogFlowtter;
   final TextEditingController _controller = TextEditingController();
+  final ScrollController _scrollController = ScrollController();
   List<Map<String, dynamic>> messages = [];
   Private myPrivates = Private();
   int _selectedIndex = 1;
@@ -37,6 +38,7 @@ class _AssistantState extends State<Assistant> {
 
   @override
   Widget build(BuildContext context) {
+    final w = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
           title: Text('Assistant',
@@ -102,61 +104,115 @@ class _AssistantState extends State<Assistant> {
               )
             ]),
       ),
-      body: Column(
-        children: [
-          Container(
-            padding: const EdgeInsets.only(top: 15, bottom: 10),
-            child: Column(children: [
-              Text(
-                "Today",
-                style: GoogleFonts.openSans(
-                    fontSize: 15, color: Colors.blueGrey[900]),
-              ),
-              Text(" ${DateFormat("Hm").format(DateTime.now())} pm",
+      body: SizedBox(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        child: Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.only(top: 15, bottom: 10),
+              child: Column(children: [
+                Text(
+                  "Today",
                   style: GoogleFonts.openSans(
-                      fontSize: 15, color: Colors.blueGrey[900])),
-            ]),
-          ),
-          Expanded(child: MessagesScreen(messages: messages)),
-          Padding(
-            padding: const EdgeInsets.all(10),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(30),
-              child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
-                color: Colors.white,
-                child: Row(
-                  children: [
-                    Icon(Icons.attach_file, color: Colors.green[600], size: 25),
-                    Expanded(
-                        child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: TextField(
-                        decoration: InputDecoration(
-                          hintText: 'Enter message',
-                          labelStyle: GoogleFonts.openSans(fontSize: 17),
+                      fontSize: 15, color: Colors.blueGrey[900]),
+                ),
+                Text(" ${DateFormat("Hm").format(DateTime.now())} pm",
+                    style: GoogleFonts.openSans(
+                        fontSize: 15, color: Colors.blueGrey[900])),
+              ]),
+            ),
+            Expanded(
+              child: ListView.separated(
+                shrinkWrap: true,
+                controller: _scrollController,
+                itemBuilder: ((context, index) {
+                  return Container(
+                    margin: const EdgeInsets.all(10),
+                    child: Row(
+                      mainAxisAlignment: messages[index]['isUserMessage']
+                          ? MainAxisAlignment.end
+                          : MainAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 10),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                                bottomLeft: const Radius.circular(20),
+                                topRight: const Radius.circular(20),
+                                bottomRight: Radius.circular(
+                                    messages[index]['isUserMessage'] ? 0 : 20),
+                                topLeft: Radius.circular(
+                                    messages[index]['isUserMessage'] ? 20 : 0)),
+                            color: messages[index]['isUserMessage']
+                                ? Colors.green[400]
+                                : Colors.blueGrey[700],
+                          ),
+                          constraints: BoxConstraints(maxWidth: w * 2 / 3),
+                          child: Text(
+                            messages[index]['message'].text.text[0],
+                            style: GoogleFonts.openSans(
+                                fontSize: 17, color: Colors.white),
+                          ),
+                        )
+                      ],
+                    ),
+                  );
+                }),
+                separatorBuilder: (_, i) =>
+                    const Padding(padding: EdgeInsets.only(top: 10)),
+                itemCount: messages.length,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(30),
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
+                  color: Colors.white,
+                  child: Row(
+                    children: [
+                      Icon(Icons.attach_file,
+                          color: Colors.green[600], size: 25),
+                      Expanded(
+                          child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextField(
+                          decoration: InputDecoration(
+                            hintText: 'Enter message',
+                            labelStyle: GoogleFonts.openSans(fontSize: 17),
+                          ),
+                          controller: _controller,
+                          style: GoogleFonts.openSans(
+                              color: Colors.blueGrey[900], fontSize: 16),
                         ),
-                        controller: _controller,
-                        style: GoogleFonts.openSans(
-                            color: Colors.blueGrey[900], fontSize: 16),
-                      ),
-                    )),
-                    IconButton(
-                        onPressed: () {
-                          sendMessage(_controller.text);
-                          _controller.clear();
-                        },
-                        icon: Icon(
-                          Icons.send,
-                          color: Colors.green[600],
-                        ))
-                  ],
+                      )),
+                      IconButton(
+                          onPressed: () {
+                            _scrollController.animateTo(
+                                _scrollController.position.maxScrollExtent,
+                                duration: const Duration(milliseconds: 300),
+                                curve: Curves.easeOut);
+
+                            print(_scrollController.position.maxScrollExtent);
+                            sendMessage(_controller.text);
+                            _controller.clear();
+                          },
+                          icon: Icon(
+                            Icons.send,
+                            color: Colors.green[600],
+                          ))
+                    ],
+                  ),
                 ),
               ),
             ),
-          )
-        ],
+          ],
+        ),
       ),
     );
   }

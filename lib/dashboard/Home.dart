@@ -54,7 +54,7 @@ class _HomeState extends State<Home> {
                   color: Colors.white,
                 ),
                 onPressed: () {
-                  Get.to(const Assistant(title: 'Asistant'));
+                  Get.to(() => const Assistant(title: 'Asistant'));
                 },
               ),
               GButton(
