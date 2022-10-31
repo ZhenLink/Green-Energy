@@ -112,37 +112,48 @@ class _AssistantState extends State<Assistant> {
                 style: GoogleFonts.openSans(
                     fontSize: 15, color: Colors.blueGrey[900]),
               ),
-              Text(" ${DateFormat("Hm").format(DateTime.now())} am",
+              Text(" ${DateFormat("Hm").format(DateTime.now())} pm",
                   style: GoogleFonts.openSans(
                       fontSize: 15, color: Colors.blueGrey[900])),
             ]),
           ),
           Expanded(child: MessagesScreen(messages: messages)),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-            color: Colors.white,
-            child: Row(
-              children: [
-                Expanded(
-                    child: TextField(
-                  decoration: InputDecoration(
-                    hintText: 'Enter message',
-                    labelStyle: GoogleFonts.openSans(fontSize: 18),
-                  ),
-                  controller: _controller,
-                  style: GoogleFonts.openSans(
-                      color: Colors.blueGrey[900], fontSize: 17),
-                )),
-                IconButton(
-                    onPressed: () {
-                      sendMessage(_controller.text);
-                      _controller.clear();
-                    },
-                    icon: Icon(
-                      Icons.send,
-                      color: Colors.blueGrey[800],
-                    ))
-              ],
+          Padding(
+            padding: const EdgeInsets.all(10),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(30),
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
+                color: Colors.white,
+                child: Row(
+                  children: [
+                    Icon(Icons.attach_file, color: Colors.green[600], size: 25),
+                    Expanded(
+                        child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextField(
+                        decoration: InputDecoration(
+                          hintText: 'Enter message',
+                          labelStyle: GoogleFonts.openSans(fontSize: 17),
+                        ),
+                        controller: _controller,
+                        style: GoogleFonts.openSans(
+                            color: Colors.blueGrey[900], fontSize: 16),
+                      ),
+                    )),
+                    IconButton(
+                        onPressed: () {
+                          sendMessage(_controller.text);
+                          _controller.clear();
+                        },
+                        icon: Icon(
+                          Icons.send,
+                          color: Colors.green[600],
+                        ))
+                  ],
+                ),
+              ),
             ),
           )
         ],
@@ -159,16 +170,6 @@ class _AssistantState extends State<Assistant> {
         });
 
         DetectIntentResponse response = await dialogFlowtter.detectIntent(
-            audioConfig: OutputAudioConfig(
-                audioEncoding:
-                    OutputAudioEncoding.OUTPUT_AUDIO_ENCODING_LINEAR_16,
-                sampleRateHertz: 312,
-                synthesizeSpeechConfig: SynthesizeSpeechConfig(
-                    pitch: -20,
-                    volumeGainDb: 0.0,
-                    speakingRate: 1.0,
-                    voice: VoiceSelectionParams(
-                        ssmlGender: SsmlVoiceGender.SSML_VOICE_GENDER_MALE))),
             queryInput: QueryInput(text: TextInput(text: text)));
         if (response.message == null) {
           return;

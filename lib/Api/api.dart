@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 
 class MyAPI extends GetConnect {
   final String _baseUrl = "http://localhost:5000/api";
+  // ignore: prefer_typing_uninitialized_variables
   var response;
 
   Future<Response> authenticateUser(Map data, String endpoint) =>

@@ -17,7 +17,7 @@ class _ApplianceChoiceState extends State<ApplianceChoice> {
   bool cookingChip = false;
   bool lightingChip = false;
   bool cosmeticChip = false;
-
+  final TextEditingController _otherAppliance = TextEditingController();
   List chosenCategories = [];
 
   @override
@@ -209,6 +209,8 @@ class _ApplianceChoiceState extends State<ApplianceChoice> {
                           }
                         else
                           {
+                            if (_otherAppliance.text.isNotEmpty)
+                              {chosenCategories.add(_otherAppliance.text)},
                             Get.to(() => const ClientLocation(),
                                 arguments: chosenCategories)
                           }

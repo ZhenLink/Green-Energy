@@ -23,6 +23,8 @@ class _ClientLocationState extends State<ClientLocation> {
     setState(() {
       _locationAddress = locAddress;
       _locationSet = true;
+
+      print(locAddress);
     });
   }
 
@@ -63,7 +65,7 @@ class _ClientLocationState extends State<ClientLocation> {
     // When we reach here, permissions are granted and we can
     // continue accessing the position of the device.
     return await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high,
+        desiredAccuracy: LocationAccuracy.best,
         forceAndroidLocationManager: true);
   }
 
