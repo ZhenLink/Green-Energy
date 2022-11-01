@@ -10,15 +10,18 @@ class ApplianceAssessment {
   static const int fridgesLoad = 400; //in watts
   static const int cookersLoad = 3000; //in watts
   static const int microwavesLoad = 600; //in watts
+  static const int toastersLoad = 600; //in watts
+  static const int blendersLoad = 400; //in watts
   static const int printersLoad = 50; //in watts
   static const int hairdryersLoad = 1500; //in watts
   static const int hairshaverload = 500; //in watts
-  static const int ir0nsLoad = 2000; //in watts
+  static const int ironsLoad = 2000; //in watts
   static const int electricFanLoad = 2000; //in watts
 
   var applianceAssessmentQuestions = [
     {
-      "Question": "what type of lights do you use?",
+      "Question":
+          "what type of lights do you use? e.g. Energy saver, normal etc",
       "Appliance-Category": "Lighting",
     },
     {
@@ -26,40 +29,43 @@ class ApplianceAssessment {
       "Appliance-Category": "Lighting",
     },
     {
-      "Question": "",
-      "Answer": "",
+      "Question": "Approximately, How many hours do they stay on?",
       "Appliance-Category": "Lighting",
     },
     {
-      "Question": "",
-      "Answer": "",
-      "Appliance-Category": "Cooking",
-      "total-load": 0
+      "Question": "What cooking utilities do you use? e.g. Cooker, Fridge etc",
+      "Appliance-Category": "Cooking/ Kitchen",
     },
     {
-      "Question": "",
-      "Answer": "",
-      "Appliance-Category": "Cooking",
+      "Question": "Approximately, How many hours do they stay on?",
+      "Appliance-Category": "Cooking/ Kitchen",
     },
     {
-      "Question": "",
-      "Answer": "",
-      "Appliance-Category": "Cooking",
+      "Question":
+          "How many do you have per cooking utility e.g. Cooker = 2, etc",
+      "Appliance-Category": "Cooking/ Kitchen",
     },
     {
-      "Question": "",
-      "Answer": "",
+      "Question":
+          "What Electronic devices do you use? e.g. Phones, Laptops etc",
       "Appliance-Category": "Electronics",
     },
     {
-      "Question": "",
-      "Answer": "",
+      "Question": "Approximately, How many hours do they stay on?",
       "Appliance-Category": "Electronics",
     },
     {
-      "Question": "",
-      "Answer": "",
+      "Question": "How many do you have per device e.g. laptops = 2, etc",
       "Appliance-Category": "Electronics",
+    },
+    {
+      "Question":
+          "What other house accessories do you use? e.g. Fans, Irons etc ",
+      "Appliance-Category": "House Accessories",
+    },
+    {
+      "Question": "How many do you have per device e.g. Irons = 2, etc",
+      "Appliance-Category": "House Accessories",
     },
   ];
 }

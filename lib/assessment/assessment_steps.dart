@@ -75,8 +75,15 @@ class _AssessmentStepsState extends State<AssessmentSteps> {
                     Step(
                         title: Text('Appliance Category',
                             style: GoogleFonts.openSans(fontSize: 18)),
-                        subtitle: Text('Electronics',
-                            style: GoogleFonts.openSans(fontSize: 14)),
+                        subtitle: _questionIndex <
+                                data.applianceAssessmentQuestions.length
+                            ? Text(
+                                data.applianceAssessmentQuestions[
+                                        _questionIndex]['Appliance-Category']
+                                    .toString(),
+                                style: GoogleFonts.openSans(fontSize: 14))
+                            : Text('categories finished',
+                                style: GoogleFonts.openSans(fontSize: 14)),
                         content: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -87,7 +94,7 @@ class _AssessmentStepsState extends State<AssessmentSteps> {
                                         .applianceAssessmentQuestions[
                                             _questionIndex]['Question']
                                         .toString())
-                                : Text('Completed! Continue',
+                                : Text('Assessment Completed!',
                                     style: GoogleFonts.openSans(fontSize: 16)),
                             TextField(
                                 style: const TextStyle(fontSize: 18),

@@ -15,7 +15,7 @@ class ClientLocation extends StatefulWidget {
 
 class _ClientLocationState extends State<ClientLocation> {
   String _locationAddress = "Not set";
-  bool _locationSet = false;
+  bool _locationSet = true;
 
   Private myPrivates = Private();
 
