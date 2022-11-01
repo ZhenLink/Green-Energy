@@ -13,18 +13,16 @@ class ApplianceAssessment {
   static const int printersLoad = 50; //in watts
   static const int hairdryersLoad = 1500; //in watts
   static const int hairshaverload = 500; //in watts
-  static const int iornsLoad = 2000; //in watts
+  static const int ir0nsLoad = 2000; //in watts
   static const int electricFanLoad = 2000; //in watts
 
   var applianceAssessmentQuestions = [
     {
       "Question": "what type of lights do you use?",
-      "Answer": "",
       "Appliance-Category": "Lighting",
     },
     {
       "Question": "How many lights do you have?",
-      "Answer": "",
       "Appliance-Category": "Lighting",
     },
     {
