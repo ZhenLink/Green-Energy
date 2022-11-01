@@ -118,6 +118,31 @@ class _AssistantState extends State<Assistant> {
         width: MediaQuery.of(context).size.width,
         child: Column(
           children: [
+            Container(
+              padding: const EdgeInsets.only(top: 15, bottom: 10),
+              child: Column(children: [
+                Text(
+                  "Get help with our assistant anytime.",
+                  style: GoogleFonts.openSans(
+                      fontSize: 15, color: Colors.blueGrey[900]),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Icon(Icons.circle, color: Colors.green, size: 10),
+                    const Padding(padding: EdgeInsets.only(left: 4)),
+                    Text(
+                      "Online",
+                      style: GoogleFonts.openSans(
+                          fontSize: 15,
+                          color: Colors.green[900],
+                          fontWeight: FontWeight.w600),
+                    ),
+                  ],
+                ),
+              ]),
+            ),
             Expanded(
               child: ListView.separated(
                 shrinkWrap: true,
