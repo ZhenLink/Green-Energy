@@ -27,6 +27,12 @@ class _AssistantState extends State<Assistant> {
   List<Map<String, dynamic>> messages = [];
   Private myPrivates = Private();
   int _selectedIndex = 1;
+  bool _needsScroll = false;
+
+  void _scrollToEnd() async {
+    _scrollController.animateTo(_scrollController.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 300), curve: Curves.easeOut);
+  }
 
   @override
   void initState() {
@@ -38,6 +44,9 @@ class _AssistantState extends State<Assistant> {
 
   @override
   Widget build(BuildContext context) {
+    if (_needsScroll) {
+      WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToEnd());
+    }
     final w = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
@@ -109,19 +118,6 @@ class _AssistantState extends State<Assistant> {
         width: MediaQuery.of(context).size.width,
         child: Column(
           children: [
-            Container(
-              padding: const EdgeInsets.only(top: 15, bottom: 10),
-              child: Column(children: [
-                Text(
-                  "Today",
-                  style: GoogleFonts.openSans(
-                      fontSize: 15, color: Colors.blueGrey[900]),
-                ),
-                Text(" ${DateFormat("Hm").format(DateTime.now())} pm",
-                    style: GoogleFonts.openSans(
-                        fontSize: 15, color: Colors.blueGrey[900])),
-              ]),
-            ),
             Expanded(
               child: ListView.separated(
                 shrinkWrap: true,
@@ -193,12 +189,6 @@ class _AssistantState extends State<Assistant> {
                       )),
                       IconButton(
                           onPressed: () {
-                            _scrollController.animateTo(
-                                _scrollController.position.maxScrollExtent,
-                                duration: const Duration(milliseconds: 300),
-                                curve: Curves.easeOut);
-
-                            print(_scrollController.position.maxScrollExtent);
                             sendMessage(_controller.text);
                             _controller.clear();
                           },
@@ -242,5 +232,6 @@ class _AssistantState extends State<Assistant> {
 
   addMessage(Message message, [bool isUserMessage = false]) {
     messages.add({'message': message, 'isUserMessage': isUserMessage});
+    _needsScroll = true;
   }
 }

@@ -44,6 +44,7 @@ dependencies:
   geolocator: ^9.0.2
   image_picker: ^0.8.6
   location_geocoder: ^1.0.5
+  scrollable_positioned_list: ^0.3.5
 
 dev_dependencies:
   flutter_test:
