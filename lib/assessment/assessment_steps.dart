@@ -20,11 +20,13 @@ class AssessmentSteps extends StatefulWidget {
 
 class _AssessmentStepsState extends State<AssessmentSteps> {
   final List _chosenCategoriesAndLocation = Get.arguments;
+  final TextEditingController _answerController = TextEditingController();
   Response? _response;
   int _questionIndex = 0;
   ApplianceAssessment data = ApplianceAssessment();
   late List locationCoordinates = [];
   late List assessmentQuestions = [];
+  var assessmentAnswers = [];
 
   //getting assessment questions from mongoDB
   getAssessmentQuestions() async {
@@ -40,6 +42,7 @@ class _AssessmentStepsState extends State<AssessmentSteps> {
     }
   }
 
+  //getting next questions from questions list
   void nextQuestion() {
     if (_questionIndex < assessmentQuestions.length) {
     } else {
@@ -48,6 +51,23 @@ class _AssessmentStepsState extends State<AssessmentSteps> {
     setState(() {
       _questionIndex += 1;
     });
+  }
+
+  //Answering Question
+
+  void setAssessmentAnswers(answerText, questionID, category, question) {
+    if (answerText != null) {
+      setState(() {
+        assessmentAnswers.add({
+          "Id": questionID,
+          "Question": question,
+          "Category": category,
+          "Answer": answerText
+        });
+      });
+    } else {
+      print('The question has not been answered');
+    }
   }
 
   @override
@@ -106,11 +126,29 @@ class _AssessmentStepsState extends State<AssessmentSteps> {
                             TextField(
                                 maxLines: 4,
                                 minLines: 1,
+                                controller: _answerController,
                                 style: const TextStyle(fontSize: 17),
                                 decoration: InputDecoration(
                                   suffixIcon: GestureDetector(
                                       onTap: (() async => {
+                                            if (_questionIndex <
+                                                assessmentQuestions.length)
+                                              {
+                                                setAssessmentAnswers(
+                                                    _answerController.text,
+                                                    assessmentQuestions[
+                                                        _questionIndex]['_id'],
+                                                    assessmentQuestions[
+                                                            _questionIndex]
+                                                        ['Category'],
+                                                    assessmentQuestions[
+                                                            _questionIndex]
+                                                        ['Question'])
+                                              }
+                                            else
+                                              {print('done adding questions')},
                                             nextQuestion(),
+                                            _answerController.clear(),
                                           }),
                                       child: const Icon(Icons.send)),
                                   hintText: 'Answer here',
