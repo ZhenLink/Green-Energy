@@ -97,6 +97,8 @@ class _AssessmentStepsState extends State<AssessmentSteps> {
                                 : Text('Assessment Completed!',
                                     style: GoogleFonts.openSans(fontSize: 16)),
                             TextField(
+                                maxLines: 4,
+                                minLines: 1,
                                 style: const TextStyle(fontSize: 18),
                                 decoration: InputDecoration(
                                   suffixIcon: GestureDetector(
