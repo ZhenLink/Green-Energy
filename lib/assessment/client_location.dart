@@ -14,17 +14,24 @@ class ClientLocation extends StatefulWidget {
 }
 
 class _ClientLocationState extends State<ClientLocation> {
+  final List _applianceCategories = Get.arguments;
   String _locationAddress = "Not set";
-  bool _locationSet = true;
+  var _locationCoordinates;
+  bool _locationSet = false;
+  final List _locationAndApplianceCategories = [];
+
+  void addAssessmentArguments() {
+    _locationAndApplianceCategories.add(_applianceCategories);
+    _locationAndApplianceCategories.add(_locationCoordinates);
+  }
 
   Private myPrivates = Private();
 
-  setLocationDetails(locAddress) {
+  setLocationDetails(locAddress, coordinates) {
     setState(() {
       _locationAddress = locAddress;
+      _locationCoordinates = coordinates;
       _locationSet = true;
-
-      print(locAddress);
     });
   }
 
@@ -36,10 +43,6 @@ class _ClientLocationState extends State<ClientLocation> {
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
 
     if (!serviceEnabled) {
-      // Location services are not enabled don't continue
-      // accessing the position and request users of the
-      // App to enable the location services.
-      //permission = await Geolocator.requestPermission();
       return Future.error('Location services are disabled.');
     }
 
@@ -47,23 +50,16 @@ class _ClientLocationState extends State<ClientLocation> {
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
-        // Permissions are denied, next time you could try
-        // requesting permissions again (this is also where
-        // Android's shouldShowRequestPermissionRationale
-        // returned true. According to Android guidelines
-        // your App should show an explanatory UI now.
         return Future.error('Location permissions are denied');
       }
     }
 
     if (permission == LocationPermission.deniedForever) {
-      // Permissions are denied forever, handle appropriately.
+      // Permissions are denied forever, handle here.
       return Future.error(
           'Location permissions are permanently denied, we cannot request permissions.');
     }
 
-    // When we reach here, permissions are granted and we can
-    // continue accessing the position of the device.
     return await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.best,
         forceAndroidLocationManager: true);
@@ -164,8 +160,8 @@ class _ClientLocationState extends State<ClientLocation> {
                     _determinePosition().then((coordinates) => myPrivates
                         .getLocationdetails(
                             coordinates.latitude, coordinates.longitude)
-                        .then((value) =>
-                            setLocationDetails(value.first.addressLine))),
+                        .then((value) => setLocationDetails(
+                            value.first.addressLine, value.first.coordinates))),
                   },
                 )
               : GestureDetector(
@@ -186,7 +182,11 @@ class _ClientLocationState extends State<ClientLocation> {
                       ],
                     ),
                   ),
-                  onTap: () => {Get.to(() => const AssessmentSteps())},
+                  onTap: () => {
+                    addAssessmentArguments(),
+                    Get.to(() => const AssessmentSteps(),
+                        arguments: _locationAndApplianceCategories)
+                  },
                 ),
         ],
       ))),

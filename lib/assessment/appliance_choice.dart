@@ -16,7 +16,7 @@ class _ApplianceChoiceState extends State<ApplianceChoice> {
   bool electronicChip = false;
   bool cookingChip = false;
   bool lightingChip = false;
-  bool cosmeticChip = false;
+  bool houseAccessoriesChip = false;
   final TextEditingController _otherAppliance = TextEditingController();
   List chosenCategories = [];
 
@@ -57,9 +57,9 @@ class _ApplianceChoiceState extends State<ApplianceChoice> {
                               setState(() {
                                 electronicChip = currentChipState;
                                 if (electronicChip) {
-                                  chosenCategories.add('Electronic');
+                                  chosenCategories.add('Electronics');
                                 } else {
-                                  chosenCategories.remove('Electronic');
+                                  chosenCategories.remove('Electronics');
                                 }
                               });
                             },
@@ -83,9 +83,9 @@ class _ApplianceChoiceState extends State<ApplianceChoice> {
                               setState(() {
                                 cookingChip = cookingChipState;
                                 if (cookingChip) {
-                                  chosenCategories.add('Cooking');
+                                  chosenCategories.add('Cooking/ Kitchen');
                                 } else {
-                                  chosenCategories.remove('Cooking');
+                                  chosenCategories.remove('Cooking/ Kitchen');
                                 }
                               });
                             },
@@ -133,13 +133,14 @@ class _ApplianceChoiceState extends State<ApplianceChoice> {
                         padding: const EdgeInsets.only(
                             left: 1, right: 5, top: 10, bottom: 10),
                         child: ChoiceChip(
-                            onSelected: (cosmeticChipChipState) {
+                            onSelected: (houseAccessoriesChipChipState) {
                               setState(() {
-                                cosmeticChip = cosmeticChipChipState;
-                                if (cosmeticChip) {
-                                  chosenCategories.add('Cosmetic');
+                                houseAccessoriesChip =
+                                    houseAccessoriesChipChipState;
+                                if (houseAccessoriesChip) {
+                                  chosenCategories.add('House Accessories');
                                 } else {
-                                  chosenCategories.remove('Cosmetic');
+                                  chosenCategories.remove('House Accessories');
                                 }
                               });
                             },
@@ -152,9 +153,9 @@ class _ApplianceChoiceState extends State<ApplianceChoice> {
                                 top: 5, bottom: 5, left: 2, right: 4),
                             avatar: const Icon(Icons.compost_outlined,
                                 color: Colors.white),
-                            label: const Text('Cosmetics',
+                            label: const Text('House Accessories',
                                 style: TextStyle(color: Colors.white)),
-                            selected: cosmeticChip),
+                            selected: houseAccessoriesChip),
                       ),
                     ],
                   ),

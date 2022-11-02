@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dialog_flowtter/dialog_flowtter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:gns_app/Api/api.dart';
 import 'package:get/get.dart';
 import 'package:gns_app/assessment/question.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -18,32 +19,41 @@ class AssessmentSteps extends StatefulWidget {
 }
 
 class _AssessmentStepsState extends State<AssessmentSteps> {
-  //final List _chosenCategories = Get.arguments;
-  late int _currentStep = 0;
-
+  final List _chosenCategoriesAndLocation = Get.arguments;
+  Response? _response;
   int _questionIndex = 0;
   ApplianceAssessment data = ApplianceAssessment();
   late List locationCoordinates = [];
-  final int totalSteps = 2;
+  late List assessmentQuestions = [];
 
-  void nextAssessmentStep() {
-    if (_currentStep != totalSteps) {
+  //getting assessment questions from mongoDB
+  getAssessmentQuestions() async {
+    var categories = _chosenCategoriesAndLocation[0];
+
+    _response = await MyAPI().getQuestions(categories, '/assessment/questions');
+    if (_response!.statusCode == 200) {
       setState(() {
-        _currentStep += 1;
+        assessmentQuestions = _response!.body;
       });
     } else {
-      print('We are done here');
+      print(_response!.statusCode);
     }
   }
 
   void nextQuestion() {
-    if (_questionIndex < data.applianceAssessmentQuestions.length) {
+    if (_questionIndex < assessmentQuestions.length) {
+    } else {
       print('We have no more Questions');
     }
     setState(() {
       _questionIndex += 1;
-      //print(_chosenCategories);
     });
+  }
+
+  @override
+  void initState() {
+    getAssessmentQuestions();
+    super.initState();
   }
 
   @override
@@ -75,11 +85,9 @@ class _AssessmentStepsState extends State<AssessmentSteps> {
                     Step(
                         title: Text('Appliance Category',
                             style: GoogleFonts.openSans(fontSize: 18)),
-                        subtitle: _questionIndex <
-                                data.applianceAssessmentQuestions.length
+                        subtitle: _questionIndex < assessmentQuestions.length
                             ? Text(
-                                data.applianceAssessmentQuestions[
-                                        _questionIndex]['Appliance-Category']
+                                assessmentQuestions[_questionIndex]['Category']
                                     .toString(),
                                 style: GoogleFonts.openSans(fontSize: 14))
                             : Text('categories finished',
@@ -87,27 +95,28 @@ class _AssessmentStepsState extends State<AssessmentSteps> {
                         content: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            _questionIndex <
-                                    data.applianceAssessmentQuestions.length
+                            _questionIndex < assessmentQuestions.length
                                 ? Question(
-                                    questions: data
-                                        .applianceAssessmentQuestions[
-                                            _questionIndex]['Question']
-                                        .toString())
+                                    questions:
+                                        assessmentQuestions[_questionIndex]
+                                                ['Question']
+                                            .toString())
                                 : Text('Assessment Completed!',
                                     style: GoogleFonts.openSans(fontSize: 16)),
                             TextField(
                                 maxLines: 4,
                                 minLines: 1,
-                                style: const TextStyle(fontSize: 18),
+                                style: const TextStyle(fontSize: 17),
                                 decoration: InputDecoration(
                                   suffixIcon: GestureDetector(
-                                      onTap: (() => {nextQuestion()}),
+                                      onTap: (() async => {
+                                            nextQuestion(),
+                                          }),
                                       child: const Icon(Icons.send)),
                                   hintText: 'Answer here',
-                                  hintStyle: GoogleFonts.openSans(fontSize: 18),
+                                  hintStyle: GoogleFonts.openSans(fontSize: 17),
                                   labelStyle:
-                                      GoogleFonts.openSans(fontSize: 18),
+                                      GoogleFonts.openSans(fontSize: 17),
                                 )),
                           ],
                         )),

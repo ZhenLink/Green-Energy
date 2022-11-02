@@ -8,6 +8,7 @@ class MyAPI extends GetConnect {
   // ignore: prefer_typing_uninitialized_variables
   var response;
 
+  // User Authenticatiom
   Future<Response> authenticateUser(Map data, String endpoint) =>
       post(_baseUrl + endpoint, data);
 
@@ -30,6 +31,10 @@ class MyAPI extends GetConnect {
       return err;
     }
   }
+
+  //Get Assessment Questions
+  Future<Response> getQuestions(data, String endpoint) =>
+      post(_baseUrl + endpoint, data);
 
   _setHeaders() =>
       {'content-type': 'application/json', 'accept': 'application/json'};
