@@ -12,25 +12,8 @@ class MyAPI extends GetConnect {
   Future<Response> authenticateUser(Map data, String endpoint) =>
       post(_baseUrl + endpoint, data);
 
-  Future createUser(Map data, endpoint) async {
-    try {
-      var fullUrl = _baseUrl + endpoint;
-      var response = await http.post(
-        Uri.parse(fullUrl),
-        headers: _setHeaders(),
-        body: jsonEncode(data),
-      );
-
-      if (response.statusCode == 201) {
-        return response.body;
-      } else {
-        //error message
-        return response.reasonPhrase;
-      }
-    } catch (err) {
-      return err;
-    }
-  }
+  Future<Response> registerUser(Map data, String endpoint) =>
+      post(_baseUrl + endpoint, jsonEncode(data));
 
   //Get Assessment Questions
   Future<Response> getQuestions(data, String endpoint) =>

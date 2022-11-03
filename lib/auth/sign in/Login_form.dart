@@ -19,8 +19,20 @@ class _SignInFormState extends State<SignInForm> {
   late Map<String, String> userData;
   Response? _response;
 
+  final registereddata = Get.arguments;
+
+  void pairUserData() {
+    if (registereddata != null) {
+      setState(() {
+        _emailController.value = TextEditingValue(
+            text: registereddata[0]['emailAddress'].toString());
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    pairUserData();
     return Container(
       margin: const EdgeInsets.all(15),
       padding: const EdgeInsets.all(10),
@@ -134,8 +146,6 @@ class _SignInFormState extends State<SignInForm> {
                                     'Internal Server Error try again later..'),
                               ),
                             ),
-                            //print(_response!.body['message'])
-                            // Get.to(() => const Home())
                           }
                       }
                   },

@@ -21,6 +21,8 @@ class _RegisterFormState extends State<RegisterForm> {
   final TextEditingController _passwordController = TextEditingController();
   bool _isObsecure = true;
   late Map<String, String> userData;
+  Response? _response;
+  final List user = [];
 
   @override
   Widget build(BuildContext context) {
@@ -151,9 +153,27 @@ class _RegisterFormState extends State<RegisterForm> {
                             "contactNumber": _phoneNumberController.text,
                             "password": _passwordController.text,
                           },
-                          await MyAPI()
-                              .createUser(userData, '/user')
-                              .then((value) => Get.to(() => const Login())),
+                          _response =
+                              await MyAPI().registerUser(userData, '/user/'),
+                          if (_response!.statusCode == 201)
+                            {
+                              user.add(_response!.body),
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('registered successfully'),
+                                ),
+                              ),
+                              Get.to(() => const Login(), arguments: user)
+                            }
+                          else if (_response!.statusCode == 201)
+                            {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content:
+                                      Text('Unable to create user try again'),
+                                ),
+                              ),
+                            }
                         }
                       else
                         {}
