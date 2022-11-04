@@ -146,6 +146,7 @@ class _SignInFormState extends State<SignInForm> {
                                     'Internal Server Error try again later..'),
                               ),
                             ),
+                            Get.to(() => const Home())
                           }
                       }
                   },

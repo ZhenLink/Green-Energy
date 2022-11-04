@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:gns_app/Assistant/Assistant.dart';
 //import 'package:gns_app/assessment/appliance_choice.dart';
 import 'package:gns_app/assessment/utility_choice.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -9,6 +10,9 @@ class Categories extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const String hybridSolar = "Hybrid Solar";
+    const String fullSolar = "Full Solar";
+
     return SizedBox(
         width: double.infinity,
         child: Column(
@@ -52,10 +56,11 @@ class Categories extends StatelessWidget {
                           children: [
                             GestureDetector(
                               onTap: () {
-                                Get.to(() => const UtilityChoice());
+                                Get.to(() => const Assistant(title: 'Asistant'),
+                                    arguments: hybridSolar);
                               },
                               child: Container(
-                                width: 100,
+                                width: 120,
                                 height: 40,
                                 decoration: BoxDecoration(
                                   color: Colors.white,
@@ -147,10 +152,12 @@ class Categories extends StatelessWidget {
                             children: [
                               GestureDetector(
                                 onTap: () {
-                                  Get.to(() => const UtilityChoice());
+                                  Get.to(
+                                      () => const Assistant(title: 'Asistant'),
+                                      arguments: fullSolar);
                                 },
                                 child: Container(
-                                  width: 100,
+                                  width: 120,
                                   height: 40,
                                   decoration: BoxDecoration(
                                     color: Colors.white,

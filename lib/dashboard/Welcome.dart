@@ -1,4 +1,7 @@
 import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
+import 'package:gns_app/Assistant/Assistant.dart';
+import 'package:gns_app/Payments/Payment.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 //import 'package:get/get.dart';
@@ -48,7 +51,10 @@ class _WelcomeState extends State<Welcome> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  Get.to(() => const Assistant(title: 'Asistant'),
+                      arguments: "About Green Energy Solutions");
+                },
                 child: Container(
                   width: 150,
                   height: 42,
@@ -66,6 +72,32 @@ class _WelcomeState extends State<Welcome> {
                       const Padding(
                           padding: EdgeInsets.symmetric(horizontal: 2)),
                       const Icon(Icons.arrow_right_alt)
+                    ],
+                  ),
+                ),
+              ),
+              const Padding(padding: EdgeInsets.symmetric(horizontal: 6)),
+              GestureDetector(
+                onTap: () {
+                  Get.to(() => const Payment());
+                },
+                child: Container(
+                  width: 150,
+                  height: 42,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(17),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text('Payments',
+                          style: GoogleFonts.poppins(
+                              fontSize: 16, color: Colors.blueGrey[900])),
+                      const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 2)),
+                      const Icon(Icons.payments)
                     ],
                   ),
                 ),

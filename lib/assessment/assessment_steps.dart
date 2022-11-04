@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gns_app/Api/api.dart';
 import 'package:get/get.dart';
+import 'package:gns_app/assessment/Completion.dart';
 import 'package:gns_app/assessment/question.dart';
+import 'package:gns_app/dashboard/Home.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../Models/appliance_assessment.dart';
 
@@ -101,6 +103,32 @@ class _AssessmentStepsState extends State<AssessmentSteps> {
                 ),
                 Stepper(
                   type: StepperType.vertical,
+                  onStepCancel: () {
+                    Get.defaultDialog(
+                      title: "Alert",
+                      contentPadding: const EdgeInsets.all(10),
+                      onConfirm: () {
+                        Get.to(() => const Home());
+                      },
+                      onCancel: () {},
+                      middleText:
+                          "Are you sure you want to cancel and return Home?",
+                      backgroundColor: Colors.white,
+                      titleStyle: const TextStyle(color: Colors.red),
+                      middleTextStyle: TextStyle(color: Colors.blueGrey[900]),
+                      textConfirm: "Yes",
+                      textCancel: "Cancel",
+                      cancelTextColor: Colors.blueGrey[900],
+                      confirmTextColor: Colors.white,
+                      buttonColor: Colors.red,
+                      barrierDismissible: false,
+                      radius: 20,
+                    );
+                  },
+                  onStepContinue: () {
+                    Get.to(() => const Completion(),
+                        arguments: assessmentAnswers);
+                  },
                   steps: [
                     Step(
                         title: Text('Appliance Category',

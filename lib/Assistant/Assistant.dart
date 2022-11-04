@@ -5,11 +5,8 @@ import 'package:get/get.dart';
 import 'package:gns_app/Energy%20Monitor/EMonitor.dart';
 import 'package:gns_app/User/Profile.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:intl/intl.dart';
 import 'package:google_fonts/google_fonts.dart';
-//import 'package:gns_app/message_scroll_controller.dart';
 import '../dashboard/home.dart';
-import 'messages.dart';
 import '../env/privates.dart';
 
 class Assistant extends StatefulWidget {
@@ -21,6 +18,8 @@ class Assistant extends StatefulWidget {
 }
 
 class _AssistantState extends State<Assistant> {
+  final _chosenSolarType = Get.arguments;
+  final _aboutGNS = Get.arguments;
   late DialogFlowtter dialogFlowtter;
   final TextEditingController _controller = TextEditingController();
   final ScrollController _scrollController = ScrollController();
@@ -28,6 +27,25 @@ class _AssistantState extends State<Assistant> {
   Private myPrivates = Private();
   int _selectedIndex = 1;
   bool _needsScroll = false;
+  bool _inquirySent = false;
+  bool _aboutMessageSent = false;
+
+  void inquireChosenSolarType() {
+    if (_chosenSolarType == null || _aboutGNS == null) {
+    } else {
+      if (_inquirySent == false) {
+        setState(() {
+          sendMessage(_chosenSolarType!);
+          _inquirySent = true;
+        });
+      } else if (_aboutMessageSent == false) {
+        setState(() {
+          sendMessage(_aboutGNS!);
+          _aboutMessageSent = true;
+        });
+      }
+    }
+  }
 
   void _scrollToEnd() async {
     _scrollController.animateTo(_scrollController.position.maxScrollExtent,
@@ -38,6 +56,8 @@ class _AssistantState extends State<Assistant> {
   void initState() {
     DialogFlowtter jsonInstance = DialogFlowtter.fromJson(myPrivates.authkeys);
     dialogFlowtter = jsonInstance;
+
+    inquireChosenSolarType();
 
     super.initState();
   }
@@ -198,7 +218,7 @@ class _AssistantState extends State<Assistant> {
                   child: Row(
                     children: [
                       Icon(Icons.attach_file,
-                          color: Colors.green[600], size: 25),
+                          color: Colors.green[100], size: 25),
                       Expanded(
                           child: Padding(
                         padding: const EdgeInsets.all(8.0),

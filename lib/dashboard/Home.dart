@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 //import 'package:get/get.dart';
 import 'package:gns_app/Assistant/assistant.dart';
 import 'package:gns_app/User/Profile.dart';
+import 'package:gns_app/dashboard/Help.dart';
 //import 'package:get/get.dart';
 import 'package:gns_app/dashboard/welcome.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -97,7 +98,7 @@ class _HomeState extends State<Home> {
               background: Center(
                 child: Container(
                   margin: const EdgeInsets.only(top: 60, left: 15, right: 15),
-                  padding: const EdgeInsets.all(25),
+                  padding: const EdgeInsets.all(18),
                   color: Colors.green[600],
                   child: const Welcome(title: 'Welcome'),
                 ),
@@ -152,7 +153,9 @@ class _HomeState extends State<Home> {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.white,
-        onPressed: () {},
+        onPressed: () {
+          Get.to(() => const Help());
+        },
         child: const Icon(CupertinoIcons.question, color: Colors.green),
       ),
     );
