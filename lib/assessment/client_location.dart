@@ -50,19 +50,72 @@ class _ClientLocationState extends State<ClientLocation> {
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
-        return Future.error('Location permissions are denied');
+        showDialog(
+            context: context,
+            builder: (_) => AlertDialog(
+                  content: Text(
+                      'Your Location services are disabled please go to your settings and enable for this to work.',
+                      style: GoogleFonts.openSans(
+                          fontSize: 18, color: Colors.blueGrey[900])),
+                  title: Text('Alert',
+                      style: GoogleFonts.openSans(
+                          fontSize: 18, color: Colors.red)),
+                  actions: [
+                    GestureDetector(
+                      onTap: (() {
+                        Navigator.of(context).pop();
+                      }),
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text('Okay',
+                              style: GoogleFonts.openSans(
+                                  fontSize: 18, color: Colors.red)),
+                        ),
+                      ),
+                    )
+                  ],
+                ));
       }
     }
 
     if (permission == LocationPermission.deniedForever) {
       // Permissions are denied forever, handle here.
-      return Future.error(
-          'Location permissions are permanently denied, we cannot request permissions.');
+      showDialog(
+          context: context,
+          builder: (_) => AlertDialog(
+                content: Text(
+                    'Your Location services are disabled please go to your settings and enable for this to work.',
+                    style: GoogleFonts.openSans(
+                        fontSize: 18, color: Colors.blueGrey[900])),
+                title: Text('Alert',
+                    style:
+                        GoogleFonts.openSans(fontSize: 18, color: Colors.red)),
+                actions: [
+                  GestureDetector(
+                    onTap: (() {
+                      Navigator.of(context).pop();
+                    }),
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text('Okay',
+                            style: GoogleFonts.openSans(
+                                fontSize: 18, color: Colors.red)),
+                      ),
+                    ),
+                  )
+                ],
+              ));
     }
 
     return await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.best,
-        forceAndroidLocationManager: true);
+        desiredAccuracy: LocationAccuracy.best);
+  }
+
+  @override
+  void initState() {
+    super.initState();
   }
 
   @override

@@ -40,7 +40,32 @@ class _AssessmentStepsState extends State<AssessmentSteps> {
         assessmentQuestions = _response!.body;
       });
     } else {
-      print(_response!.statusCode);
+      showDialog(
+          context: context,
+          builder: (_) => AlertDialog(
+                content: Text(
+                    'Unable to connect to the server. Make sure you internet connection is on and working.',
+                    style: GoogleFonts.openSans(
+                        fontSize: 18, color: Colors.blueGrey[900])),
+                title: Text('Error',
+                    style: GoogleFonts.openSans(
+                        fontSize: 18, color: Colors.red[600])),
+                actions: [
+                  GestureDetector(
+                    onTap: (() {
+                      Navigator.of(context).pop();
+                    }),
+                    child: SizedBox(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text('Okay',
+                            style: GoogleFonts.openSans(
+                                fontSize: 18, color: Colors.blueGrey[900])),
+                      ),
+                    ),
+                  )
+                ],
+              ));
     }
   }
 
@@ -67,9 +92,7 @@ class _AssessmentStepsState extends State<AssessmentSteps> {
           "Answer": answerText
         });
       });
-    } else {
-      print('The question has not been answered');
-    }
+    } else {}
   }
 
   @override
@@ -104,30 +127,83 @@ class _AssessmentStepsState extends State<AssessmentSteps> {
                 Stepper(
                   type: StepperType.vertical,
                   onStepCancel: () {
-                    Get.defaultDialog(
-                      title: "Alert",
-                      contentPadding: const EdgeInsets.all(10),
-                      onConfirm: () {
-                        Get.to(() => const Home());
-                      },
-                      onCancel: () {},
-                      middleText:
-                          "Are you sure you want to cancel and return Home?",
-                      backgroundColor: Colors.white,
-                      titleStyle: const TextStyle(color: Colors.red),
-                      middleTextStyle: TextStyle(color: Colors.blueGrey[900]),
-                      textConfirm: "Yes",
-                      textCancel: "Cancel",
-                      cancelTextColor: Colors.blueGrey[900],
-                      confirmTextColor: Colors.white,
-                      buttonColor: Colors.red,
-                      barrierDismissible: false,
-                      radius: 20,
-                    );
+                    showDialog(
+                        context: context,
+                        builder: (_) => AlertDialog(
+                              content: Text(
+                                  'Are you sure you want to cancel the assessment?',
+                                  style: GoogleFonts.openSans(
+                                      fontSize: 18,
+                                      color: Colors.blueGrey[900])),
+                              title: Text('Alert',
+                                  style: GoogleFonts.openSans(
+                                      fontSize: 18, color: Colors.red)),
+                              actions: [
+                                GestureDetector(
+                                  onTap: (() {
+                                    Navigator.of(context).pop();
+                                  }),
+                                  child: SizedBox(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text('Yes',
+                                          style: GoogleFonts.openSans(
+                                              fontSize: 18,
+                                              color: Colors.green)),
+                                    ),
+                                  ),
+                                ),
+                                GestureDetector(
+                                  onTap: (() {
+                                    Navigator.of(context).pop();
+                                  }),
+                                  child: SizedBox(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text('No',
+                                          style: GoogleFonts.openSans(
+                                              fontSize: 18, color: Colors.red)),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ));
                   },
                   onStepContinue: () {
-                    Get.to(() => const Completion(),
-                        arguments: assessmentAnswers);
+                    if (_questionIndex == assessmentQuestions.length) {
+                      Get.to(() => const Completion(),
+                          arguments: assessmentAnswers);
+                    } else {
+                      showDialog(
+                          context: context,
+                          builder: (_) => AlertDialog(
+                                content: Text(
+                                    'You can only proceed after finishing the assessment',
+                                    style: GoogleFonts.openSans(
+                                        fontSize: 18,
+                                        color: Colors.blueGrey[900])),
+                                title: Text('Notification',
+                                    style: GoogleFonts.openSans(
+                                        fontSize: 18,
+                                        color: Colors.green[600])),
+                                actions: [
+                                  GestureDetector(
+                                    onTap: (() {
+                                      Navigator.of(context).pop();
+                                    }),
+                                    child: SizedBox(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text('Okay',
+                                            style: GoogleFonts.openSans(
+                                                fontSize: 18,
+                                                color: Colors.blueGrey[900])),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ));
+                    }
                   },
                   steps: [
                     Step(
@@ -162,21 +238,45 @@ class _AssessmentStepsState extends State<AssessmentSteps> {
                                             if (_questionIndex <
                                                 assessmentQuestions.length)
                                               {
-                                                setAssessmentAnswers(
-                                                    _answerController.text,
-                                                    assessmentQuestions[
-                                                        _questionIndex]['_id'],
-                                                    assessmentQuestions[
-                                                            _questionIndex]
-                                                        ['Category'],
-                                                    assessmentQuestions[
-                                                            _questionIndex]
-                                                        ['Question'])
+                                                if (_answerController.text !=
+                                                    '')
+                                                  {
+                                                    setAssessmentAnswers(
+                                                        _answerController.text,
+                                                        assessmentQuestions[
+                                                                _questionIndex]
+                                                            ['_id'],
+                                                        assessmentQuestions[
+                                                                _questionIndex]
+                                                            ['Category'],
+                                                        assessmentQuestions[
+                                                                _questionIndex]
+                                                            ['Question']),
+                                                    nextQuestion(),
+                                                    _answerController.clear(),
+                                                  }
+                                                else
+                                                  {
+                                                    ScaffoldMessenger.of(
+                                                            context)
+                                                        .showSnackBar(
+                                                      const SnackBar(
+                                                        content: Text(
+                                                            'Enter the answer to proceed.'),
+                                                      ),
+                                                    )
+                                                  }
                                               }
                                             else
-                                              {print('done adding questions')},
-                                            nextQuestion(),
-                                            _answerController.clear(),
+                                              {
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(
+                                                  const SnackBar(
+                                                    content: Text(
+                                                        'You have answered all questions. Continue to finish.'),
+                                                  ),
+                                                )
+                                              },
                                           }),
                                       child: const Icon(Icons.send)),
                                   hintText: 'Answer here',

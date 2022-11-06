@@ -271,7 +271,12 @@ class _AssistantState extends State<Assistant> {
         }
       }
     } catch (e) {
-      Get.snackbar('Error', e.toString());
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+              'Error: Unable to Connect to Internet. Make sure your device has an active internet connection.'),
+        ),
+      );
     }
   }
 

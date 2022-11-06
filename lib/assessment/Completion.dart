@@ -1,7 +1,6 @@
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:gns_app/Models/appliance_assessment.dart';
 
 class Completion extends StatefulWidget {
   const Completion({Key? key}) : super(key: key);
@@ -11,6 +10,13 @@ class Completion extends StatefulWidget {
 }
 
 class _CompletionState extends State<Completion> {
+  final List _assessmentData = Get.arguments;
+  @override
+  void initState() {
+    ApplianceAssessment().calculateApplianceLoad(_assessmentData);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
