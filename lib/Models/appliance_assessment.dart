@@ -25,13 +25,53 @@ class ApplianceAssessment {
   int lightingHours = 0;
   int electronicsHours = 0;
   List selectedEletronics = [];
+  List toCalculateElectronics = [];
 
   int kitchenCookingLoad = 0;
 
   // calculating total appliance load
   //decomposed to utility based load and combine them
+  calculateCookingLoad(List assessmentData) {
+    for (var i = 0; i < assessmentData.length; i++) {
+      if (assessmentData[i]['Category'] == 'Cooking/ Kitchen') {}
+    }
+  }
 
-  void calculateApplianceLoad(List assessmentData) {
+  calculateHouseApplianceLoad(List assessmentData) {
+    for (var i = 0; i < assessmentData.length; i++) {
+      if (assessmentData[i]['Category'] == 'House Accessories') {}
+    }
+  }
+  //calculating total appliance load here
+  //void calculateApplianceLoad(List assessmentData) {
+  //  for (var i = 0; i < assessmentData.length; i++) {
+  //   if (assessmentData[i]['Category'] == 'Lighting') {
+  //    int totalLightingLoad = calculateLightingLoad(assessmentData);
+  //    totalApplianceLoad += totalLightingLoad;
+  // } else if (assessmentData[i]['Category'] == 'Electronics') {
+  ///   calculateElectronicsLoad(assessmentData);
+  // } else if (assessmentData[i]['Category'] == 'Cooking/ Kitchen') {
+  // } else if (assessmentData[i]['Category'] == 'House Accessories') {}
+  // }
+  // print(totalApplianceLoad);
+  //}
+
+  void calculateApplianceLoad(List assessmentData, List categories) {
+    for (var i = 0; i < categories.length; i++) {
+      if (categories[0][i] == "Electronics") {
+        calculateElectronicsLoad(assessmentData);
+      } else if (categories[0][i] == "Lighting") {
+        // int totalLightingLoad = calculateLightingLoad(assessmentData);
+        //totalApplianceLoad += totalLightingLoad;
+      } else if (categories[0][i] == "Cooking/ Kitchen") {
+      } else if (categories[0][i] == "House Accessories") {}
+    }
+
+    print(totalApplianceLoad);
+  }
+
+//calculating total lighting appliance load
+  calculateLightingLoad(List assessmentData) {
     for (var i = 0; i < assessmentData.length; i++) {
       if (assessmentData[i]['Category'] == 'Lighting') {
         if (assessmentData[i]['Id'] == "636241f2034a7e86cd9ba9c2") {
@@ -58,7 +98,17 @@ class ApplianceAssessment {
             lightingHours += int.parse(response);
           }
         }
-      } else if (assessmentData[i]['Category'] == 'Electronics') {
+      }
+    }
+    return totalLightingLoad;
+  }
+
+  // total electronics appliance load
+  calculateElectronicsLoad(List assessmentData) {
+    late String response = '';
+    //getting the electronic devices selected
+    for (var i = 0; i < assessmentData.length; i++) {
+      if (assessmentData[i]['Category'] == 'Electronics') {
         if (assessmentData[i]['Id'] == "63624451034a7e86cd9ba9ce") {
           String response = assessmentData[i]['Answer'];
           var electronicAccessories = response.split(',');
@@ -81,25 +131,52 @@ class ApplianceAssessment {
               selectedEletronics.add('sound system');
             }
           }
-        } else if (assessmentData[i]['Id'] == '636244b8034a7e86cd9ba9d0') {
+        }
+        //getting the number of hours the devices runs
+        else if (assessmentData[i]['Id'] == '636244b8034a7e86cd9ba9d0') {
           var response = assessmentData[i]['Answer'];
           electronicsHours += int.parse(response);
-        } else if (assessmentData[i]['Id'] == '63624586034a7e86cd9ba9d2') {
+        }
+        //getting the number of devices selecte
+        else if (assessmentData[i]['Id'] == '63624586034a7e86cd9ba9d2') {
           if (selectedEletronics.isNotEmpty) {
-            String response = assessmentData[i]['Answer'];
-            var electronicsCount = response.split(',');
-            for (var k = 0; k < electronicsCount.length; k++) {
-              if (electronicsCount[k] == "phones = 2" ||
-                  electronicsCount[k] == "phones = 2") {
-              } else {}
-            }
-          } else {
-            print('There are no any selected Eletronics');
+            response = assessmentData[i]['Answer'];
           }
         }
-      } else if (assessmentData[i]['Category'] == 'Cooking/ Kitchen') {
-      } else if (assessmentData[i]['Category'] == 'House Accessories') {}
+      }
     }
-    // print(totalLightingLoad);
+    var electronicsCount = response.split(' ');
+
+    for (var i = 0; i < electronicsCount.length; i++) {
+      if (i % 2 == 0) {
+        toCalculateElectronics.add({
+          "Appliance": electronicsCount[i],
+          "value": electronicsCount[i + 1],
+        });
+      }
+    }
+
+    if (toCalculateElectronics.isNotEmpty) {
+      for (var i = 0; i < toCalculateElectronics.length; i++) {
+        if (toCalculateElectronics[i]['Appliance'] == "phones") {
+          electronicsLoad = int.parse(toCalculateElectronics[i]['value']);
+          totalApplianceLoad = mobilePhonesLoad * electronicsLoad - 5;
+        }
+        if (toCalculateElectronics[i]['Appliance'] == "laptops") {
+          electronicsLoad = int.parse(toCalculateElectronics[i]['value']);
+          totalApplianceLoad = electronicsLoad * laptopsLoad - 4;
+        } else if (toCalculateElectronics[i]['Appliance'] == "printers") {
+          electronicsLoad = toCalculateElectronics[i]['value'] * printersLoad;
+        } else if (toCalculateElectronics[i]['Appliance'] == "Tv's") {
+          electronicsLoad = toCalculateElectronics[i]['value'] * ledScreensLoad;
+        } else if (toCalculateElectronics[i]['Appliance'] == "sound sytem") {
+          electronicsLoad =
+              toCalculateElectronics[i]['value'] * soundSystemsLoad;
+        }
+      }
+      totalApplianceLoad += electronicsLoad;
+    }
+
+    print(toCalculateElectronics);
   }
 }

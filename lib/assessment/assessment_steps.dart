@@ -171,8 +171,11 @@ class _AssessmentStepsState extends State<AssessmentSteps> {
                   },
                   onStepContinue: () {
                     if (_questionIndex == assessmentQuestions.length) {
-                      Get.to(() => const Completion(),
-                          arguments: assessmentAnswers);
+                      Get.to(
+                        () =>
+                            Completion(category: _chosenCategoriesAndLocation),
+                        arguments: assessmentAnswers,
+                      );
                     } else {
                       showDialog(
                           context: context,

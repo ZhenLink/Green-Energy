@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gns_app/Payments/payment_manager.dart';
 
 class Payment extends StatefulWidget {
   const Payment({Key? key}) : super(key: key);
@@ -14,8 +15,15 @@ class _PaymentState extends State<Payment> {
       appBar: AppBar(
         title: const Text('Payment'),
       ),
-      body: const Center(
-        child: Text('This is the payment page'),
+      body: Center(
+        child: ElevatedButton(
+            onPressed: () async {
+              PaymentManager().makePayment(context, 2000, () {
+                if (!mounted) return;
+                Navigator.of(context).pop();
+              });
+            },
+            child: const Text('Make payment')),
       ),
     );
   }

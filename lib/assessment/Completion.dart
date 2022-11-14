@@ -3,17 +3,20 @@ import 'package:get/get.dart';
 import 'package:gns_app/Models/appliance_assessment.dart';
 
 class Completion extends StatefulWidget {
-  const Completion({Key? key}) : super(key: key);
+  const Completion({Key? key, required this.category}) : super(key: key);
+  final List category;
 
   @override
   State<Completion> createState() => _CompletionState();
 }
 
 class _CompletionState extends State<Completion> {
-  final List _assessmentData = Get.arguments;
+  dynamic assessmentdata = Get.arguments;
   @override
   void initState() {
-    ApplianceAssessment().calculateApplianceLoad(_assessmentData);
+    // print(_assessmentData);
+    ApplianceAssessment()
+        .calculateApplianceLoad(assessmentdata, widget.category);
     super.initState();
   }
 

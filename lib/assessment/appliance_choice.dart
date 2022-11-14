@@ -58,6 +58,11 @@ class _ApplianceChoiceState extends State<ApplianceChoice> {
                                 electronicChip = currentChipState;
                                 if (electronicChip) {
                                   chosenCategories.add('Electronics');
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(const SnackBar(
+                                    content: Text(
+                                        'You have selected Electronic Accessories'),
+                                  ));
                                 } else {
                                   chosenCategories.remove('Electronics');
                                 }
@@ -84,6 +89,11 @@ class _ApplianceChoiceState extends State<ApplianceChoice> {
                                 cookingChip = cookingChipState;
                                 if (cookingChip) {
                                   chosenCategories.add('Cooking/ Kitchen');
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(const SnackBar(
+                                    content: Text(
+                                        'You have selected Cooking and Kitchen Accessories'),
+                                  ));
                                 } else {
                                   chosenCategories.remove('Cooking/ Kitchen');
                                 }
@@ -111,6 +121,11 @@ class _ApplianceChoiceState extends State<ApplianceChoice> {
                                 lightingChip = lightingChipState;
                                 if (lightingChip) {
                                   chosenCategories.add('Lighting');
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(const SnackBar(
+                                    content: Text(
+                                        'You have selected Lighting appliances'),
+                                  ));
                                 } else {
                                   chosenCategories.remove('Lighting');
                                 }
@@ -139,6 +154,11 @@ class _ApplianceChoiceState extends State<ApplianceChoice> {
                                     houseAccessoriesChipChipState;
                                 if (houseAccessoriesChip) {
                                   chosenCategories.add('House Accessories');
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(const SnackBar(
+                                    content: Text(
+                                        'You have selected House Accessories'),
+                                  ));
                                 } else {
                                   chosenCategories.remove('House Accessories');
                                 }
