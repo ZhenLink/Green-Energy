@@ -57,17 +57,21 @@ class ApplianceAssessment {
   //}
 
   void calculateApplianceLoad(List assessmentData, List categories) {
-    for (var i = 0; i < categories.length; i++) {
-      if (categories[0][i] == "Electronics") {
-        calculateElectronicsLoad(assessmentData);
-      } else if (categories[0][i] == "Lighting") {
-        // int totalLightingLoad = calculateLightingLoad(assessmentData);
-        //totalApplianceLoad += totalLightingLoad;
-      } else if (categories[0][i] == "Cooking/ Kitchen") {
-      } else if (categories[0][i] == "House Accessories") {}
+    if (categories.isNotEmpty) {
+      for (var i = 0; i < categories.length; i++) {
+        if (categories[0][i] == "Electronics") {
+          calculateElectronicsLoad(assessmentData);
+        } else if (categories[0][i] == "Lighting") {
+          int totalLightingLoad = calculateLightingLoad(assessmentData);
+          totalApplianceLoad += totalLightingLoad;
+        } else if (categories[0][i] == "Cooking/ Kitchen") {
+        } else if (categories[0][i] == "House Accessories") {
+        } else {
+          print('No matches found');
+        }
+        break;
+      }
     }
-
-    print(totalApplianceLoad);
   }
 
 //calculating total lighting appliance load
@@ -105,78 +109,87 @@ class ApplianceAssessment {
 
   // total electronics appliance load
   calculateElectronicsLoad(List assessmentData) {
-    late String response = '';
-    //getting the electronic devices selected
-    for (var i = 0; i < assessmentData.length; i++) {
-      if (assessmentData[i]['Category'] == 'Electronics') {
-        if (assessmentData[i]['Id'] == "63624451034a7e86cd9ba9ce") {
-          String response = assessmentData[i]['Answer'];
-          var electronicAccessories = response.split(',');
-          for (var j = 0; j < electronicAccessories.length; j++) {
-            if (electronicAccessories[j] == 'phones' ||
-                electronicAccessories[j] == 'phone') {
-              selectedEletronics.add('phone');
-            } else if (electronicAccessories[j] == 'laptops' ||
-                electronicAccessories[j] == 'laptop') {
-              selectedEletronics.add('laptops');
-            } else if (electronicAccessories[j] == 'tv' ||
-                electronicAccessories[j] == 'plasma') {
-              selectedEletronics.add('Tv');
-            } else if (electronicAccessories[j] == 'printers' ||
-                electronicAccessories[j] == 'printer') {
-              selectedEletronics.add('printer');
-            } else if (electronicAccessories[j] == 'sound system' ||
-                electronicAccessories[j] == 'home theater' ||
-                electronicAccessories[j] == 'sound bar') {
-              selectedEletronics.add('sound system');
+    try {
+      late String response = '';
+      //getting the electronic devices selected
+      for (var i = 0; i < assessmentData.length; i++) {
+        if (assessmentData[i]['Category'] == 'Electronics') {
+          if (assessmentData[i]['Id'] == "63624451034a7e86cd9ba9ce") {
+            String response = assessmentData[i]['Answer'];
+            var electronicAccessories = response.split(',');
+            for (var j = 0; j < electronicAccessories.length; j++) {
+              if (electronicAccessories[j] == 'phones' ||
+                  electronicAccessories[j] == 'phone') {
+                selectedEletronics.add('phone');
+              } else if (electronicAccessories[j] == 'laptops' ||
+                  electronicAccessories[j] == 'laptop') {
+                selectedEletronics.add('laptops');
+              } else if (electronicAccessories[j] == 'tv' ||
+                  electronicAccessories[j] == 'plasma') {
+                selectedEletronics.add('Tv');
+              } else if (electronicAccessories[j] == 'printers' ||
+                  electronicAccessories[j] == 'printer') {
+                selectedEletronics.add('printer');
+              } else if (electronicAccessories[j] == 'sound system' ||
+                  electronicAccessories[j] == 'home theater' ||
+                  electronicAccessories[j] == 'sound bar') {
+                selectedEletronics.add('sound system');
+              }
+            }
+          }
+          //getting the number of hours the devices runs
+          else if (assessmentData[i]['Id'] == '636244b8034a7e86cd9ba9d0') {
+            var response = assessmentData[i]['Answer'];
+            electronicsHours += int.parse(response);
+          }
+          //getting the number of devices selected
+          else if (assessmentData[i]['Id'] == '63624586034a7e86cd9ba9d2') {
+            if (selectedEletronics.isNotEmpty) {
+              print(selectedEletronics);
+              //response = assessmentData[i]['Answer'];
+            } else {
+              print('The selected Electronics list is empty');
             }
           }
         }
-        //getting the number of hours the devices runs
-        else if (assessmentData[i]['Id'] == '636244b8034a7e86cd9ba9d0') {
-          var response = assessmentData[i]['Answer'];
-          electronicsHours += int.parse(response);
-        }
-        //getting the number of devices selecte
-        else if (assessmentData[i]['Id'] == '63624586034a7e86cd9ba9d2') {
-          if (selectedEletronics.isNotEmpty) {
-            response = assessmentData[i]['Answer'];
+      }
+      var electronicsCount = response.split(' ');
+
+      //for (var i = 0; i < electronicsCount.length; i++) {
+      // if (i % 2 == 0) {
+      //  toCalculateElectronics.add({
+      ///   "Appliance": electronicsCount[i],
+      //   "value": electronicsCount[i + 1],
+      //});
+      //}
+      //}
+      // print(electronicsCount);
+
+      if (toCalculateElectronics.isNotEmpty) {
+        for (var i = 0; i < toCalculateElectronics.length; i++) {
+          if (toCalculateElectronics[i]['Appliance'] == "phones") {
+            electronicsLoad = int.parse(toCalculateElectronics[i]['value']);
+            totalApplianceLoad = mobilePhonesLoad * electronicsLoad - 5;
+          }
+          if (toCalculateElectronics[i]['Appliance'] == "laptops") {
+            electronicsLoad = int.parse(toCalculateElectronics[i]['value']);
+            totalApplianceLoad = electronicsLoad * laptopsLoad - 4;
+          } else if (toCalculateElectronics[i]['Appliance'] == "printers") {
+            electronicsLoad = toCalculateElectronics[i]['value'] * printersLoad;
+          } else if (toCalculateElectronics[i]['Appliance'] == "Tv's") {
+            electronicsLoad =
+                toCalculateElectronics[i]['value'] * ledScreensLoad;
+          } else if (toCalculateElectronics[i]['Appliance'] == "sound sytem") {
+            electronicsLoad =
+                toCalculateElectronics[i]['value'] * soundSystemsLoad;
           }
         }
+        totalApplianceLoad += electronicsLoad;
       }
-    }
-    var electronicsCount = response.split(' ');
 
-    for (var i = 0; i < electronicsCount.length; i++) {
-      if (i % 2 == 0) {
-        toCalculateElectronics.add({
-          "Appliance": electronicsCount[i],
-          "value": electronicsCount[i + 1],
-        });
-      }
+      // print(toCalculateElectronics);
+    } on RangeError catch (err) {
+      print('Error is on =>>> $err');
     }
-
-    if (toCalculateElectronics.isNotEmpty) {
-      for (var i = 0; i < toCalculateElectronics.length; i++) {
-        if (toCalculateElectronics[i]['Appliance'] == "phones") {
-          electronicsLoad = int.parse(toCalculateElectronics[i]['value']);
-          totalApplianceLoad = mobilePhonesLoad * electronicsLoad - 5;
-        }
-        if (toCalculateElectronics[i]['Appliance'] == "laptops") {
-          electronicsLoad = int.parse(toCalculateElectronics[i]['value']);
-          totalApplianceLoad = electronicsLoad * laptopsLoad - 4;
-        } else if (toCalculateElectronics[i]['Appliance'] == "printers") {
-          electronicsLoad = toCalculateElectronics[i]['value'] * printersLoad;
-        } else if (toCalculateElectronics[i]['Appliance'] == "Tv's") {
-          electronicsLoad = toCalculateElectronics[i]['value'] * ledScreensLoad;
-        } else if (toCalculateElectronics[i]['Appliance'] == "sound sytem") {
-          electronicsLoad =
-              toCalculateElectronics[i]['value'] * soundSystemsLoad;
-        }
-      }
-      totalApplianceLoad += electronicsLoad;
-    }
-
-    print(toCalculateElectronics);
   }
 }

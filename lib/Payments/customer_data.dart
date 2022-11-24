@@ -1,25 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:gns_app/Payments/customer_data.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:gns_app/Payments/payment_manager.dart';
 
-class Payment extends StatefulWidget {
-  const Payment({Key? key}) : super(key: key);
+class CustomerData extends StatefulWidget {
+  const CustomerData({Key? key}) : super(key: key);
 
   @override
-  State<Payment> createState() => _PaymentState();
+  State<CustomerData> createState() => _CustomerDataState();
 }
 
-class _PaymentState extends State<Payment> {
-  final TextEditingController _assessmentIDController = TextEditingController();
-  bool isProjectIDValid = false;
-
-  void checkProjectID(String id) {
-    setState(() {
-      isProjectIDValid == true;
-    });
-  }
-
+class _CustomerDataState extends State<CustomerData> {
+  final TextEditingController _fullNameController = TextEditingController();
+  final TextEditingController _emailAdressController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,42 +23,59 @@ class _PaymentState extends State<Payment> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('Start Payment',
+                Icon(Icons.payment_rounded, color: Colors.green[600], size: 40),
+                Text('Complete Payment',
                     style: GoogleFonts.openSans(
                         fontSize: 20, fontWeight: FontWeight.w600)),
-                Text(
-                    'Enter The Project ID to start you payment. you can find it on your Quotation.',
+                Text('Enter Personal Details below to complete the payment.',
                     style: GoogleFonts.openSans(fontSize: 17),
                     textAlign: TextAlign.center),
                 const Padding(padding: EdgeInsets.symmetric(vertical: 10.0)),
                 TextFormField(
-                  controller: _assessmentIDController,
-                  enableSuggestions: true,
+                  controller: _fullNameController,
                   style: GoogleFonts.openSans(fontSize: 19),
                   decoration: InputDecoration(
-                    hintText: 'Enter Project ID',
-                    label: const Text('Project ID'),
+                    hintText: 'Full Name',
+                    label: const Text('Full Name'),
                     labelStyle: GoogleFonts.openSans(fontSize: 20),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8)),
                   ),
                   validator: (String? value) {
                     if (value == null || value.isEmpty) {
-                      return "Please enter your project ID";
+                      return "Please enter your fullname";
                     }
                     return null;
                   },
+                  keyboardType: TextInputType.name,
+                ),
+                const Padding(padding: EdgeInsets.symmetric(vertical: 10.0)),
+                TextFormField(
+                  controller: _emailAdressController,
+                  style: GoogleFonts.openSans(fontSize: 19),
+                  decoration: InputDecoration(
+                    hintText: 'Email Address',
+                    label: const Text('Email Address'),
+                    labelStyle: GoogleFonts.openSans(fontSize: 20),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8)),
+                  ),
+                  validator: (String? value) {
+                    if (value == null || value.isEmpty) {
+                      return "Please enter your email address";
+                    }
+                    return null;
+                  },
+                  keyboardType: TextInputType.emailAddress,
                 ),
                 const Padding(padding: EdgeInsets.symmetric(vertical: 10.0)),
                 GestureDetector(
-                  onTap: () {
-                    Get.to(() => const CustomerData(),
-                        arguments: _assessmentIDController.text);
-                    //const CustomerData(),
+                  onTap: () async {
+                    PaymentManager().makePayment(context);
                   },
                   child: Container(
-                    width: 170,
-                    height: 50,
+                    width: 200,
+                    height: 60,
                     decoration: BoxDecoration(
                       color: Colors.green,
                       borderRadius: BorderRadius.circular(20),
@@ -75,7 +84,7 @@ class _PaymentState extends State<Payment> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Text('Check',
+                        Text('Complete Payment',
                             style: GoogleFonts.poppins(
                                 fontSize: 18, color: Colors.white)),
                       ],
