@@ -16,7 +16,6 @@ class _ApplianceChoiceState extends State<ApplianceChoice> {
   bool electronicChip = false;
   bool cookingChip = false;
   bool lightingChip = false;
-  bool houseAccessoriesChip = false;
   final TextEditingController _otherAppliance = TextEditingController();
   List chosenCategories = [];
 
@@ -143,39 +142,6 @@ class _ApplianceChoiceState extends State<ApplianceChoice> {
                             label: const Text('Lighting',
                                 style: TextStyle(color: Colors.white)),
                             selected: lightingChip),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            left: 1, right: 5, top: 10, bottom: 10),
-                        child: ChoiceChip(
-                            onSelected: (houseAccessoriesChipChipState) {
-                              setState(() {
-                                houseAccessoriesChip =
-                                    houseAccessoriesChipChipState;
-                                if (houseAccessoriesChip) {
-                                  chosenCategories.add('House Accessories');
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(const SnackBar(
-                                    content: Text(
-                                        'You have selected House Accessories'),
-                                  ));
-                                } else {
-                                  chosenCategories.remove('House Accessories');
-                                }
-                              });
-                            },
-                            elevation: 0,
-                            selectedColor: Colors.green[700],
-                            selectedShadowColor: Colors.white,
-                            pressElevation: 0,
-                            backgroundColor: Colors.blueGrey[900],
-                            labelPadding: const EdgeInsets.only(
-                                top: 5, bottom: 5, left: 2, right: 4),
-                            avatar: const Icon(Icons.compost_outlined,
-                                color: Colors.white),
-                            label: const Text('House Accessories',
-                                style: TextStyle(color: Colors.white)),
-                            selected: houseAccessoriesChip),
                       ),
                     ],
                   ),

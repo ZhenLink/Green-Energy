@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
@@ -25,7 +26,9 @@ class PaymentManager {
                       paymentIntentData!['client_secret'],
                   style: ThemeMode.dark,
                   merchantDisplayName: 'Green Energy Solutions'))
-          .then((value) {});
+          .then((value) {
+        print(paymentIntentData);
+      });
 
       ///now finally display payment sheeet
       displayPaymentSheet(context);

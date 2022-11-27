@@ -25,171 +25,145 @@ class ApplianceAssessment {
   int lightingHours = 0;
   int electronicsHours = 0;
   List selectedEletronics = [];
-  List toCalculateElectronics = [];
+  List electronicsValue = [];
 
   int kitchenCookingLoad = 0;
 
-  // calculating total appliance load
-  //decomposed to utility based load and combine them
-  calculateCookingLoad(List assessmentData) {
+  ////// electronics deconstruction
+
+  List electronicAccessories = [];
+  String response = '';
+  var electronicsCount;
+
+// manage cooking and kitchen Load
+  manageCookingLoad(List assessmentData) {
+    List kitchenData = [];
+    List appliances = [];
+    List selectedAppliances = [];
+    List appliancesValue = [];
+    late String durationOfUsage = '';
     for (var i = 0; i < assessmentData.length; i++) {
-      if (assessmentData[i]['Category'] == 'Cooking/ Kitchen') {}
+      if (assessmentData[i]['Category'] == 'Cooking/ Kitchen') {
+        // getting selected cooking/ kitchen utilities
+        if (assessmentData[i]['Id'] == "636243aa034a7e86cd9ba9c8") {
+          String response = assessmentData[i]['Answer'];
+          selectedAppliances = response.split(',');
+        }
+        // getting utility run time hours
+        else if (assessmentData[i]['Id'] == "63624407034a7e86cd9ba9ca") {
+          durationOfUsage = assessmentData[i]['Answer'];
+        }
+        //getting selected cooking/ kitchen utilities count
+        else if (assessmentData[i]['Id'] == "63624421034a7e86cd9ba9cc") {
+          String response = assessmentData[i]['Answer'];
+          appliances = response.split(' ');
+          for (var i = 0; i < appliances.length; i++) {
+            if (i % 2 == 0) {
+              appliancesValue.add({
+                "Appliance": appliances[i],
+                "value": appliances[i + 1],
+              });
+            }
+          }
+        }
+      }
     }
+    kitchenData.add({
+      "Appliances-Used": selectedAppliances,
+      "Appliance-count": appliancesValue,
+      "UsageHours": durationOfUsage
+    });
+
+    print(kitchenData);
   }
 
-  calculateHouseApplianceLoad(List assessmentData) {
-    for (var i = 0; i < assessmentData.length; i++) {
-      if (assessmentData[i]['Category'] == 'House Accessories') {}
-    }
-  }
-  //calculating total appliance load here
-  //void calculateApplianceLoad(List assessmentData) {
-  //  for (var i = 0; i < assessmentData.length; i++) {
-  //   if (assessmentData[i]['Category'] == 'Lighting') {
-  //    int totalLightingLoad = calculateLightingLoad(assessmentData);
-  //    totalApplianceLoad += totalLightingLoad;
-  // } else if (assessmentData[i]['Category'] == 'Electronics') {
-  ///   calculateElectronicsLoad(assessmentData);
-  // } else if (assessmentData[i]['Category'] == 'Cooking/ Kitchen') {
-  // } else if (assessmentData[i]['Category'] == 'House Accessories') {}
-  // }
-  // print(totalApplianceLoad);
-  //}
-
-  void calculateApplianceLoad(List assessmentData, List categories) {
-    if (categories.isNotEmpty) {
-      for (var i = 0; i < categories.length; i++) {
-        if (categories[0][i] == "Electronics") {
-          calculateElectronicsLoad(assessmentData);
-        } else if (categories[0][i] == "Lighting") {
-          int totalLightingLoad = calculateLightingLoad(assessmentData);
-          totalApplianceLoad += totalLightingLoad;
-        } else if (categories[0][i] == "Cooking/ Kitchen") {
-        } else if (categories[0][i] == "House Accessories") {
+  void assessmentManager(List assessmentData, List categories) {
+    List chosenApplianceCategories = categories[0];
+    if (chosenApplianceCategories.isNotEmpty) {
+      for (var i = 0; i < chosenApplianceCategories.length; i++) {
+        if (chosenApplianceCategories[i] == "Electronics") {
+          // implement manage electronics assessment
+          manageElectronicsAssessment(assessmentData);
+        } else if (chosenApplianceCategories[i] == "Lighting") {
+          // implement manage lighting assessment
+          manageLightingAssessment(assessmentData);
+        } else if (chosenApplianceCategories[i] == "Cooking/ Kitchen") {
+          // implement manage cooking/ kitchen assessment
+          manageCookingLoad(assessmentData);
         } else {
           print('No matches found');
         }
-        break;
       }
     }
   }
 
-//calculating total lighting appliance load
-  calculateLightingLoad(List assessmentData) {
+//manage lighting appliance assessment
+  manageLightingAssessment(List assessmentData) {
+    List lightingData = [];
+    late String lightscount = "";
+    late String durationOfUsage = '';
+
     for (var i = 0; i < assessmentData.length; i++) {
       if (assessmentData[i]['Category'] == 'Lighting') {
         if (assessmentData[i]['Id'] == "636241f2034a7e86cd9ba9c2") {
+          //getting lights type
           bulbType = assessmentData[i]['Answer'];
-          if (bulbType == 'energy saver') {
-            totalLightingLoad += energySaverLoad;
-          } else {
-            totalLightingLoad += normalBulbsLoad;
-          }
-        } else if (assessmentData[i]['Id'] == "63624361034a7e86cd9ba9c4") {
-          var response = assessmentData[i]['Answer'];
-          if (bulbType == 'energy saver') {
-            int lightsQuantityLoad = energySaverLoad * int.parse(response);
-            totalLightingLoad = lightsQuantityLoad;
-          } else {
-            int lightsQuantityLoad = normalBulbsLoad * int.parse(response);
-            totalLightingLoad = lightsQuantityLoad;
-          }
-        } else if (assessmentData[i]['Id'] == "63624379034a7e86cd9ba9c6") {
-          var response = assessmentData[i]['Answer'];
-          if (bulbType == 'energy saver'.toLowerCase()) {
-            lightingHours += int.parse(response);
-          } else {
-            lightingHours += int.parse(response);
-          }
+        } //getting the number of bulbs clients use
+
+        else if (assessmentData[i]['Id'] == "63624361034a7e86cd9ba9c4") {
+          lightscount = assessmentData[i]['Answer'];
+        }
+        //getting the number of hours the hours lights stay on
+        else if (assessmentData[i]['Id'] == "63624379034a7e86cd9ba9c6") {
+          durationOfUsage = assessmentData[i]['Answer'];
         }
       }
     }
-    return totalLightingLoad;
+
+    lightingData.add({
+      "BulbType": bulbType,
+      "LightsCount": lightscount,
+      "LightingHours": durationOfUsage
+    });
+    print(lightingData);
   }
 
   // total electronics appliance load
-  calculateElectronicsLoad(List assessmentData) {
-    try {
-      late String response = '';
-      //getting the electronic devices selected
-      for (var i = 0; i < assessmentData.length; i++) {
-        if (assessmentData[i]['Category'] == 'Electronics') {
-          if (assessmentData[i]['Id'] == "63624451034a7e86cd9ba9ce") {
-            String response = assessmentData[i]['Answer'];
-            var electronicAccessories = response.split(',');
-            for (var j = 0; j < electronicAccessories.length; j++) {
-              if (electronicAccessories[j] == 'phones' ||
-                  electronicAccessories[j] == 'phone') {
-                selectedEletronics.add('phone');
-              } else if (electronicAccessories[j] == 'laptops' ||
-                  electronicAccessories[j] == 'laptop') {
-                selectedEletronics.add('laptops');
-              } else if (electronicAccessories[j] == 'tv' ||
-                  electronicAccessories[j] == 'plasma') {
-                selectedEletronics.add('Tv');
-              } else if (electronicAccessories[j] == 'printers' ||
-                  electronicAccessories[j] == 'printer') {
-                selectedEletronics.add('printer');
-              } else if (electronicAccessories[j] == 'sound system' ||
-                  electronicAccessories[j] == 'home theater' ||
-                  electronicAccessories[j] == 'sound bar') {
-                selectedEletronics.add('sound system');
-              }
-            }
-          }
-          //getting the number of hours the devices runs
-          else if (assessmentData[i]['Id'] == '636244b8034a7e86cd9ba9d0') {
-            var response = assessmentData[i]['Answer'];
-            electronicsHours += int.parse(response);
-          }
-          //getting the number of devices selected
-          else if (assessmentData[i]['Id'] == '63624586034a7e86cd9ba9d2') {
-            if (selectedEletronics.isNotEmpty) {
-              print(selectedEletronics);
-              //response = assessmentData[i]['Answer'];
-            } else {
-              print('The selected Electronics list is empty');
-            }
+  manageElectronicsAssessment(List assessmentData) {
+    List electronicsData = [];
+    late String durationOfUsage = '';
+
+    for (var i = 0; i < assessmentData.length; i++) {
+      //getting the devices selected by user
+      if (assessmentData[i]['Id'] == "63624451034a7e86cd9ba9ce") {
+        String response = assessmentData[i]['Answer'];
+        electronicAccessories = response.split(',');
+      }
+      //getting the number of hours the devices runs
+      else if (assessmentData[i]['Id'] == '636244b8034a7e86cd9ba9d0') {
+        durationOfUsage = assessmentData[i]['Answer'];
+      }
+      //getting the number of devices selected
+      else if (assessmentData[i]['Id'] == '63624586034a7e86cd9ba9d2') {
+        response = assessmentData[i]['Answer'];
+        electronicsCount = response.split(' ');
+        for (var i = 0; i < electronicsCount.length; i++) {
+          if (i % 2 == 0) {
+            electronicsValue.add({
+              "Appliance": electronicsCount[i],
+              "value": electronicsCount[i + 1],
+            });
           }
         }
       }
-      var electronicsCount = response.split(' ');
-
-      //for (var i = 0; i < electronicsCount.length; i++) {
-      // if (i % 2 == 0) {
-      //  toCalculateElectronics.add({
-      ///   "Appliance": electronicsCount[i],
-      //   "value": electronicsCount[i + 1],
-      //});
-      //}
-      //}
-      // print(electronicsCount);
-
-      if (toCalculateElectronics.isNotEmpty) {
-        for (var i = 0; i < toCalculateElectronics.length; i++) {
-          if (toCalculateElectronics[i]['Appliance'] == "phones") {
-            electronicsLoad = int.parse(toCalculateElectronics[i]['value']);
-            totalApplianceLoad = mobilePhonesLoad * electronicsLoad - 5;
-          }
-          if (toCalculateElectronics[i]['Appliance'] == "laptops") {
-            electronicsLoad = int.parse(toCalculateElectronics[i]['value']);
-            totalApplianceLoad = electronicsLoad * laptopsLoad - 4;
-          } else if (toCalculateElectronics[i]['Appliance'] == "printers") {
-            electronicsLoad = toCalculateElectronics[i]['value'] * printersLoad;
-          } else if (toCalculateElectronics[i]['Appliance'] == "Tv's") {
-            electronicsLoad =
-                toCalculateElectronics[i]['value'] * ledScreensLoad;
-          } else if (toCalculateElectronics[i]['Appliance'] == "sound sytem") {
-            electronicsLoad =
-                toCalculateElectronics[i]['value'] * soundSystemsLoad;
-          }
-        }
-        totalApplianceLoad += electronicsLoad;
-      }
-
-      // print(toCalculateElectronics);
-    } on RangeError catch (err) {
-      print('Error is on =>>> $err');
     }
+
+    electronicsData.add({
+      "Devices-Used": electronicAccessories,
+      "Device-count": electronicsValue,
+      "UsageHours": durationOfUsage
+    });
+
+    print(electronicsData);
   }
 }

@@ -45,6 +45,7 @@ dependencies:
   image_picker: ^0.8.6
   location_geocoder: ^1.0.5
   flutter_stripe: ^6.0.0
+  shared_preferences: ^2.0.15
   # flutter_native_splash: ^2.2.13
 
 dev_dependencies:

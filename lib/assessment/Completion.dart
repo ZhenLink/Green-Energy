@@ -15,8 +15,7 @@ class _CompletionState extends State<Completion> {
   @override
   void initState() {
     // print(_assessmentData);
-    ApplianceAssessment()
-        .calculateApplianceLoad(assessmentdata, widget.category);
+    ApplianceAssessment().assessmentManager(assessmentdata, widget.category);
     super.initState();
   }
 
