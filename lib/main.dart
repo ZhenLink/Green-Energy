@@ -7,7 +7,7 @@ import 'package:gns_app/env/privates.dart';
 //import 'package:gns_app/Assistant/Assistant.dart';
 //import 'package:gns_app/dashboard/Home.dart';
 //import 'package:gns_app/auth/sign%20in/sign_in.dart';
-//import 'auth/sign in/sign_in.dart';t
+//import 'auth/sign in/sign_in.dart';
 //import 'auth/sign up/Sign_up.dart';
 //import 'dashboard/Home.dart';
 

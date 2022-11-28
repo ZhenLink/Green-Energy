@@ -68,16 +68,6 @@ class _HomeState extends State<Home> {
                   Get.to(() => const Emonitor());
                 },
               ),
-              GButton(
-                icon: CupertinoIcons.person_alt_circle,
-                text: 'Account',
-                textStyle: GoogleFonts.openSans(
-                  color: Colors.white,
-                ),
-                onPressed: () {
-                  Get.to(() => const Profile());
-                },
-              )
             ]),
       ),
       body: CustomScrollView(

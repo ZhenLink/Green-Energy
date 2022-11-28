@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gns_app/Payments/payment_manager.dart';
+import 'package:get/get.dart';
 
 class CustomerData extends StatefulWidget {
   const CustomerData({Key? key}) : super(key: key);
@@ -10,6 +11,8 @@ class CustomerData extends StatefulWidget {
 }
 
 class _CustomerDataState extends State<CustomerData> {
+  final String project_ID = Get.arguments;
+  late Map<String, dynamic> paymentData;
   final TextEditingController _fullNameController = TextEditingController();
   final TextEditingController _emailAdressController = TextEditingController();
   @override

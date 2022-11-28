@@ -3,6 +3,8 @@ import 'package:gns_app/Api/api.dart';
 import 'package:gns_app/dashboard/Home.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:async/async.dart';
 
 class SignInForm extends StatefulWidget {
   const SignInForm({Key? key}) : super(key: key);
@@ -12,6 +14,12 @@ class SignInForm extends StatefulWidget {
 }
 
 class _SignInFormState extends State<SignInForm> {
+  initializePreferences(String value) async {
+    final preferences = await SharedPreferences.getInstance();
+
+    await preferences.setString("Email-Address", value);
+  }
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -126,6 +134,7 @@ class _SignInFormState extends State<SignInForm> {
                                 content: Text('Logged in successfully'),
                               ),
                             ),
+                            initializePreferences(_emailController.text),
                             Get.to(() => const Home())
                           }
                         else if (_response!.statusCode == 404 ||
@@ -146,8 +155,8 @@ class _SignInFormState extends State<SignInForm> {
                                     'Internal Server Error try again later..'),
                               ),
                             ),
-                            Get.to(() => const Home())
-                          }
+                          },
+                        Get.to(() => const Home())
                       }
                   },
                 ),

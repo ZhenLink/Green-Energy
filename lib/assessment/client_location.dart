@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import 'package:gns_app/assessment/assessment_steps.dart';
-import 'package:gns_app/assessment/residential_images.dart';
+import 'package:gns_app/assessment/map.dart';
+//import 'package:gns_app/assessment/assessment_steps.dart';
+//import 'package:gns_app/assessment/residential_images.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../env/privates.dart';
 
 class ClientLocation extends StatefulWidget {
@@ -14,6 +16,12 @@ class ClientLocation extends StatefulWidget {
 }
 
 class _ClientLocationState extends State<ClientLocation> {
+  initializePreferences(String value) async {
+    final preferences = await SharedPreferences.getInstance();
+
+    await preferences.setString("coordinates", value);
+  }
+
   final List _applianceCategories = Get.arguments;
   String _locationAddress = "Not set";
   var _locationCoordinates;
@@ -237,8 +245,10 @@ class _ClientLocationState extends State<ClientLocation> {
                   ),
                   onTap: () => {
                     addAssessmentArguments(),
-                    Get.to(() => const AssessmentSteps(),
-                        arguments: _locationAndApplianceCategories)
+                    //initializePreferences(_locationCoordinates),
+                    Get.to(() => const MapLocation())
+                    //const AssessmentSteps(),
+                    // arguments: _locationAndApplianceCategories)
                   },
                 ),
         ],

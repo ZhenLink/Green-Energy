@@ -36,14 +36,13 @@ dependencies:
   cupertino_icons: ^1.0.2
   google_fonts: ^3.0.1
   get: ^4.6.5
-  intl: ^0.17.0
   dialog_flowtter: ^0.3.3
   tab_container: ^2.0.0
   google_nav_bar: ^5.0.6
-  google_maps: ^6.2.0
+  google_maps_flutter: ^2.2.1
+  location_geocoder: ^1.0.5
   geolocator: ^9.0.2
   image_picker: ^0.8.6
-  location_geocoder: ^1.0.5
   flutter_stripe: ^6.0.0
   shared_preferences: ^2.0.15
   # flutter_native_splash: ^2.2.13

@@ -1,23 +1,29 @@
 import 'dart:convert';
-import 'dart:io';
-
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:gns_app/Payments/success.dart';
 import 'package:gns_app/env/privates.dart';
 // ignore: depend_on_referenced_packages
 import 'package:http/http.dart' as http;
 
 class PaymentManager {
-  late String userID;
-  late String paymentAmount;
-  late String assessmentID;
   Private myKeys = Private();
+  //late Map successPaymentData;
 
   Map<String, dynamic>? paymentIntentData;
+  Map<String, dynamic> paymentData = {
+    "fullname": 'Noel Phiri',
+    "emailAddress": 'phirinoel@gmail.com',
+    "amount": "200"
+  };
+
+  //creating a payment
 
   Future<void> makePayment(BuildContext context) async {
     try {
-      paymentIntentData = await createPaymentIntent('10', 'USD');
+      paymentIntentData =
+          await createPaymentIntent(paymentData['amount'], 'USD');
       //Payment Sheet
       await Stripe.instance
           .initPaymentSheet(
@@ -40,26 +46,12 @@ class PaymentManager {
   displayPaymentSheet(BuildContext buildContext) async {
     try {
       await Stripe.instance.presentPaymentSheet().then((value) {
-        showDialog(
-            context: buildContext,
-            builder: (_) => AlertDialog(
-                  content: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Row(
-                        children: const [
-                          Icon(
-                            Icons.check_circle,
-                            color: Colors.green,
-                          ),
-                          Text("Payment Successfull"),
-                        ],
-                      ),
-                    ],
-                  ),
-                ));
-        // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("paid successfully")));
-
+        ScaffoldMessenger.of(buildContext).showSnackBar(
+          const SnackBar(
+            content: Text('Payment Successfull..'),
+          ),
+        );
+        Get.to(() => const PaymentSuccess(), arguments: paymentData);
         paymentIntentData = null;
       }).onError((error, stackTrace) {
         print('Error is:--->$error $stackTrace');

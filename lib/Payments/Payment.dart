@@ -62,7 +62,6 @@ class _PaymentState extends State<Payment> {
                   onTap: () {
                     Get.to(() => const CustomerData(),
                         arguments: _assessmentIDController.text);
-                    //const CustomerData(),
                   },
                   child: Container(
                     width: 170,
