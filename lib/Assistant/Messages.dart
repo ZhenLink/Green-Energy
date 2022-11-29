@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:gns_app/message_scroll_controller.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MessagesScreen extends StatefulWidget {

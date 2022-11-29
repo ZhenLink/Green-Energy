@@ -7,7 +7,6 @@ import 'package:gns_app/Assistant/assistant.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
-import '../User/Profile.dart';
 import '../dashboard/home.dart';
 
 class Emonitor extends StatefulWidget {

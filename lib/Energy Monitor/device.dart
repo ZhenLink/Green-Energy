@@ -1,32 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:gns_app/Payments/customer_data.dart';
+import 'package:gns_app/Energy%20Monitor/EMonitor.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-class Payment extends StatefulWidget {
-  const Payment({Key? key}) : super(key: key);
+class DeviceCheck extends StatefulWidget {
+  const DeviceCheck({Key? key}) : super(key: key);
 
   @override
-  State<Payment> createState() => _PaymentState();
+  State<DeviceCheck> createState() => _DeviceCheckState();
 }
 
-class _PaymentState extends State<Payment> {
-  final TextEditingController _projectIDController = TextEditingController();
-  initializePreferences(String value) async {
-    final preferences = await SharedPreferences.getInstance();
-
-    await preferences.setString("Project-ID", value);
-  }
-
-  bool isProjectIDValid = false;
-
-  void checkProjectID(String id) {
-    setState(() {
-      isProjectIDValid == true;
-    });
-  }
-
+class _DeviceCheckState extends State<DeviceCheck> {
+  final TextEditingController _deviceIDController = TextEditingController();
+  bool isDeviceIDValid = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,28 +24,27 @@ class _PaymentState extends State<Payment> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('Start Payment',
+                Text('Device ID',
                     style: GoogleFonts.openSans(
                         fontSize: 20, fontWeight: FontWeight.w600)),
-                Text(
-                    'Enter The Project ID to start you payment. you can find it on your Quotation.',
+                Text('Enter The Device ID given to access this feature.',
                     style: GoogleFonts.openSans(fontSize: 17),
                     textAlign: TextAlign.center),
                 const Padding(padding: EdgeInsets.symmetric(vertical: 10.0)),
                 TextFormField(
-                  controller: _projectIDController,
+                  controller: _deviceIDController,
                   enableSuggestions: true,
                   style: GoogleFonts.openSans(fontSize: 19),
                   decoration: InputDecoration(
-                    hintText: 'Enter Project ID',
-                    label: const Text('Project ID'),
+                    hintText: 'Enter Device ID',
+                    label: const Text('Device ID'),
                     labelStyle: GoogleFonts.openSans(fontSize: 20),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8)),
                   ),
                   validator: (String? value) {
                     if (value == null || value.isEmpty) {
-                      return "Please enter your project ID";
+                      return "Please enter your Device ID";
                     }
                     return null;
                   },
@@ -67,8 +52,7 @@ class _PaymentState extends State<Payment> {
                 const Padding(padding: EdgeInsets.symmetric(vertical: 10.0)),
                 GestureDetector(
                   onTap: () {
-                    Get.to(() => const CustomerData(),
-                        arguments: _projectIDController.text);
+                    Get.to(() => const Emonitor());
                   },
                   child: Container(
                     width: 170,

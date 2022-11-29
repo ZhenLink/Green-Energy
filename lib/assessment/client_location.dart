@@ -245,10 +245,8 @@ class _ClientLocationState extends State<ClientLocation> {
                   ),
                   onTap: () => {
                     addAssessmentArguments(),
-                    //initializePreferences(_locationCoordinates),
-                    Get.to(() => const MapLocation())
-                    //const AssessmentSteps(),
-                    // arguments: _locationAndApplianceCategories)
+                    Get.to(() => const MapLocation(),
+                        arguments: _locationAndApplianceCategories),
                   },
                 ),
         ],

@@ -11,7 +11,7 @@ import 'package:gns_app/dashboard/Home.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../Models/appliance_assessment.dart';
 
-import 'package:image_picker/image_picker.dart';
+//import 'package:image_picker/image_picker.dart';
 
 class AssessmentSteps extends StatefulWidget {
   const AssessmentSteps({Key? key}) : super(key: key);

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 //import 'package:get/get.dart';
 import 'package:gns_app/Assistant/assistant.dart';
+import 'package:gns_app/Energy%20Monitor/device.dart';
 import 'package:gns_app/User/Profile.dart';
 import 'package:gns_app/dashboard/Help.dart';
 //import 'package:get/get.dart';
@@ -65,7 +66,7 @@ class _HomeState extends State<Home> {
                   color: Colors.white,
                 ),
                 onPressed: () {
-                  Get.to(() => const Emonitor());
+                  Get.to(() => const DeviceCheck());
                 },
               ),
             ]),

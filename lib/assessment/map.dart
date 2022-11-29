@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gns_app/assessment/assessment_steps.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:async';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-//import 'package:get/get.dart';
+import 'package:get/get.dart';
 
 class MapLocation extends StatefulWidget {
   const MapLocation({Key? key}) : super(key: key);
@@ -13,15 +14,18 @@ class MapLocation extends StatefulWidget {
 }
 
 class _MapLocationState extends State<MapLocation> {
-  //final List myCoordinates = Get.arguments;
   //final Completer<GoogleMapController> _mapController = Completer();
+
+  final List _chosenCategoriesAndLocation = Get.arguments;
 
   static const LatLng sourceLocation = LatLng(-15.810880, 34.994546);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Your Location',
+          elevation: 0,
+          centerTitle: true,
+          title: Text('Your Current Location',
               style: GoogleFonts.openSans(
                   fontSize: 19,
                   color: Colors.blueGrey[800],
@@ -46,7 +50,10 @@ class _MapLocationState extends State<MapLocation> {
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.white,
           tooltip: 'Continue',
-          onPressed: () {},
+          onPressed: () {
+            Get.to(() => const AssessmentSteps(),
+                arguments: _chosenCategoriesAndLocation);
+          },
           child: const Icon(CupertinoIcons.arrow_right, color: Colors.green),
         ));
   }

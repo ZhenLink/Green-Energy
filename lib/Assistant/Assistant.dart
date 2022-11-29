@@ -6,6 +6,7 @@ import 'package:gns_app/Energy%20Monitor/EMonitor.dart';
 import 'package:gns_app/User/Profile.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../Energy Monitor/device.dart';
 import '../dashboard/home.dart';
 import '../env/privates.dart';
 
@@ -118,7 +119,7 @@ class _AssistantState extends State<Assistant> {
                   color: Colors.white,
                 ),
                 onPressed: () {
-                  Get.to(() => const Emonitor());
+                  Get.to(() => const DeviceCheck());
                 },
               ),
             ]),

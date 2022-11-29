@@ -12,6 +12,7 @@ class CustomerData extends StatefulWidget {
 
 class _CustomerDataState extends State<CustomerData> {
   final String project_ID = Get.arguments;
+  final String amount = "200";
   late Map<String, dynamic> paymentData;
   final TextEditingController _fullNameController = TextEditingController();
   final TextEditingController _emailAdressController = TextEditingController();
@@ -74,7 +75,14 @@ class _CustomerDataState extends State<CustomerData> {
                 const Padding(padding: EdgeInsets.symmetric(vertical: 10.0)),
                 GestureDetector(
                   onTap: () async {
-                    PaymentManager().makePayment(context);
+                    paymentData = {
+                      "Customer_Name": _fullNameController.text,
+                      "Customer_Email": _emailAdressController.text,
+                      "Project_Number": "",
+                      "Amount": amount,
+                      "Currency": "USD"
+                    };
+                    PaymentManager().makePayment(context, paymentData);
                   },
                   child: Container(
                     width: 200,

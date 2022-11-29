@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gns_app/dashboard/Home.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../Api/api.dart';
 
 class PaymentSuccess extends StatefulWidget {
   const PaymentSuccess({Key? key}) : super(key: key);
@@ -12,6 +16,7 @@ class PaymentSuccess extends StatefulWidget {
 
 class _PaymentSuccessState extends State<PaymentSuccess> {
   Map successPaymentData = Get.arguments;
+  Response? _response;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,46 +43,67 @@ class _PaymentSuccessState extends State<PaymentSuccess> {
                   Text('Customer Name: ',
                       style: GoogleFonts.openSans(
                           fontSize: 20, fontWeight: FontWeight.w700)),
-                  Text(successPaymentData['fullname'],
+                  Text(successPaymentData['Customer_Name']!,
                       style: GoogleFonts.openSans(fontSize: 20),
                       textAlign: TextAlign.left),
                   const Padding(padding: EdgeInsets.symmetric(vertical: 8)),
                   Text('Email address: ',
                       style: GoogleFonts.openSans(
                           fontSize: 20, fontWeight: FontWeight.w700)),
-                  Text(successPaymentData['emailAddress'],
+                  Text(successPaymentData['Customer_Email'],
                       style: GoogleFonts.openSans(fontSize: 20),
                       textAlign: TextAlign.left),
                   const Padding(padding: EdgeInsets.symmetric(vertical: 8)),
                   Text('Payment Amount: ',
                       style: GoogleFonts.openSans(
                           fontSize: 20, fontWeight: FontWeight.w600)),
-                  Text(successPaymentData['amount'] + "USD",
+                  Text(successPaymentData['Amount'] + "USD",
                       style: GoogleFonts.openSans(fontSize: 20),
                       textAlign: TextAlign.left),
                   const Padding(padding: EdgeInsets.symmetric(vertical: 8))
                 ],
               ),
               GestureDetector(
-                child: Container(
-                  width: 120,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    color: Colors.green,
-                    borderRadius: BorderRadius.circular(15),
+                  child: Container(
+                    width: 120,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      color: Colors.green,
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text('Finish',
+                            style: GoogleFonts.poppins(
+                                fontSize: 16, color: Colors.white)),
+                      ],
+                    ),
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text('Finish',
-                          style: GoogleFonts.poppins(
-                              fontSize: 16, color: Colors.white)),
-                    ],
-                  ),
-                ),
-                onTap: () => {Get.to(() => const Home())},
-              ),
+                  onTap: () async => {
+                        _response = await MyAPI().createPayment(
+                            successPaymentData, '/payment/payments'),
+                        if (_response!.statusCode == 201)
+                          {Get.to(() => const Home())}
+                        else if (_response!.statusCode == 404 ||
+                            _response!.statusCode == 400)
+                          {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(_response!.statusText.toString()),
+                              ),
+                            ),
+                          }
+                        else
+                          {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                  content:
+                                      Text(_response!.statusCode.toString())),
+                            ),
+                          },
+                      }),
             ],
           ),
         ),

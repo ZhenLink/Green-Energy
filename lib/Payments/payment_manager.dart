@@ -12,18 +12,14 @@ class PaymentManager {
   //late Map successPaymentData;
 
   Map<String, dynamic>? paymentIntentData;
-  Map<String, dynamic> paymentData = {
-    "fullname": 'Noel Phiri',
-    "emailAddress": 'phirinoel@gmail.com',
-    "amount": "200"
-  };
-
+  Map<String, dynamic>? successData;
   //creating a payment
 
-  Future<void> makePayment(BuildContext context) async {
+  Future<void> makePayment(BuildContext context, paymentData) async {
     try {
+      successData = paymentData;
       paymentIntentData =
-          await createPaymentIntent(paymentData['amount'], 'USD');
+          await createPaymentIntent(paymentData['Amount'], 'USD');
       //Payment Sheet
       await Stripe.instance
           .initPaymentSheet(
@@ -51,7 +47,7 @@ class PaymentManager {
             content: Text('Payment Successfull..'),
           ),
         );
-        Get.to(() => const PaymentSuccess(), arguments: paymentData);
+        Get.to(() => const PaymentSuccess(), arguments: successData);
         paymentIntentData = null;
       }).onError((error, stackTrace) {
         print('Error is:--->$error $stackTrace');

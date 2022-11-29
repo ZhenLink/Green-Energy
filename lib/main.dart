@@ -11,6 +11,7 @@ import 'package:gns_app/env/privates.dart';
 //import 'auth/sign up/Sign_up.dart';
 //import 'dashboard/Home.dart';
 
+
 void main() {
   Stripe.publishableKey = Private().stripePublishableKey;
   runApp(const MyApp());
