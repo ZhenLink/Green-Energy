@@ -26,11 +26,11 @@ class _EmonitorState extends State<Emonitor> {
   late String? perfomanceMessage;
 
   solarPerfomance(current) {
-    if (current >= 0.5) {
+    if (current >= 50) {
       setState(() {
         perfomanceMessage = "Active";
       });
-    } else if (current < 0.5) {
+    } else if (current < 25) {
       setState(() {
         perfomanceMessage = "Low Power";
       });
@@ -39,7 +39,7 @@ class _EmonitorState extends State<Emonitor> {
 
   @override
   Widget build(BuildContext context) {
-    solarPerfomance(0.5);
+    solarPerfomance(0.8);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,

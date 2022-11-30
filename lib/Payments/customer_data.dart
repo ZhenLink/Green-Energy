@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gns_app/Payments/success.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gns_app/Payments/payment_manager.dart';
 import 'package:get/get.dart';
@@ -76,11 +77,11 @@ class _CustomerDataState extends State<CustomerData> {
                 GestureDetector(
                   onTap: () async {
                     paymentData = {
+                      "Project_Number": "",
+                      "Currency": "USD",
                       "Customer_Name": _fullNameController.text,
                       "Customer_Email": _emailAdressController.text,
-                      "Project_Number": "",
-                      "Amount": amount,
-                      "Currency": "USD"
+                      "Amount": "200",
                     };
                     PaymentManager().makePayment(context, paymentData);
                   },

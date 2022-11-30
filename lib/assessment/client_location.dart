@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:gns_app/assessment/map.dart';
-//import 'package:gns_app/assessment/assessment_steps.dart';
+import 'package:gns_app/assessment/assessment_steps.dart';
 //import 'package:gns_app/assessment/residential_images.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -247,6 +247,8 @@ class _ClientLocationState extends State<ClientLocation> {
                     addAssessmentArguments(),
                     Get.to(() => const MapLocation(),
                         arguments: _locationAndApplianceCategories),
+                    // Get.to(() => const AssessmentSteps(),
+                    //  arguments: _locationAndApplianceCategories)
                   },
                 ),
         ],

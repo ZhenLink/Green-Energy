@@ -1,3 +1,6 @@
+import 'package:get/get_connect/http/src/response/response.dart';
+import 'package:gns_app/Api/api.dart';
+
 class ApplianceAssessment {
   static const int energySaverLoad = 20; //in watts
   static const int normalBulbsLoad = 100; //in watts
@@ -16,6 +19,7 @@ class ApplianceAssessment {
   static const int hairshaverload = 500; //in watts
   static const int ironsLoad = 2000; //in watts
   static const int electricFanLoad = 2000; //in watts
+  Response? _response;
 
   int totalApplianceLoad = 0;
   int totalLightingLoad = 0;
@@ -29,11 +33,63 @@ class ApplianceAssessment {
 
   int kitchenCookingLoad = 0;
 
-  ////// electronics deconstruction
+  // electronics deconstruction
 
   List electronicAccessories = [];
   String response = '';
   var electronicsCount;
+
+  createAssessment(data, String user, residentialLocation) async {
+    Map<String, dynamic> assessment = {
+      "User": user,
+      "Location": residentialLocation,
+      "Assessment": data
+    };
+    _response =
+        await MyAPI().createAssessment(assessment, '/appliance/assessments');
+    if (_response!.statusCode == 201) {
+      print('completed');
+    } else if (_response!.statusCode == 404 || _response!.statusCode == 400) {
+      print('cannot find the url given');
+    } else {
+      print('internal server check your configurations');
+    }
+  }
+
+  /// manage assessment handling
+  void assessmentManager(List assessmentData, List categories) {
+    List asessmentsCompleted = [];
+    var locationCoordinates = categories[1];
+    List chosenApplianceCategories = categories[0];
+    if (chosenApplianceCategories.isNotEmpty) {
+      for (var i = 0; i < chosenApplianceCategories.length; i++) {
+        if (chosenApplianceCategories[i] == "Electronics") {
+          // implement manage electronics assessment
+          var electronicsdata = manageElectronicsAssessment(assessmentData);
+          if (electronicsdata != null) {
+            asessmentsCompleted.add(electronicsdata);
+          }
+        } else if (chosenApplianceCategories[i] == "Lighting") {
+          // implement manage lighting assessment
+          var lightsdata = manageLightingAssessment(assessmentData);
+          if (lightsdata != null) {
+            asessmentsCompleted.add(lightsdata);
+          }
+        } else if (chosenApplianceCategories[i] == "Cooking/ Kitchen") {
+          // implement manage cooking/ kitchen assessment
+          var cookingdata = manageCookingLoad(assessmentData);
+          if (cookingdata != null) {
+            asessmentsCompleted.add(cookingdata);
+          }
+        } else {
+          // ignore: avoid_print
+          print('No matches found');
+        }
+      }
+      createAssessment(
+          asessmentsCompleted, "Noel Phiri", locationCoordinates.toString());
+    }
+  }
 
 // manage cooking and kitchen Load
   manageCookingLoad(List assessmentData) {
@@ -74,27 +130,7 @@ class ApplianceAssessment {
       "UsageHours": durationOfUsage
     });
 
-    print(kitchenData);
-  }
-
-  void assessmentManager(List assessmentData, List categories) {
-    List chosenApplianceCategories = categories[0];
-    if (chosenApplianceCategories.isNotEmpty) {
-      for (var i = 0; i < chosenApplianceCategories.length; i++) {
-        if (chosenApplianceCategories[i] == "Electronics") {
-          // implement manage electronics assessment
-          manageElectronicsAssessment(assessmentData);
-        } else if (chosenApplianceCategories[i] == "Lighting") {
-          // implement manage lighting assessment
-          manageLightingAssessment(assessmentData);
-        } else if (chosenApplianceCategories[i] == "Cooking/ Kitchen") {
-          // implement manage cooking/ kitchen assessment
-          manageCookingLoad(assessmentData);
-        } else {
-          print('No matches found');
-        }
-      }
-    }
+    return kitchenData;
   }
 
 //manage lighting appliance assessment
@@ -125,7 +161,7 @@ class ApplianceAssessment {
       "LightsCount": lightscount,
       "LightingHours": durationOfUsage
     });
-    print(lightingData);
+    return lightingData;
   }
 
   // total electronics appliance load
@@ -164,6 +200,6 @@ class ApplianceAssessment {
       "UsageHours": durationOfUsage
     });
 
-    print(electronicsData);
+    return electronicsData;
   }
 }

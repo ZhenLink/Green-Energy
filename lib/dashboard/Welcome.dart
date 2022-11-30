@@ -56,7 +56,7 @@ class _WelcomeState extends State<Welcome> {
                       arguments: "About Green Energy Solutions");
                 },
                 child: Container(
-                  width: 150,
+                  width: 142,
                   height: 42,
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -68,7 +68,7 @@ class _WelcomeState extends State<Welcome> {
                     children: [
                       Text('Get Started',
                           style: GoogleFonts.poppins(
-                              fontSize: 16, color: Colors.blueGrey[900])),
+                              fontSize: 15, color: Colors.blueGrey[900])),
                       const Padding(
                           padding: EdgeInsets.symmetric(horizontal: 2)),
                       const Icon(Icons.arrow_right_alt)
@@ -76,14 +76,14 @@ class _WelcomeState extends State<Welcome> {
                   ),
                 ),
               ),
-              const Padding(padding: EdgeInsets.symmetric(horizontal: 6)),
+              const Padding(padding: EdgeInsets.symmetric(horizontal: 3)),
               GestureDetector(
                 onTap: () {
                   Get.to(() => const Payment());
                 },
                 child: Container(
-                  width: 150,
-                  height: 42,
+                  width: 140,
+                  height: 44,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(17),
@@ -94,7 +94,7 @@ class _WelcomeState extends State<Welcome> {
                     children: [
                       Text('Payments',
                           style: GoogleFonts.poppins(
-                              fontSize: 16, color: Colors.blueGrey[900])),
+                              fontSize: 15, color: Colors.blueGrey[900])),
                       const Padding(
                           padding: EdgeInsets.symmetric(horizontal: 2)),
                       const Icon(Icons.payments)

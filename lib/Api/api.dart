@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 // ignore: depend_on_referenced_packages
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -30,14 +31,10 @@ class MyAPI extends GetConnect {
   //checking project ID
   Future<Response> getProjectID(String id, String endpoint) =>
       get("$_baseRealDeviceUrl$endpoint$id");
-
 //creating payments in the database
-  Future<Response> createPayment(data, String endpoint) =>
+  Future<Response> createPayment(Map data, String endpoint) =>
       post(_baseRealDeviceUrl + endpoint, data);
 // creating assessments in the database
   Future<Response> createAssessment(data, String endpoint) =>
       post(_baseRealDeviceUrl + endpoint, data);
-
-  //_setHeaders() =>
-  // {'content-type': 'application/json', 'accept': 'application/json'};
 }
