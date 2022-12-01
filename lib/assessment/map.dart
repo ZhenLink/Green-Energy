@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'dart:async';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:get/get.dart';
+import 'package:location_geocoder/geocoder.dart';
 
 class MapLocation extends StatefulWidget {
   const MapLocation({Key? key}) : super(key: key);
@@ -17,8 +18,14 @@ class _MapLocationState extends State<MapLocation> {
   //final Completer<GoogleMapController> _mapController = Completer();
 
   final List _chosenCategoriesAndLocation = Get.arguments;
+  late LatLng? sourceLocation;
+  void setCurrentLocation() {
+    Coordinates coordinates = _chosenCategoriesAndLocation[0];
+    setState(() {
+      sourceLocation = LatLng(coordinates.latitude!, coordinates.longitude!);
+    });
+  }
 
-  static const LatLng sourceLocation = LatLng(-15.810880, 34.994546);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,11 +45,11 @@ class _MapLocationState extends State<MapLocation> {
           child: Stack(alignment: AlignmentDirectional.bottomCenter, children: [
             GoogleMap(
                 initialCameraPosition:
-                    const CameraPosition(target: sourceLocation, zoom: 14.5),
+                    CameraPosition(target: sourceLocation!, zoom: 14.5),
                 markers: {
-                  const Marker(
-                    markerId: MarkerId('Home'),
-                    position: sourceLocation,
+                  Marker(
+                    markerId: const MarkerId('Home'),
+                    position: sourceLocation!,
                   )
                 }),
           ]),

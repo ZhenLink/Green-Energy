@@ -52,7 +52,8 @@ class _DeviceCheckState extends State<DeviceCheck> {
                 const Padding(padding: EdgeInsets.symmetric(vertical: 10.0)),
                 GestureDetector(
                   onTap: () {
-                    Get.to(() => const Emonitor());
+                    Get.to(() => const Emonitor(),
+                        arguments: _deviceIDController.text);
                   },
                   child: Container(
                     width: 170,

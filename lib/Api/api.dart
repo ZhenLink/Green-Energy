@@ -19,22 +19,24 @@ class MyAPI extends GetConnect {
 
   // User Authentication
   Future<Response> authenticateUser(Map data, String endpoint) =>
-      post(_baseRealDeviceUrl + endpoint, data);
+      post(_baseUrl + endpoint, data);
 
   Future<Response> registerUser(Map data, String endpoint) =>
-      post(_baseRealDeviceUrl + endpoint, jsonEncode(data));
+      post(_baseUrl + endpoint, jsonEncode(data));
 
   //Get Assessment Questions
   Future<Response> getQuestions(data, String endpoint) =>
-      post(_baseRealDeviceUrl + endpoint, data);
+      post(_baseUrl + endpoint, data);
 
   //checking project ID
   Future<Response> getProjectID(String id, String endpoint) =>
-      get("$_baseRealDeviceUrl$endpoint$id");
+      get("$_baseUrl$endpoint$id");
 //creating payments in the database
   Future<Response> createPayment(Map data, String endpoint) =>
-      post(_baseRealDeviceUrl + endpoint, data);
+      post(_baseUrl + endpoint, data);
 // creating assessments in the database
   Future<Response> createAssessment(data, String endpoint) =>
-      post(_baseRealDeviceUrl + endpoint, data);
+      post(_baseUrl + endpoint, data);
+
+  Future<Response> fetchSensorData(String endpoint) => get(_baseUrl + endpoint);
 }

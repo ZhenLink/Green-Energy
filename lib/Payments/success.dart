@@ -1,11 +1,7 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gns_app/dashboard/Home.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:random_string/random_string.dart';
-import 'dart:math' show Random;
-
 import '../Api/api.dart';
 
 class PaymentSuccess extends StatefulWidget {
@@ -16,15 +12,8 @@ class PaymentSuccess extends StatefulWidget {
 }
 
 class _PaymentSuccessState extends State<PaymentSuccess> {
-  //Map successPaymentData = Get.arguments;
+  Map successPaymentData = Get.arguments;
 
-  Map<String, dynamic> successPaymentData = {
-    "Project_Number": randomAlphaNumeric(10),
-    "Currency": "USD",
-    "Customer_Name": 'Noel Phiri',
-    "Customer_Email": 'phirinoel@gmail.com',
-    "Amount": "100",
-  };
   Response? _response;
   @override
   Widget build(BuildContext context) {

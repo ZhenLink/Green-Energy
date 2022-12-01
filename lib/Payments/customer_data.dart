@@ -13,10 +13,10 @@ class CustomerData extends StatefulWidget {
 
 class _CustomerDataState extends State<CustomerData> {
   final String project_ID = Get.arguments;
-  final String amount = "200";
   late Map<String, dynamic> paymentData;
   final TextEditingController _fullNameController = TextEditingController();
   final TextEditingController _emailAdressController = TextEditingController();
+  final TextEditingController _amountController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +32,7 @@ class _CustomerDataState extends State<CustomerData> {
                 Text('Complete Payment',
                     style: GoogleFonts.openSans(
                         fontSize: 20, fontWeight: FontWeight.w600)),
-                Text('Enter Personal Details below to complete the payment.',
+                Text('Enter Billing Details below to complete the payment.',
                     style: GoogleFonts.openSans(fontSize: 17),
                     textAlign: TextAlign.center),
                 const Padding(padding: EdgeInsets.symmetric(vertical: 10.0)),
@@ -73,15 +73,33 @@ class _CustomerDataState extends State<CustomerData> {
                   },
                   keyboardType: TextInputType.emailAddress,
                 ),
+                TextFormField(
+                  controller: _amountController,
+                  style: GoogleFonts.openSans(fontSize: 19),
+                  decoration: InputDecoration(
+                    hintText: 'Amount',
+                    label: const Text('Enter Amount'),
+                    labelStyle: GoogleFonts.openSans(fontSize: 20),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8)),
+                  ),
+                  validator: (String? value) {
+                    if (value == null || value.isEmpty) {
+                      return "Please enter the amount you want to pay";
+                    }
+                    return null;
+                  },
+                  keyboardType: TextInputType.name,
+                ),
                 const Padding(padding: EdgeInsets.symmetric(vertical: 10.0)),
                 GestureDetector(
                   onTap: () async {
                     paymentData = {
-                      "Project_Number": "",
+                      "Project_Number": project_ID,
                       "Currency": "USD",
                       "Customer_Name": _fullNameController.text,
                       "Customer_Email": _emailAdressController.text,
-                      "Amount": "200",
+                      "Amount": _amountController.text,
                     };
                     PaymentManager().makePayment(context, paymentData);
                   },

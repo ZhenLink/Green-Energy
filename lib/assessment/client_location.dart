@@ -5,6 +5,7 @@ import 'package:gns_app/assessment/map.dart';
 import 'package:gns_app/assessment/assessment_steps.dart';
 //import 'package:gns_app/assessment/residential_images.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:location_geocoder/geocoder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../env/privates.dart';
 
@@ -24,6 +25,7 @@ class _ClientLocationState extends State<ClientLocation> {
 
   final List _applianceCategories = Get.arguments;
   String _locationAddress = "Not set";
+  late Map<String, Coordinates> myLocation;
   var _locationCoordinates;
   bool _locationSet = false;
   final List _locationAndApplianceCategories = [];
@@ -35,7 +37,7 @@ class _ClientLocationState extends State<ClientLocation> {
 
   Private myPrivates = Private();
 
-  setLocationDetails(locAddress, coordinates) {
+  setLocationDetails(locAddress, Coordinates coordinates) {
     setState(() {
       _locationAddress = locAddress;
       _locationCoordinates = coordinates;
